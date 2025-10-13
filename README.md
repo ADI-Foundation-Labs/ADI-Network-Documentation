@@ -35,5 +35,3 @@ ADI Chain marries innovation and compliance with its capability to build modular
 The long-term vision is an **interconnected system of institutional and government L3s**, that are connected through the ADI chain to the broader Web3 ecosystem. This should see trillions of dollars move onchain and flow both cross-business and cross-border, in a transparent, trackable and secure way, with same day settlement.&#x20;
 
 Efficient. Connected. Fully compliant.&#x20;
-
-\

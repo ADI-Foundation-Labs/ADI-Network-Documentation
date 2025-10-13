@@ -1,0 +1,3 @@
+# Shared Incentives
+
+ADI Chain aligns incentives across institutions, developers, and end users. By batching transactions and compressing proofs, the network lowers the total cost of operations — reducing fees for institutions while passing savings on to citizens and businesses. Connectivity is built in: every participant gains access not only to services within the ADI ecosystem but also to the wider universe of DeFi applications and digital services, creating a seamless bridge between traditional and next-generation markets. And with Layer-3 customization, policymakers and enterprises retain control where they need it most — tailoring rules for specific sectors or jurisdictions while still remaining interoperable with the broader network.

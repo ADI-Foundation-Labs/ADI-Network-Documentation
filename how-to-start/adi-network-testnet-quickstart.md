@@ -1,6 +1,5 @@
 ---
 description: Getting starting developing with ADI Network Testnet
-hidden: true
 ---
 
 # ADI Network Testnet Quickstart
@@ -20,26 +19,68 @@ Select your preferred setup tab:
 {% tab title="Foundry Setup" %}
 ## Foundry Setup
 
-#### 1. Create a new Foundry project
+#### 1. The Counter contract code
+
+```solidity
+contract Counter {
+    uint256 public number;
+
+    function setNumber(uint256 newNumber) public {
+        number = newNumber;
+    }
+
+    function increment() public {
+        number++;
+    }
+}
+```
+
+#### 2. Create a new Foundry project
 
 ```bash
 forge init Counter
 cd Counter
 ```
 
-#### 2. Build the project
+#### 3. Build the project
 
 ```bash
 forge build
 ```
 
-#### 3. Set your private key for deploying
+#### 4. Set your private key for deploying
 
 ```bash
 export TESTNET_PRIVATE_KEY="0x..."
 ```
 
-#### 4. Deploy the contract
+#### 5. Create `counter.sol`  file and put the contract code inside.
+
+#### 6. Create `counter.s.sol` and put the script inside, the script will deploy the counter contract
+
+```solidity
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+
+import {Script} from "forge-std/Script.sol";
+import {Counter} from "../src/Counter.sol";
+
+contract CounterScript is Script {
+    Counter public counter;
+
+    function setUp() public {}
+
+    function run() public {
+        vm.startBroadcast();
+
+        counter = new Counter();
+
+        vm.stopBroadcast();
+    }
+}
+```
+
+#### 7. Deploy the contract
 
 ```bash
 forge script script/Counter.s.sol \
@@ -47,7 +88,7 @@ forge script script/Counter.s.sol \
 --broadcast --private-key $TESTNET_PRIVATE_KEY
 ```
 
-#### 5. Set the number value
+#### 8. Set the number value
 
 ```bash
 cast send 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
@@ -56,7 +97,7 @@ cast send 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
 --private-key $TESTNET_PRIVATE_KEY
 ```
 
-#### 6. Get the latest number value
+#### 9. Get the latest number value
 
 ```bash
 cast call 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
@@ -88,54 +129,68 @@ npx hardhat --init
     requiredConfirmations: 1,
   },
   networks: {
-    ADITestnet: {
+    adiTestnet: {
       type: 'http',
       chainType: 'generic',
-      url: 'https://rpc.testnet.adifoundation.ai',
+      url: 'https://rpc.ab.testnet.adifoundation.ai',
       accounts: [configVariable('TESTNET_PRIVATE_KEY')],
     },
   },
 ```
 
-#### 4. Add your private key to the keystore as `TESTNET_PRIVATE_KEY` .
+#### 4. Ensure that the module file `ignition/modules/counter.ts` contains the following code&#x20;
+
+```typescript
+import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+export default buildModule('CounterModule', (m) => {
+  const counter = m.contract('Counter');
+
+  m.call(counter, 'increment', []);
+
+  return { counter };
+});
+```
+
+#### 5. Add your private key to the keystore as `TESTNET_PRIVATE_KEY` .
 
 ```bash
 npx hardhat keystore set TESTNET_PRIVATE_KEY
 ```
 
-#### 5. Compile and deploy the example contract
+#### 6. Compile and deploy the example contract
 
 ```bash
 npx hardhat compile
-npx hardhat ignition deploy ignition/modules/Counter.ts --network ADITestnet
+npx hardhat ignition deploy ignition/modules/Counter.ts --network adiTestnet
 ```
 
-#### 6. Create a new script file in the `scripts` folder called `increment.ts` .
+#### 7. Create a new script file in the `scripts` folder called `increment.ts` .
 
 ```bash
 touch scripts/increment.ts
 ```
 
-#### 7. Copy/paste the script below.
+#### 8. Copy/paste the script below.
 
 ```typescript
 import { network } from 'hardhat';
 import { type Abi, defineChain } from 'viem';
 
-const CONTRACT_ADDRESS = '0x7Be3f2d08500Fe75B92b9561287a16962C697cb7';
+const CONTRACT_ADDRESS = 'THE_ADDRESS_OF_FRESHLY_DEPLOYED_CONTRACT';
 
-const { viem } = await network.connect('zksyncOS');
-
-const zksyncOS = defineChain({
-  id: 8022833,
-  name: 'ZKsync OS',
-  network: 'zksyncOS',
-  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
-  rpcUrls: { default: { http: ['https://zksync-os-testnet-alpha.zksync.dev'] } },
+const adiChain = defineChain({
+  id: 36900,
+  name: 'ADI Chain',
+  network: 'adiTestnet',
+  nativeCurrency: { name: 'ADI', symbol: 'ADI', decimals: 18 },
+  rpcUrls: { default: { http: ['https://rpc.ab.testnet.adifoundation.ai'] } },
 });
 
-const publicClient = await viem.getPublicClient({ chain: zksyncOS });
-const [senderClient] = await viem.getWalletClients({ chain: zksyncOS });
+const { viem } = await network.connect('adiChain');
+
+const publicClient = await viem.getPublicClient({ chain: adiChain });
+const [senderClient] = await viem.getWalletClients({ chain: adiChain });
 if (!senderClient) throw new Error('No wallet client. Set TESTNET_PRIVATE_KEY in hardhat config.');
 
 const counterContract = await viem.getContractAt('Counter', CONTRACT_ADDRESS, {
@@ -145,14 +200,14 @@ const counterContract = await viem.getContractAt('Counter', CONTRACT_ADDRESS, {
 const initialCount = await publicClient.readContract({
   address: CONTRACT_ADDRESS,
   abi: counterContract.abi as Abi,
-  functionName: 'x',
+  functionName: 'number',
 });
 console.log('Initial count:', initialCount);
 
 const tx = await senderClient.writeContract({
   address: CONTRACT_ADDRESS,
   abi: counterContract.abi as Abi,
-  functionName: 'inc',
+  functionName: 'increment',
 });
 await publicClient.waitForTransactionReceipt({ hash: tx });
 console.log('Transaction sent successfully');
@@ -160,12 +215,12 @@ console.log('Transaction sent successfully');
 const newCount = await publicClient.readContract({
   address: CONTRACT_ADDRESS,
   abi: counterContract.abi as Abi,
-  functionName: 'x',
+  functionName: 'number',
 });
 console.log('New count:', newCount);
 ```
 
-#### 8. Run the script
+#### 9. Run the script
 
 ```bash
 npx hardhat run scripts/increment.ts
@@ -195,10 +250,10 @@ npx hardhat --init
     requiredConfirmations: 1,
   },
   networks: {
-    zksyncOS: {
+    adiTestnet: {
       type: 'http',
       chainType: 'generic',
-      url: 'https://zksync-os-testnet-alpha.zksync.dev',
+      url: 'https://rpc.ab.testnet.adifoundation.ai/',
       accounts: [configVariable('TESTNET_PRIVATE_KEY')],
     },
   },
@@ -210,28 +265,42 @@ npx hardhat --init
 npx hardhat keystore set TESTNET_PRIVATE_KEY
 ```
 
-#### 5. Compile and deploy the example contract.
+#### 5. Ensure that the module file `ignition/modules/counter.ts` contains the following code&#x20;
+
+```typescript
+import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
+
+export default buildModule('CounterModule', (m) => {
+  const counter = m.contract('Counter');
+
+  m.call(counter, 'increment', []);
+
+  return { counter };
+});
+```
+
+#### 6. Compile and deploy the example contract.
 
 ```ts
 npx hardhat compile
-npx hardhat ignition deploy ignition/modules/Counter.ts --network zksyncOS
+npx hardhat ignition deploy ignition/modules/Counter.ts --network adiTestnet
 ```
 
-#### 6. Create a new script file in the `scripts` folder called `increment.ts`.
+#### 7. Create a new script file in the `scripts` folder called `increment.ts`.
 
 ```bash
 touch scripts/increment.ts
 ```
 
-#### 7. Copy/paste the script below.
+#### 8. Copy/paste the script below.
 
 ```typescript
 import { network } from 'hardhat';
 
-const CONTRACT_ADDRESS = '0x8e882b31Fe1d3942c57408D354E754d1659400a7';
+const CONTRACT_ADDRESS = 'THE_ADDRESS_OF_FRESHLY_DEPLOYED_CONTRACT';
 
 const { ethers } = await network.connect({
-  network: 'zksyncOS',
+  network: 'adiTestnet',
   chainType: 'generic',
 });
 
@@ -242,15 +311,15 @@ const contract = await ethers.getContractAt('Counter', CONTRACT_ADDRESS, sender)
 const initialCount = await contract.x();
 console.log('Initial count:', initialCount);
 
-const tx = await contract.inc();
+const tx = await contract.increment();
 await tx.wait();
 console.log('Transaction sent successfully');
 
-const newCount = await contract.x();
+const newCount = await contract.number();
 console.log('New count:', newCount);
 ```
 
-#### 8. Run the script
+#### 9. Run the script
 
 ```bash
 npx hardhat run scripts/increment.ts

@@ -4,7 +4,7 @@ While $ADI powers the network, the broader ADI Chain infrastructure introduces f
 
 #### 1. Stablecoin Rail
 
-ADI Chain will serve as the infrastructure for a regulated Dirham-backed stablecoin, developed in collaboration with IHC, First Abu Dhabi Bank, and ADQ. All stablecoin transactions require $ADI for gas, reinforcing its utility and demand.
+ADI Chain will serve as the infrastructure for a regulated Dirham-backed stablecoin, developed and issued by IHC, First Abu Dhabi Bank, and ADQ. All stablecoin transactions require $ADI for gas, reinforcing its utility and demand.
 
 #### 2. EVM Compatibility & Interoperability
 

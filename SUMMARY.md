@@ -22,13 +22,12 @@
 
 * [Appendix A - Technical Deep Dive](appendix/appendix-a-technical-deep-dive.md)
 * [Appendix B — Developer Quickstart](appendix/appendix-b-developer-quickstart.md)
-* [Appendix C - Governance](appendix/appendix-c-governance.md)
+* [Appendix B - Governance](appendix/appendix-b-governance.md)
 * [FATF and ADGM Travel Rule Compliance](appendix/fatf-and-adgm-travel-rule-compliance.md)
 
 ## HOW TO START
 
 * [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)
-* [Copy of ADI Network Testnet Details](how-to-start/adi-network-testnet-details-1.md)
 * [Block explorer](how-to-start/block-explorer.md)
 * [The Bridge](how-to-start/the-bridge.md)
 * [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)

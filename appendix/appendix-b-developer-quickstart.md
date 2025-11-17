@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Appendix B — Developer Quickstart
 
 * Explorer: [https://explorer.testnet.adifoundation.ai ](https://explorer.testnet.adifoundation.ai/)

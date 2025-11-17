@@ -25,3 +25,7 @@ To manually add ADI Network Testnet as a custom network in your wallet, follow t
 ### Get Testnet funds for your wallet.
 
 Once you have your wallet connected to the ADI Network Testnet environment, you can get testnet funds from [testnet faucet](http://faucet.ab.testnet.adifoundation.ai/).
+
+#### Bridging testnet ADI and ETH
+
+You can use the [The Bridge](https://bridge.ab.testnet.adifoundation.ai/) to bridge testnet ADI and ETH over to the testnet.

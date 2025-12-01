@@ -31,6 +31,7 @@
 * [Block explorer](how-to-start/block-explorer.md)
 * [The Bridge](how-to-start/the-bridge.md)
 * [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)
+* [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
 
 ## ADI NETWORK COMPONENTS
 

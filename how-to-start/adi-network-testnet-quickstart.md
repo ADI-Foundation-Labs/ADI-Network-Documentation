@@ -180,7 +180,7 @@ import { type Abi, defineChain } from 'viem';
 const CONTRACT_ADDRESS = 'THE_ADDRESS_OF_FRESHLY_DEPLOYED_CONTRACT';
 
 const adiChain = defineChain({
-  id: 36900,
+  id: 99999,
   name: 'ADI Chain',
   network: 'adiTestnet',
   nativeCurrency: { name: 'ADI', symbol: 'ADI', decimals: 18 },

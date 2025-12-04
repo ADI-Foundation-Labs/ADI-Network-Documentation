@@ -14,13 +14,7 @@ To manually add ADI Network Testnet as a custom network in your wallet, follow t
 
 #### Network details
 
-| PROPERTY               | VALUE                                                                                          |
-| ---------------------- | ---------------------------------------------------------------------------------------------- |
-| **Network Name**       | `ADI Network AB Testnet`                                                                       |
-| **RPC URL**            | [https://rpc.ab.testnet.adifoundation.ai/](https://rpc.ab.testnet.adifoundation.ai/)           |
-| **Chain ID**           | `36900`                                                                                        |
-| **Currency Symbol**    | `ADI`                                                                                          |
-| **Block Explorer URL** | [https://explorer.ab.testnet.adifoundation.ai/](https://explorer.ab.testnet.adifoundation.ai/) |
+<table><thead><tr><th width="267.19921875">PROPERTY</th><th>VALUE</th></tr></thead><tbody><tr><td><strong>Network Name</strong></td><td><code>ADI Network AB Testnet</code></td></tr><tr><td><strong>RPC URL</strong></td><td><a href="https://rpc.ab.testnet.adifoundation.ai/">https://rpc.ab.testnet.adifoundation.ai/</a></td></tr><tr><td><strong>Chain ID</strong></td><td><code>99999</code></td></tr><tr><td><strong>Currency Symbol</strong></td><td><code>ADI</code></td></tr><tr><td><strong>Block Explorer URL</strong></td><td><a href="https://explorer.ab.testnet.adifoundation.ai/">https://explorer.ab.testnet.adifoundation.ai/</a></td></tr></tbody></table>
 
 ### Get Testnet funds for your wallet.
 

@@ -93,7 +93,7 @@ forge script script/Counter.s.sol \
 ```bash
 cast send 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
 "setNumber(uint256)" 5 \
---rpc-url https://rpc.testnet.adifoundation.ai \
+--rpc-url https://rpc.ab.testnet.adifoundation.ai \
 --private-key $TESTNET_PRIVATE_KEY
 ```
 
@@ -102,7 +102,7 @@ cast send 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
 ```bash
 cast call 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
 "number()" \
---rpc-url https://rpc.testnet.adifoundation.ai
+--rpc-url https://rpc.ab.testnet.adifoundation.ai
 ```
 {% endtab %}
 

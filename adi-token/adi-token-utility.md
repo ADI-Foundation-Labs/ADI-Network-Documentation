@@ -12,6 +12,6 @@ $ADI acts as the settlement currency within the ecosystem, facilitating payments
 
 #### 3. Staking & Yield
 
-Token holders can stake $ADI into a treasury-backed pool to earn predictable, non-inflationary rewards. This model avoids inflationary minting and supports long-term token value preservation.
+Token holders can stake $ADI into a treasury-backed pool to earn rewards. This model avoids minting and supports long-term token value preservation.
 
-\
+<br>

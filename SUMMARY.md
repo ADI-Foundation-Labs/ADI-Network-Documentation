@@ -33,6 +33,7 @@
 * [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)
 * [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
 * [Run Your Own Node](how-to-start/run-your-own-node.md)
+* [Network Contracts](how-to-start/network-contracts.md)
 
 ## ADI NETWORK COMPONENTS
 

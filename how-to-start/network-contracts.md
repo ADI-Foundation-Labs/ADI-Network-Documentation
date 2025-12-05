@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # Network Contracts
 
 This page contains the key L1 and L2 contracts for `mainnet`.&#x20;

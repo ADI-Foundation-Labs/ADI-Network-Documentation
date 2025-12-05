@@ -4,4 +4,4 @@ The Foundation provides blockchain infrastructure and does not itself act as a V
 
 However, any Layer-3 (L3) operators, partners, or ecosystem participants who provide custodial services, operate exchanges, or act as transfer agents on the ADI Chain are required to comply with the FATF Travel Rule and all relevant ADGM regulations. The Foundation may provide technical tools and guidance to support L3 operators in meeting these obligations.
 
-\
+<br>

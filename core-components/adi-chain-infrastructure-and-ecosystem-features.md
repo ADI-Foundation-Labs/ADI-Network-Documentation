@@ -22,4 +22,4 @@ ADI Chain is designed to support scalable, compliant L3s for use cases such as:
 
 These domains benefit from the security and performance of ADI Chain while leveraging $ADI for gas and settlement.
 
-\
+<br>

@@ -21,7 +21,6 @@
 ## Appendix
 
 * [Appendix A - Technical Deep Dive](appendix/appendix-a-technical-deep-dive.md)
-* [Appendix B — Developer Quickstart](appendix/appendix-b-developer-quickstart.md)
 * [Appendix B - Governance](appendix/appendix-b-governance.md)
 * [FATF and ADGM Travel Rule Compliance](appendix/fatf-and-adgm-travel-rule-compliance.md)
 

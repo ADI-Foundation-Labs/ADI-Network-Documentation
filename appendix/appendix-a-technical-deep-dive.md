@@ -27,4 +27,4 @@ Middleware is included to simplify integration for enterprises and governments. 
 
 #### A8. Modularity & L3 Expansion&#x20;
 
-The network supports additional L3 chains that applications, technical needs, privacy needs, or jurisdictions can tailor. These L3s inherit ADI L2 security while offering compliance segmentation, higher privacy, or performance tuning. This approach allows governments, enterprises, or sector-specific networks to operate their own domain while remaining part of the ADI ecosystem.\
+The network supports additional L3 chains that applications, technical needs, privacy needs, or jurisdictions can tailor. These L3s inherit ADI L2 security while offering compliance segmentation, higher privacy, or performance tuning. This approach allows governments, enterprises, or sector-specific networks to operate their own domain while remaining part of the ADI ecosystem.<br>

@@ -2,11 +2,12 @@
 description: >-
   Discover how the Bridge facilitates interaction with ADI Network, including
   asset bridging, transaction tracking, and asset management.
+hidden: true
 ---
 
 # The Bridge
 
-[The Bridge](https://github.com/matter-labs/dapp-portal) is an application designed to enhance interaction with the ADI Network. It serves as a versatile tool, simplifying various operations within the blockchain environment.
+[The Bridge](https://bridge.adifoundation.ai/) is an application designed to enhance interaction with the ADI Network. It serves as a versatile tool, simplifying various operations within the blockchain environment.
 
 #### Key Features
 

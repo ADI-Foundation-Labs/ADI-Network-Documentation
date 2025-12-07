@@ -27,6 +27,7 @@
 ## HOW TO START
 
 * [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)
+* [ADI Network Mainnet Details](how-to-start/adi-network-testnet-details-1.md)
 * [Block explorer](how-to-start/block-explorer.md)
 * [The Bridge](how-to-start/the-bridge.md)
 * [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)

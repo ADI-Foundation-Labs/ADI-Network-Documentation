@@ -84,7 +84,7 @@ contract CounterScript is Script {
 
 ```bash
 forge script script/Counter.s.sol \
---rpc-url https://zksync-os-testnet-alpha.zksync.dev \
+--rpc-url https://rpc.ab.testnet.adifoundation.ai \
 --broadcast --private-key $TESTNET_PRIVATE_KEY
 ```
 

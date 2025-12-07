@@ -4,7 +4,9 @@ description: Get connected to ADI Network Testnet
 
 # ADI Network Testnet Details
 
-### Manually add ADI Network Testnet.
+<a href="https://adi-foundation-labs.github.io/adi-testnet-connect/connect.html" class="button primary" data-icon="wallet">Add ADI Testnet to Wallet</a>
+
+### Manually add ADI Network Testnet
 
 To manually add ADI Network Testnet as a custom network in your wallet, follow these steps:
 

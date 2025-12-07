@@ -5,6 +5,8 @@ hidden: true
 
 # ADI Network Mainnet Details
 
+<a href="https://adi-foundation-labs.github.io/adi-mainnet-connect/connect.html" class="button primary" data-icon="wallet">Add ADI Network to Wallet</a>
+
 ### Manually Add ADI Network
 
 To manually add ADI Network Mainnet as a custom network in your wallet, follow these steps:
@@ -19,4 +21,4 @@ To manually add ADI Network Mainnet as a custom network in your wallet, follow t
 
 #### Bridging ADI and ETH
 
-You can use the [Bridge](https://bridge.ab.testnet.adifoundation.ai/) to bridge ADI and ETH to mainnet.
+You can use the [Bridge](https://bridge.adifoundation.ai/) to bridge ADI and ETH to mainnet.

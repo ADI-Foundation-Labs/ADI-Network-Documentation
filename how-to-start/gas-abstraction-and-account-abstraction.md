@@ -4,9 +4,15 @@ You can leverage either native EVM flows or overlay ERC-4337-style account abstr
 
 We do not ship audited “default paymaster” contracts. You are free to integrate with external AA infrastructure or deploy and own your own paymaster / smart-account stack.
 
+{% hint style="warning" %}
+What is not supported currently:
+
+* ERC-7702
+{% endhint %}
+
 ### Supported AA Paths
 
-For both paths we recommend auditing as a final step.
+For both paths, we recommend auditing as a final step.
 
 #### ERC-4337 via Pimlico & `permissionless.js`
 
@@ -50,5 +56,5 @@ Entrypoints `V0.7` and `V0.8` are deployed on the network:
 
 #### Paymaster Examples
 
-* Pimlico → [https://github.com/pimlicolabs/singleton-paymaster](https://github.com/pimlicolabs/singleton-paymaster)
-* Baseline example from `eth-infinitism` → [https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/core/BasePaymaster.sol](https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/core/BasePaymaster.sol)
+* Pimlico: [https://github.com/pimlicolabs/singleton-paymaster](https://github.com/pimlicolabs/singleton-paymaster)
+* Baseline example from `eth-infinitism` : [https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/core/BasePaymaster.sol](https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/core/BasePaymaster.sol)

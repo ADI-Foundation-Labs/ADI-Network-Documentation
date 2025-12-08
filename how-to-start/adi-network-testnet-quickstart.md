@@ -48,7 +48,7 @@ cd Counter
 forge build
 ```
 
-#### 4. Set your private key for deploying
+#### 4. Set your private key for deploying, ensure that it has some balance
 
 ```bash
 export TESTNET_PRIVATE_KEY="0x..."
@@ -82,6 +82,10 @@ contract CounterScript is Script {
 
 #### 7. Deploy the contract
 
+{% hint style="success" %}
+Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS`&#x20;
+{% endhint %}
+
 ```bash
 forge script script/Counter.s.sol \
 --rpc-url https://rpc.ab.testnet.adifoundation.ai \
@@ -91,7 +95,7 @@ forge script script/Counter.s.sol \
 #### 8. Set the number value
 
 ```bash
-cast send 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
+cast send $DEPLOYED_CONTRACT_ADDRESS \
 "setNumber(uint256)" 5 \
 --rpc-url https://rpc.ab.testnet.adifoundation.ai \
 --private-key $TESTNET_PRIVATE_KEY
@@ -100,7 +104,7 @@ cast send 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
 #### 9. Get the latest number value
 
 ```bash
-cast call 0xCA1386680bfd9D89c7cc6Fc3ba11938ba6E44fef \
+cast call $DEPLOYED_CONTRACT_ADDRESS \
 "number()" \
 --rpc-url https://rpc.ab.testnet.adifoundation.ai
 ```
@@ -155,10 +159,14 @@ export default buildModule('CounterModule', (m) => {
 #### 5. Add your private key to the keystore as `TESTNET_PRIVATE_KEY` .
 
 ```bash
-npx hardhat keystore set TESTNET_PRIVATE_KEY
+npx hardhat keystore set $TESTNET_PRIVATE_KEY
 ```
 
 #### 6. Compile and deploy the example contract
+
+{% hint style="success" %}
+Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS` , if it appears inside the scripts described below, replace it with the actual contract address.
+{% endhint %}
 
 ```bash
 npx hardhat compile
@@ -177,7 +185,7 @@ touch scripts/increment.ts
 import { network } from 'hardhat';
 import { type Abi, defineChain } from 'viem';
 
-const CONTRACT_ADDRESS = 'THE_ADDRESS_OF_FRESHLY_DEPLOYED_CONTRACT';
+const CONTRACT_ADDRESS = '$DEPLOYED_CONTRACT_ADDRESS';
 
 const adiChain = defineChain({
   id: 99999,
@@ -281,6 +289,10 @@ export default buildModule('CounterModule', (m) => {
 
 #### 6. Compile and deploy the example contract.
 
+{% hint style="success" %}
+Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS` , if it appears inside the scripts described below, replace it with the actual contract address.
+{% endhint %}
+
 ```ts
 npx hardhat compile
 npx hardhat ignition deploy ignition/modules/Counter.ts --network adiTestnet
@@ -297,7 +309,7 @@ touch scripts/increment.ts
 ```typescript
 import { network } from 'hardhat';
 
-const CONTRACT_ADDRESS = 'THE_ADDRESS_OF_FRESHLY_DEPLOYED_CONTRACT';
+const CONTRACT_ADDRESS = '$DEPLOYED_CONTRACT_ADDRESS';
 
 const { ethers } = await network.connect({
   network: 'adiTestnet',

@@ -11,3 +11,7 @@ hidden: true
 
 * **Block Explorer App:** This is the user interface that enables users and developers to navigate and examine transactions, blocks, batches, contracts, tokens, and other elements within the ADI Network.
 * **Block Explorer API:** This component provides an HTTP API for accessing structured data from the ADI Network. It retrieves data from the database maintained by the Block Explorer Worker.
+
+{% hint style="warning" %}
+Currently, the block explorer's contract verification functionality does not work properly
+{% endhint %}

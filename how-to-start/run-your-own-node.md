@@ -6,8 +6,11 @@ The [ADI Stack Setup repository](https://github.com/ADI-Foundation-Labs/ADI-Stac
 * `cloudflared-tcp-proxy`: forwards block replay data to the node.
 * `proof-sync`: periodically syncs proving artifacts from the foundation-hosted Azure Blob storage into your local `<chain>_data/db/shared`.
 
-{% hint style="info" %}
-What it does **not** do: it does not generate new proofs or participate as a validator/sequencer. It locally replays and verifies the chain state and serves RPC for your own queries. Proofs are downloaded, not produced.
+{% hint style="warning" %}
+What it does **not** do:&#x20;
+
+* It does not generate new proofs or participate as a validator/sequencer. It locally replays and verifies the chain state and serves RPC for your own queries. Proofs are downloaded, not produced.
+* It does not enable passing new transactions to the network currently, serving only as a read-only node
 {% endhint %}
 
 ### Requirements

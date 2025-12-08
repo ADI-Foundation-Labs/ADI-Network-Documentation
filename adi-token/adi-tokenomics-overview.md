@@ -8,8 +8,8 @@ Genesis supply: 999,999,999
 
 | Where                      | How much | Unlock period                 | Cliff                                                                                                                                                   |
 | -------------------------- | -------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Community Fund             | 35%      | 72 months                     | None, 1.37% released as a bullet                                                                                                                        |
-| Treasury Reserves          | 25%      | 108 months                    | None                                                                                                                                                    |
+| Community Fund             | 35%      | 72 months                     | None, 1.39% released as a bullet                                                                                                                        |
+| Treasury Reserves          | 25%      | 108 months                    | None, 5% released as a bullet                                                                                                                           |
 | Private Investors          | 12%      | 72 months                     | 12 month                                                                                                                                                |
 | Partnerships               | 10%      | 72 months                     | 12 month                                                                                                                                                |
 | Team                       | 10%      | 72 months                     | 12 month                                                                                                                                                |

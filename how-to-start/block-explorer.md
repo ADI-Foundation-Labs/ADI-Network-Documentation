@@ -2,7 +2,6 @@
 description: >-
   Explore the functionality of Block Explorer, a comprehensive tool for
   monitoring activities on the ADI Network.
-hidden: true
 ---
 
 # Block explorer

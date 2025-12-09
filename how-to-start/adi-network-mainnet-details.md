@@ -1,6 +1,5 @@
 ---
 description: Get connected to ADI Network Mainnet
-hidden: true
 ---
 
 # ADI Network Mainnet Details

@@ -26,14 +26,14 @@
 
 ## HOW TO START
 
-* [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)
 * [ADI Network Mainnet Details](how-to-start/adi-network-mainnet-details.md)
 * [Block explorer](how-to-start/block-explorer.md)
 * [The Bridge](how-to-start/the-bridge.md)
-* [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)
 * [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
 * [Run Your Own Node](how-to-start/run-your-own-node.md)
 * [Network Contracts](how-to-start/network-contracts.md)
+* [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)
+* [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)
 
 ## ADI NETWORK COMPONENTS
 

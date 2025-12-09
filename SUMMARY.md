@@ -4,6 +4,12 @@
 
 * [ADI's Mission & Vision](README.md)
 
+## For New Users
+
+* [Signing Malicious Transactions](for-new-users/signing-malicious-transactions.md)
+* [Protect Yourself From Imposters](for-new-users/protect-yourself-from-imposters.md)
+* [What is MEV? How Can You Avoid It?](for-new-users/what-is-mev-how-can-you-avoid-it.md)
+
 ## Core Components
 
 * [Development Engine](core-components/quickstart.md)

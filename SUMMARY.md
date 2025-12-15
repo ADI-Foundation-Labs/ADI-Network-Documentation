@@ -3,6 +3,7 @@
 ## Introduction
 
 * [ADI's Mission & Vision](README.md)
+* [Whitepaper](introduction/whitepaper.md)
 
 ## For New Users
 

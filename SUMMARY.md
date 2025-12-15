@@ -3,7 +3,6 @@
 ## Introduction
 
 * [ADI's Mission & Vision](README.md)
-* [Whitepaper](introduction/whitepaper.md)
 
 ## For New Users
 
@@ -53,3 +52,7 @@
 * [System Hooks](adi-network-components/system-hooks.md)
 * [Runner Flow](adi-network-components/runner-flow.md)
 * [Airbender](adi-network-components/airbender.md)
+
+***
+
+* [Whitepaper](whitepaper.md)

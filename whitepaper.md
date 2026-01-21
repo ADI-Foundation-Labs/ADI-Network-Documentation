@@ -1,3 +1,3 @@
 # Whitepaper
 
-{% embed url="https://drive.google.com/file/d/1wGvwKYmpJpLPl89RQ3eojJbxiwBD7pEE/view?usp=drivesdk" %}
+{% embed url="https://drive.google.com/file/d/1yYteTb4jzkarG4p2kSMg4f96k21kszWQ/view?usp=sharing" %}

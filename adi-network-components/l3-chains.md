@@ -189,7 +189,7 @@ Security mechanism that enforces a delay between batch commitment and execution.
 L3 chains use **calldata** mode for data availability.
 
 {% hint style="warning" %}
-L3 chains cannot use blob transactions because the ADI Chain (L2) runs on ZkSync, which does not support EIP-4844 blobs.
+L3 chains cannot use blob transactions because ADI Chain currently does not support EIP-4844 blobs.
 {% endhint %}
 
 ### How It Works
@@ -316,15 +316,10 @@ The sequencer orders transactions and produces L3 blocks. It must be highly avai
 
 Multiple wallets are required to operate an L3 chain. Each serves a specific role in the batch lifecycle.
 
-| Wallet           | Purpose                     | Funding                  |
-| ---------------- | --------------------------- | ------------------------ |
-| Operator         | Commits and reverts batches | L2 ETH (ADI) for gas     |
-| Prove Operator   | Submits validity proofs     | L2 ETH (ADI) for gas     |
-| Execute Operator | Executes verified batches   | L2 ETH (ADI) for gas     |
-| Governor         | Protocol governance         | Minimal (infrequent use) |
+| Wallet           | Purpose                     | Funding                       |
+| ---------------- | --------------------------- | ----------------------------- |
+| Operator         | Commits and reverts batches | L2 Native token (ADI) for gas |
+| Prove Operator   | Submits validity proofs     | L2 Native token (ADI) for gas |
+| Execute Operator | Executes verified batches   | L2 Native token (ADI) for gas |
+| Governor         | Protocol governance         | Minimal (infrequent use)      |
 
-## References
-
-- [ZkSync Transaction Lifecycle](https://docs.zksync.io/zksync-protocol/rollup/transaction-lifecycle)
-- [ZkSync Finality](https://docs.zksync.io/zksync-protocol/rollup/finality)
-- [ZK Stack Proving](https://docs.zksync.io/zk-stack/running/proving)

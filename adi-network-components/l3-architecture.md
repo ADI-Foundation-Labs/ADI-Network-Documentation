@@ -4,8 +4,6 @@ description: Technical architecture for L3 chain deployment on ADI ecosystem
 
 # L3 Chain Architecture
 
-This document describes the technical architecture for deploying L3 chains on the ADI ecosystem.
-
 ## Overview
 
 An L3 chain is a Layer 3 ZK rollup that settles on the ADI Chain (L2), which itself settles on Ethereum Mainnet (L1). This creates a layered security model where L3 transactions inherit cryptographic guarantees from both L2 and L1.
@@ -214,34 +212,19 @@ The L3 ecosystem deploys several contract types on the settlement layer (L2).
 
 ### Bridgehub
 
-Central registry that tracks all chains in the ecosystem. Provides:
-- Chain ID to contract address mapping
-- Cross-chain message routing
-- Ecosystem-wide configuration
+Central registry that tracks all chains in the ecosystem. Provides chain ID to contract address mapping, cross-chain message routing, and ecosystem-wide configuration.
 
 ### StateTransitionManager (STM)
 
-Manages the state transition logic for chains:
-- Registers new chains in the ecosystem
-- Handles protocol upgrades
-- Maintains shared verification parameters
+Manages the state transition logic for chains. Registers new chains in the ecosystem, handles protocol upgrades, and maintains shared verification parameters.
 
 ### Diamond Proxy
 
-Each L3 chain has a Diamond Proxy contract implementing:
-- Batch commitment and verification
-- State root storage
-- Validator management
-- Upgrade mechanisms via facet pattern
-
-The Diamond pattern enables modular upgrades where individual facets (execution, getters, admin) can be replaced independently.
+Each L3 chain has a Diamond Proxy contract implementing batch commitment and verification, state root storage, validator management, and upgrade mechanisms via the facet pattern. The Diamond pattern enables modular upgrades where individual facets (execution, getters, admin) can be replaced independently.
 
 ### Validator Timelock
 
-Security mechanism that enforces a delay between batch commitment and execution:
-- Prevents immediate finalization of malicious batches
-- Allows time for monitoring systems to detect anomalies
-- Configurable delay period per chain
+Security mechanism that enforces a delay between batch commitment and execution. This prevents immediate finalization of malicious batches, allows time for monitoring systems to detect anomalies, and supports configurable delay periods per chain.
 
 ## Data Availability
 
@@ -253,17 +236,11 @@ L3 chains cannot use blob transactions because the ADI Chain (L2) runs on ZkSync
 
 ### How It Works
 
-When a batch is committed, the sequencer posts compressed state diffs as calldata in the commitment transaction to L2. This data includes:
-- Changed storage slot keys and values
-- Contract bytecode deployments
-- L2 → L3 message data
+When a batch is committed, the sequencer posts compressed state diffs as calldata in the commitment transaction to L2. This data includes changed storage slot keys and values, contract bytecode deployments, and L2 → L3 message data.
 
 ### Why Calldata
 
-Calldata mode ensures:
-- Full data availability for state reconstruction
-- No dependency on external DA layers
-- Verifiable data posting in the same transaction as commitment
+Calldata mode ensures full data availability for state reconstruction, removes dependency on external DA layers, and provides verifiable data posting in the same transaction as commitment.
 
 ### Data Costs
 

@@ -252,13 +252,13 @@ Split responsibilities between ADI and client:
 
 Contracts are deployed with role-based access:
 
-| Role             | Responsibility                                       |
-| ---------------- | ---------------------------------------------------- |
-| Governor         | Protocol upgrades, parameter changes                 |
-| Admin            | Emergency operations, validator management           |
-| Operator         | Batch commitment (PRECOMMITTER, COMMITTER, REVERTER) |
-| Prove Operator   | Proof submission (PROVER role)                       |
-| Execute Operator | Batch execution (EXECUTOR role)                      |
+| Role             | Responsibility                                             |
+| ---------------- | ---------------------------------------------------------- |
+| Governor         | Protocol upgrades, parameter changes                       |
+| Admin            | Emergency operations, validator management                 |
+| Operator         | Batch commitment (`PRECOMMITTER`, `COMMITTER`, `REVERTER`) |
+| Prove Operator   | Proof submission (`PROVER` role)                           |
+| Execute Operator | Batch execution (`EXECUTOR` role)                          |
 
 **Ownership transfer options:**
 - **Full transfer**: All roles moved to client multisig

@@ -6,7 +6,7 @@ description: >-
 
 # The Bridge
 
-The ADI Canonical Bridge is the native, protocol-level bridge that connects **Ethereum (L1)** with the **ADI Chain**. Unlike third-party bridges that rely on external validators or multisigs, the canonical bridge inherits the full security of the Ethereum mainnet — every cross-chain message is verified through zero-knowledge proofs, making it as secure as Ethereum itself.
+[The Bridge](https://bridge.adifoundation.ai/) is the native, protocol-level bridge that connects **Ethereum (L1)** with the **ADI Chain**. Unlike third-party bridges that rely on external validators or multisigs, the canonical bridge inherits the full security of the Ethereum mainnet — every cross-chain message is verified through zero-knowledge proofs, making it as secure as Ethereum itself.
 
 The bridge serves two primary purposes:
 

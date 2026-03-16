@@ -14,16 +14,10 @@ L3 chains inherit security guarantees from both the ADI Chain (L2) and Ethereum 
 
 **Settlement hierarchy:**
 
-```
-Ethereum Mainnet (L1)
-        ▲
-        │ validity proofs
-        │
-   ADI Chain (L2)
-        ▲
-        │ validity proofs
-        │
-   L3 Chains (Client)
+```mermaid
+flowchart BT
+    L3["L3 Chains (Client)"] -->|"validity proofs"| L2["ADI Chain (L2)"]
+    L2 -->|"validity proofs"| L1["Ethereum Mainnet (L1)"]
 ```
 
 Each L3 chain operates as an independent ZK rollup with its own sequencer, prover, and state. Multiple L3 chains can be deployed within a single L3 ecosystem, sharing common infrastructure contracts while maintaining isolated execution environments.
@@ -34,43 +28,24 @@ The following diagram illustrates the multi-chain L3 ecosystem architecture:
 
 ```mermaid
 flowchart TB
-    subgraph L1["Ethereum Mainnet (L1)"]
-        L1Contracts["Settlement Contracts<br/>(Diamond Proxy, Verifier)"]
+    subgraph L1["Ethereum (L1)"]
+        L1V["Verifier"]
     end
 
     subgraph L2["ADI Chain (L2)"]
-        direction TB
-        L2Bridgehub["Bridgehub"]
-        L2STM["StateTransitionManager"]
-        L2Contracts["Chain Contracts<br/>(per L3 chain)"]
-        L2Prover["L2 Prover"]
-
-        L2Bridgehub --> L2STM
+        L2STM["STM + Bridgehub"]
+        L2Contracts["Chain Contracts"]
         L2STM --> L2Contracts
     end
 
-    subgraph L3Ecosystem["L3 Ecosystem"]
-        subgraph Chain1["L3 Chain A"]
-            Seq1["Sequencer"]
-            Prover1["Prover"]
-            Seq1 --> Prover1
-        end
-        subgraph Chain2["L3 Chain B"]
-            Seq2["Sequencer"]
-            Prover2["Prover"]
-            Seq2 --> Prover2
-        end
-        subgraph ChainN["L3 Chain N"]
-            SeqN["Sequencer"]
-            ProverN["Prover"]
-            SeqN --> ProverN
-        end
+    subgraph L3["L3 Chains"]
+        ChainA["Chain A"]
+        ChainB["Chain B"]
+        ChainN["Chain ..."]
     end
 
-    Prover1 -->|"commit + prove + execute"| L2Contracts
-    Prover2 -->|"commit + prove + execute"| L2Contracts
-    ProverN -->|"commit + prove + execute"| L2Contracts
-    L2Prover -->|"validity proofs"| L1Contracts
+    ChainA & ChainB & ChainN -->|"proofs"| L2Contracts
+    L2 -->|"proofs"| L1V
 ```
 
 ### Component Responsibilities

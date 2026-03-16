@@ -2,7 +2,7 @@
 description: Technical architecture for L3 chain deployment on ADI ecosystem
 ---
 
-# L3 Chain Architecture
+# L3 Chains
 
 ## Overview
 
@@ -14,15 +14,11 @@ L3 chains inherit security guarantees from both the ADI Chain (L2) and Ethereum 
 
 **Settlement hierarchy:**
 
-<div align="center">
-
 ```mermaid
-flowchart BT
+flowchart LR
     L3["L3 Chains (Client)"] -->|"validity proofs"| L2["ADI Chain (L2)"]
     L2 -->|"validity proofs"| L1["Ethereum Mainnet (L1)"]
 ```
-
-</div>
 
 Each L3 chain operates as an independent ZK rollup with its own sequencer, prover, and state. Multiple L3 chains can be deployed within a single L3 ecosystem, sharing common infrastructure contracts while maintaining isolated execution environments.
 
@@ -131,26 +127,9 @@ Finality flows upward through the layers:
 Soft confirmations provide immediate usability. Users can transact with transferred assets immediately after submission, while cryptographic finality propagates through the layers over time.
 {% endhint %}
 
-## Proving Architecture
+## Proving
 
-Both L3 and L2 layers generate validity proofs using the ZkSync proving system.
-
-### Proof Generation Pipeline
-
-```mermaid
-flowchart LR
-    Witness["Witness<br/>Generation"] --> FRI["FRI Prover<br/>(STARK)"]
-    FRI --> SNARK["SNARK Wrapper<br/>(FFLONK)"]
-    SNARK --> Verify["On-chain<br/>Verification"]
-```
-
-**Proving stages:**
-
-1. **Witness Generation**: The prover extracts execution traces from batch processing.
-
-2. **FRI Proving**: Fast Reed-Solomon Interactive Oracle Proofs (FRI) generate STARK proofs. This stage is computationally intensive and benefits from GPU parallelization.
-
-3. **SNARK Wrapper**: The FRI proof is wrapped in a FFLONK SNARK for efficient on-chain verification. This reduces verification gas costs on the settlement layer.
+Both L3 and L2 layers generate validity proofs using the [Airbender](airbender.md) proving system (FRI/STARK → FFLONK SNARK pipeline).
 
 ### L3 vs L2 Proving
 
@@ -308,11 +287,11 @@ New chains are added incrementally to an existing ecosystem deployment. Each cha
 
 - **RPC Endpoint**: ADI Chain (L2) JSON-RPC URL
 - **Chain ID**: Settlement layer chain ID for transaction signing
-- **Gas Funding**: L2 native token (ETH) for operator transactions
+- **Gas Funding**: L2 native token (ADI) for operator transactions
 
 ### Prover Infrastructure
 
-### Prover Requirements
+The prover generates validity proofs for L3 batches. GPU acceleration is required for production workloads.
 
 | Requirement | Specification                          |
 | ----------- | -------------------------------------- |
@@ -324,7 +303,7 @@ New chains are added incrementally to an existing ecosystem deployment. Each cha
 
 ### Sequencer Infrastructure
 
-### Sequencer Requirements
+The sequencer orders transactions and produces L3 blocks. It must be highly available to maintain chain liveness.
 
 | Requirement | Specification                              |
 | ----------- | ------------------------------------------ |
@@ -335,11 +314,13 @@ New chains are added incrementally to an existing ecosystem deployment. Each cha
 
 ### Operator Wallets
 
+Multiple wallets are required to operate an L3 chain. Each serves a specific role in the batch lifecycle.
+
 | Wallet           | Purpose                     | Funding                  |
 | ---------------- | --------------------------- | ------------------------ |
-| Operator         | Commits and reverts batches | L2 ETH for gas           |
-| Prove Operator   | Submits validity proofs     | L2 ETH for gas           |
-| Execute Operator | Executes verified batches   | L2 ETH for gas           |
+| Operator         | Commits and reverts batches | L2 ETH (ADI) for gas     |
+| Prove Operator   | Submits validity proofs     | L2 ETH (ADI) for gas     |
+| Execute Operator | Executes verified batches   | L2 ETH (ADI) for gas     |
 | Governor         | Protocol governance         | Minimal (infrequent use) |
 
 ## References

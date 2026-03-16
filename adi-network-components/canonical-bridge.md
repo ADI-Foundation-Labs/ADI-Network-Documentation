@@ -346,6 +346,47 @@ mapping(uint256 chainId => mapping(bytes32 assetId => uint256)) public chainBala
 
 ---
 
+## Sequencer Event Tracking
+
+The ADI Server (sequencer) actively monitors Ethereum for bridge-related events. This is the infrastructure that keeps L2 in sync with L1 — processing deposits, tracking batch finality, and enabling withdrawal proofs.
+
+### How It Works
+
+The sequencer runs a set of **L1 Watchers** that continuously poll Ethereum blocks for specific contract events. When an event is detected, it is parsed and forwarded to the appropriate internal component via channels.
+
+```mermaid
+%%{init: {'theme': 'dark'}}%%
+graph TD
+    L1["Ethereum L1 Blocks"] -->|poll| W[L1 Watcher]
+    W -->|filter logs| E{Event Type}
+
+    E -->|NewPriorityRequest| TW[L1 Tx Watcher]
+    E -->|BlockCommit| CW[Commit Watcher]
+    E -->|BlockExecution| EW[Execute Watcher]
+    E -->|BatchRange| BW[Batch Range Watcher]
+
+    TW -->|L1PriorityEnvelope| SEQ[Sequencer]
+    CW -->|committed batch| FIN[Finality Tracker]
+    EW -->|executed batch| FIN
+    BW -->|batch metadata| STORE[Batch Storage]
+
+    SEQ -->|include in L2 block| L2[L2 Block Production]
+
+    style L1 fill:#4a90d9,stroke:#3a7bc8,color:#fff
+    style L2 fill:#5bb974,stroke:#4a9f6a,color:#000
+```
+
+### Events Tracked
+
+| Event | Emitted By | Watcher | What It Does |
+|-------|------------|---------|--------------|
+| `NewPriorityRequest` | Mailbox facet of Diamond Proxy | **L1 Tx Watcher** | Detects L1→L2 deposit transactions. Parses the priority operation and forwards it to the sequencer for inclusion in the next L2 block. Tracks `next_l1_priority_id` to prevent duplicates. |
+| `BlockCommit` | Executor facet of Diamond Proxy | **Commit Watcher** | Detects when a batch is committed to L1. Updates `last_committed_batch` and `last_committed_block` in the finality tracker. |
+| `BlockExecution` | Executor facet of Diamond Proxy | **Execute Watcher** | Detects when a batch is fully executed (ZK-proven and finalized) on L1. Updates `last_executed_batch`. After this event, withdrawals in that batch become claimable. |
+| `ReportCommittedBatchRangeZKsyncOS` | Executor facet of Diamond Proxy | **Batch Range Watcher** | Provides metadata about committed batch ranges. Used for batch replay and synchronization. |
+
+---
+
 ## Security Guarantees
 
 The canonical bridge provides the following security properties:

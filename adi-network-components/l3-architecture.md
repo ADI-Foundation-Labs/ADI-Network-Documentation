@@ -14,11 +14,15 @@ L3 chains inherit security guarantees from both the ADI Chain (L2) and Ethereum 
 
 **Settlement hierarchy:**
 
+<div align="center">
+
 ```mermaid
 flowchart BT
     L3["L3 Chains (Client)"] -->|"validity proofs"| L2["ADI Chain (L2)"]
     L2 -->|"validity proofs"| L1["Ethereum Mainnet (L1)"]
 ```
+
+</div>
 
 Each L3 chain operates as an independent ZK rollup with its own sequencer, prover, and state. Multiple L3 chains can be deployed within a single L3 ecosystem, sharing common infrastructure contracts while maintaining isolated execution environments.
 

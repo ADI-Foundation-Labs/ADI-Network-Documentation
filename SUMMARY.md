@@ -37,6 +37,7 @@
 * [The Bridge](how-to-start/the-bridge.md)
 * [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
 * [Run Your Own Node](how-to-start/run-your-own-node.md)
+* [Run a Rollup with Docker Compose](how-to-start/run-a-rollup-with-docker-compose.md)
 * [Network Contracts](how-to-start/network-contracts.md)
 * [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)
 * [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)

@@ -46,9 +46,9 @@ services:
     working_dir: /app
     environment:
       # Fee overrides
-      sequencer_base_fee_override: "0x3e8"
-      sequencer_pubdata_price_override: "0x1"
-      sequencer_native_price_override: "0x1"
+      fee_base_fee_override: "0x3e8"
+      fee_pubdata_price_override: "0x1"
+      fee_native_price_override: "0x1"
       sequencer_block_dump_path: "/chain/db/block_dumps"
 
       # Price oracle
@@ -73,11 +73,11 @@ services:
       genesis_chain_id: ${CHAIN_ID}
 
       # L1 gas
-      l1_sender_max_fee_per_blob_gas_gwei: 1000
+      l1_sender_max_fee_per_blob_gas: 1000
 
       # Prover API
-      prover_api_object_store_file_backed_base_path: "/shared"
-      prover_api_component_enabled: "true"
+      prover_api_proof_storage_path: "/shared"
+      prover_api_enabled: "true"
       prover_api_fake_fri_provers_enabled: "false"
       prover_api_fake_snark_provers_enabled: "false"
       prover_api_address: "0.0.0.0:3320"
@@ -95,8 +95,8 @@ services:
       l1_sender_operator_commit_pk: ${OPERATOR_COMMIT_PK}
       l1_sender_operator_prove_pk: ${OPERATOR_PROVE_PK}
       l1_sender_operator_execute_pk: ${OPERATOR_EXECUTE_PK}
-      l1_sender_max_fee_per_gas_gwei: 1000
-      l1_sender_max_priority_fee_per_gas_gwei: 1000
+      l1_sender_max_fee_per_gas: 1000
+      l1_sender_max_priority_fee_per_gas: 1000
       l1_sender_fusaka_upgrade_timestamp: 0
       l1_sender_pubdata_mode: "Calldata"
 
@@ -119,8 +119,6 @@ services:
     environment:
       # EN mode
       general_node_role: "external"
-      sequencer_block_replay_download_address: "http://127.0.0.1:3053"
-      sequencer_block_replay_server_address: "0.0.0.0:3078"
       general_main_node_rpc_url: "http://127.0.0.1:3050"
 
       # EN network ports (avoid conflicts with sequencer)
@@ -137,10 +135,9 @@ services:
       network_boot_nodes: "${SEQUENCER_ENODE}"
 
       # Fee overrides (must match sequencer)
-      sequencer_base_fee_override: "0x3E8"
-      sequencer_pubdata_price_override: "0x1"
-      sequencer_native_price_override: "0x1"
-      external_price_api_client_source: "Forced"
+      fee_base_fee_override: "0x3E8"
+      fee_pubdata_price_override: "0x1"
+      fee_native_price_override: "0x1"
 
       # Storage
       general_rocks_db_path: "/chain/db/node1"
@@ -152,14 +149,6 @@ services:
       genesis_bytecode_supplier_address: "${BYTECODE_SUPPLIER_ADDRESS}"
       genesis_genesis_input_path: "/genesis/genesis.json"
       genesis_chain_id: ${CHAIN_ID}
-      l1_sender_max_fee_per_blob_gas_gwei: 1000
-
-      # Shared store
-      prover_api_object_store_file_backed_base_path: "/shared"
-
-      # Batching
-      batcher_batch_timeout: "60s"
-      batcher_blocks_per_batch_limit: 10
 
       RUST_LOG: "info"
     volumes:

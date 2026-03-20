@@ -33,11 +33,16 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `sequencer_max_transactions_in_block` | `1000` | Maximum transactions per block |
 | `sequencer_block_gas_limit` | `100000000` | Gas limit per block |
 | `sequencer_block_pubdata_limit_bytes` | `110000` | Pubdata size limit per block |
-| `sequencer_base_fee_override` | — | Override base fee (hex, e.g. `0x3e8`) |
-| `sequencer_pubdata_price_override` | — | Override pubdata price (hex) |
-| `sequencer_native_price_override` | — | Override native token price (hex) |
 | `sequencer_block_dump_path` | — | Path to dump block data for replay |
 | `sequencer_fee_collector_address` | `0x3661...c049` | Address that collects transaction fees |
+
+### Fee
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `fee_base_fee_override` | — | Override base fee (hex, e.g. `0x3e8`) |
+| `fee_pubdata_price_override` | — | Override pubdata price (hex) |
+| `fee_native_price_override` | — | Override native token price (hex) |
 
 ### RPC
 
@@ -46,7 +51,7 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `rpc_address` | `0.0.0.0:3050` | JSON-RPC listen address |
 | `rpc_max_connections` | `1000` | Maximum concurrent connections |
 | `rpc_eth_call_gas` | `10000000` | Gas limit for `eth_call` |
-| `rpc_max_logs_per_response` | `20000` | Maximum log entries returned per request |
+| `rpc_max_logs_per_response` | `10000` | Maximum log entries returned per request |
 | `rpc_max_request_size` | `15` | Maximum request payload size (MB) |
 | `rpc_max_response_size` | `24` | Maximum response payload size (MB) |
 
@@ -57,9 +62,9 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `l1_sender_operator_commit_pk` | — | Private key for committing batches to L1 |
 | `l1_sender_operator_prove_pk` | — | Private key for submitting proofs to L1 |
 | `l1_sender_operator_execute_pk` | — | Private key for executing batches on L1 |
-| `l1_sender_max_fee_per_gas_gwei` | `200` | Maximum gas price for L1 transactions (Gwei) |
-| `l1_sender_max_priority_fee_per_gas_gwei` | `1` | Maximum priority fee for L1 transactions (Gwei) |
-| `l1_sender_max_fee_per_blob_gas_gwei` | `2` | Maximum blob gas price (Gwei) |
+| `l1_sender_max_fee_per_gas` | `200 Gwei` | Maximum gas price for L1 transactions |
+| `l1_sender_max_priority_fee_per_gas` | `1 Gwei` | Maximum priority fee for L1 transactions |
+| `l1_sender_max_fee_per_blob_gas` | `2 Gwei` | Maximum blob gas price |
 | `l1_sender_pubdata_mode` | — | Pubdata availability mode — `Blobs` or `Calldata` |
 | `l1_sender_enabled` | `true` | Enable L1 settlement transactions |
 
@@ -67,14 +72,14 @@ The sequencer uses environment variables in `component_setting_name` format (low
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `prover_api_component_enabled` | `true` | Enable the prover API endpoint |
+| `prover_api_enabled` | `true` | Enable the prover API endpoint |
 | `prover_api_address` | `0.0.0.0:3124` | Prover API listen address |
 | `prover_api_fake_fri_provers_enabled` | `true` | Use fake FRI provers (set `false` for production) |
 | `prover_api_fake_snark_provers_enabled` | `true` | Use fake SNARK provers (set `false` for production) |
 | `prover_api_fri_job_timeout` | `300s` | Timeout before reassigning a FRI job |
 | `prover_api_snark_job_timeout` | `300s` | Timeout before reassigning a SNARK job |
 | `prover_api_max_fris_per_snark` | `10` | Maximum FRI proofs aggregated per SNARK proof |
-| `prover_api_object_store_file_backed_base_path` | `./db/shared` | Shared object store path for prover artifacts |
+| `prover_api_proof_storage_path` | `./db/fri_proofs/` | Path for prover proof storage |
 
 ### Batching
 

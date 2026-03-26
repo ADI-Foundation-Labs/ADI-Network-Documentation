@@ -44,6 +44,7 @@
 ## ADI NETWORK COMPONENTS
 
 * [Overview](adi-network-components/overview.md)
+* [Canonical Bridge](adi-network-components/canonical-bridge.md)
 * [Double Resource Accounting](adi-network-components/double-resource-accounting.md)
 * [Bootloader](adi-network-components/bootloader.md)
 * [Execution Environment](adi-network-components/execution-environment.md)

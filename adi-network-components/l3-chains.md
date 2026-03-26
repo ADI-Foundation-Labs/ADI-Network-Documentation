@@ -88,27 +88,30 @@ flowchart LR
 The sequencer submits batch data to L2. This includes state diffs (changes to storage slots) rather than full state, optimizing data costs.
 
 **Data submitted:**
-- Storage slot changes (key-value pairs)
-- Contract deployments
-- L2 → L3 message hashes
+
+* Storage slot changes (key-value pairs)
+* Contract deployments
+* L2 → L3 message hashes
 {% endtab %}
 
 {% tab title="2. Prove" %}
 The prover generates a validity proof for the committed batch. This proof cryptographically guarantees that the state transition is valid according to the L3 execution rules.
 
 **Proof contains:**
-- Execution correctness attestation
-- State root transition validity
-- Public inputs for verification
+
+* Execution correctness attestation
+* State root transition validity
+* Public inputs for verification
 {% endtab %}
 
 {% tab title="3. Execute" %}
 After proof verification, the batch is finalized on L2. The L3 state root is updated in the chain contracts.
 
 **Result:**
-- New state root stored on L2
-- Batch marked as finalized
-- Withdrawals become processable
+
+* New state root stored on L2
+* Batch marked as finalized
+* Withdrawals become processable
 {% endtab %}
 {% endtabs %}
 
@@ -155,10 +158,11 @@ Proof generation requires GPU acceleration.
 | SNARK Prover | 1 (33 GB)   | 1 (dedicated) |
 
 **Performance characteristics:**
-- FRI proving time scales inversely with GPU memory
-- SNARK proving requires approximately 33 GB regardless of total memory
-- Parallel FRI + SNARK execution improves throughput by 15-20%
-- Target throughput: ~15-20 TPS per prover configuration
+
+* FRI proving time scales inversely with GPU memory
+* SNARK proving requires approximately 33 GB regardless of total memory
+* Parallel FRI + SNARK execution improves throughput by 15-20%
+* Target throughput: \~15-20 TPS per prover configuration
 
 {% hint style="info" %}
 For production deployments, running FRI and SNARK provers in parallel on separate GPU partitions maximizes batch throughput.
@@ -183,26 +187,6 @@ Each L3 chain has a Diamond Proxy contract implementing batch commitment and ver
 ### Validator Timelock
 
 Security mechanism that enforces a delay between batch commitment and execution. This prevents immediate finalization of malicious batches, allows time for monitoring systems to detect anomalies, and supports configurable delay periods per chain.
-
-## Data Availability
-
-L3 chains use **calldata** mode for data availability.
-
-{% hint style="warning" %}
-L3 chains cannot use blob transactions because ADI Chain currently does not support EIP-4844 blobs.
-{% endhint %}
-
-### How It Works
-
-When a batch is committed, the sequencer posts compressed state diffs as calldata in the commitment transaction to L2. This data includes changed storage slot keys and values, contract bytecode deployments, and L2 → L3 message data.
-
-### Why Calldata
-
-Calldata mode ensures full data availability for state reconstruction, removes dependency on external DA layers, and provides verifiable data posting in the same transaction as commitment.
-
-### Data Costs
-
-Calldata costs are paid in L2 gas. The state diff compression reduces data size significantly compared to posting full state, typically achieving 10-20x compression for typical transaction batches.
 
 ## Deployment Options
 
@@ -261,9 +245,10 @@ Contracts are deployed with role-based access:
 | Execute Operator | Batch execution (`EXECUTOR` role)                          |
 
 **Ownership transfer options:**
-- **Full transfer**: All roles moved to client multisig
-- **Partial transfer**: Governance to client, operations with ADI
-- **Gradual handover**: Phased transition over time
+
+* **Full transfer**: All roles moved to client multisig
+* **Partial transfer**: Governance to client, operations with ADI
+* **Gradual handover**: Phased transition over time
 
 ### Ecosystem Model
 
@@ -285,9 +270,9 @@ New chains are added incrementally to an existing ecosystem deployment. Each cha
 
 ### Settlement Layer
 
-- **RPC Endpoint**: ADI Chain (L2) JSON-RPC URL
-- **Chain ID**: Settlement layer chain ID for transaction signing
-- **Gas Funding**: L2 native token (ADI) for operator transactions
+* **RPC Endpoint**: ADI Chain (L2) JSON-RPC URL
+* **Chain ID**: Settlement layer chain ID for transaction signing
+* **Gas Funding**: L2 native token (ADI) for operator transactions
 
 ### Prover Infrastructure
 
@@ -322,4 +307,3 @@ Multiple wallets are required to operate an L3 chain. Each serves a specific rol
 | Prove Operator   | Submits validity proofs     | L2 Native token (ADI) for gas |
 | Execute Operator | Executes verified batches   | L2 Native token (ADI) for gas |
 | Governor         | Protocol governance         | Minimal (infrequent use)      |
-

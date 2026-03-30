@@ -13,10 +13,10 @@ The ADI CLI is a Rust-based tool that manages the full lifecycle of L3 chain dep
 ## Prerequisites
 
 
-| Requirement   | Details                                                                                            |
-| ------------- | -------------------------------------------------------------------------------------------------- |
-| Docker        | Running daemon. The CLI pulls and runs toolkit images automatically                                |
-| Rust          | Install via [rustup](https://rustup.rs/)                                                           |
+| Requirement   | Details                                                                                                                                                             |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Docker        | Running daemon. The CLI pulls and runs toolkit images automatically                                                                                                 |
+| Rust          | Install via [rustup](https://rustup.rs/)                                                                                                                            |
 | Funded wallet | ~270 ADI tokens on the settlement layer for deployment gas costs. Testnet faucet: [faucet.ab.testnet.adifoundation.ai](https://faucet.ab.testnet.adifoundation.ai/) |
 
 
@@ -56,7 +56,7 @@ ecosystem:
 ```
 
 {% hint style="info" %}
-`protocol_version` determines which Docker toolkit image the CLI uses. Each protocol version is tied to a specific server version (e.g., protocol `v0.30.1` works with server `v13.1`). Check the [CLI repository](https://github.com/ADI-Foundation-Labs/ADI-CLI) for the compatibility matrix.
+`protocol_version` determines which Docker toolkit image the CLI uses. Each protocol version is tied to a specific server version (e.g., protocol `v0.30.1` works with server `v13.1`).
 {% endhint %}
 
 Wallet funding amounts and the funder key are not required in the config — they can be provided via CLI flags or environment variables during `adi deploy`. The only required config fields are the ecosystem definition and chain parameters.

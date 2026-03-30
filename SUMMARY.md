@@ -54,7 +54,6 @@
 * [Runner Flow](adi-network-components/runner-flow.md)
 * [Airbender](adi-network-components/airbender.md)
 * [L3 Chains](adi-network-components/l3-chains/overview.md)
-  * [Overview](adi-network-components/l3-chains/overview.md)
   * [CLI](adi-network-components/l3-chains/cli.md)
 
 ***

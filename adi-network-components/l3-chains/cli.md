@@ -1,6 +1,8 @@
 ---
 
-## description: Deploy and manage L3 chains using the ADI CLI
+description: Deploy and manage L3 chains using the ADI CLI
+
+---
 
 # CLI
 
@@ -15,7 +17,7 @@ The ADI CLI is a Rust-based tool that manages the full lifecycle of L3 chain dep
 | ------------- | -------------------------------------------------------------------------------------------------- |
 | Docker        | Running daemon. The CLI pulls and runs toolkit images automatically                                |
 | Rust          | Install via [rustup](https://rustup.rs/)                                                           |
-| Funded wallet | Private key with sufficient L2 native token (ADI) on the settlement layer for deployment gas costs |
+| Funded wallet | ~270 ADI tokens on the settlement layer for deployment gas costs. Testnet faucet: [faucet.ab.testnet.adifoundation.ai](https://faucet.ab.testnet.adifoundation.ai/) |
 
 
 ## Installation
@@ -45,7 +47,7 @@ protocol_version: v0.30.1
 
 ecosystem:
   name: my-ecosystem
-  rpc_url: https://rpc.adi-chain.example.com
+  rpc_url: https://rpc.ab.testnet.adifoundation.ai
   chains:
     - name: my-chain
       chain_id: 222
@@ -84,14 +86,16 @@ export ADI_FUNDER_KEY="0x..."
 Never put private keys directly in the config file. Use `ADI_FUNDER_KEY` for the funder and `ownership.private_key` only when automatic acceptance is needed.
 {% endhint %}
 
-For the full configuration reference, see [configuration.md](https://github.com/ADI-Foundation-Labs/ADI-CLI/blob/main/docs/configuration.md) in the CLI repository.
+For the full annotated config, environment variables, and S3 state sync, see the [CLI Configuration Reference](../../references/cli-configuration.md).
 
 ### Ownership Transfer
 
+{% hint style="warning" %}
 When `ownership.new_owner` is set:
 
-- **Address only** — ownership is transferred after deployment. The new owner must run `adi accept` to complete the transfer.
-- **Address + `private_key`** — ownership is transferred and accepted automatically during deployment.
+* **Address only** — ownership is transferred after deployment. The new owner must run `adi accept` to complete the transfer.
+* **Address + `private_key`** — ownership is transferred and accepted automatically during deployment.
+{% endhint %}
 
 ## Deployment Workflow
 
@@ -100,17 +104,54 @@ When `ownership.new_owner` is set:
 The `init` command creates the ecosystem and chain configuration. It spins up a Docker container, generates wallets and configs inside it, then drops the resulting state files to your host.
 
 ```bash
-adi init --chain my-chain --protocol-version v0.30.1
+adi init --chain my-chain
 ```
 
 
-| Flag                 | Description                                 |
-| -------------------- | ------------------------------------------- |
-| `--chain`            | Select chain from config `chains[]` by name |
-| `--protocol-version` | Toolkit version to use                      |
-| `--force`            | Overwrite existing ecosystem state          |
-| `--yes`              | Skip confirmation prompts                   |
+| Flag      | Description                                 |
+| --------- | ------------------------------------------- |
+| `--chain` | Select chain from config `chains[]` by name |
+| `--force` | Overwrite existing ecosystem state          |
+| `--yes`   | Skip confirmation prompts                   |
 
+
+Example output:
+
+```
+┌   ADI Init
+│
+✱  Select a chain
+│  my-chain
+│
+◈  Validating chain ID against settlement layer...
+│
+◆  Chain ID 222 validated (settlement layer: 99999)
+│
+✱  Protocol version: v0.30.1 ──────╮
+│                                  │
+│  Ecosystem: adi_ecosystem        │
+│  Chain: my-chain (ID: 222)       │
+│  Prover mode: gpu                │
+├──────────────────────────────────╯
+│
+◈  Connecting to Docker...
+│
+◈  Running zkstack ecosystem create...
+│
+◆  Completed in 0s
+│
+◈  Importing ecosystem state...
+│
+◆  Ecosystem state imported successfully
+│
+◈  Validating imported state...
+│
+◆  State validated: 1 chain(s) found
+│
+◈  Location: ~/.adi_cli/state/adi_ecosystem
+│
+└   Ecosystem 'adi_ecosystem' initialized successfully!
+```
 
 After init, state is written to `~/.adi_cli/state/<ecosystem>/`:
 
@@ -140,6 +181,49 @@ export ADI_FUNDER_KEY="0x..."
 adi deploy --ecosystem-name my-ecosystem --chain-name my-chain
 ```
 
+Example output:
+
+```
+┌   ADI Deploy
+│
+✱  Deployment target ───────────────────────────────────────────────╮
+│                                                                   │
+│  Ecosystem: adi_ecosystem                                         │
+│  Chain: my-chain (L3)                                             │
+│  Settlement layer RPC: https://rpc.ab.testnet.adifoundation.ai/   │
+├───────────────────────────────────────────────────────────────────╯
+│
+...
+│
+✱  Funding Summary ──────────────────────╮
+│                                        │
+│  Transfers needed: 6                   │
+│  Total ETH to transfer: 270.0000 ETH   │
+│  Estimated gas cost: 0.1401 ETH        │
+│  Total ETH required: 270.1401 ETH      │
+│  Funder balance: 1979.2569 ETH         │
+│  Status: Sufficient balance            │
+├────────────────────────────────────────╯
+│
+...
+│
+✱  Deployed Contracts ──────────────────────────────────────────────╮
+│                                                                   │
+│  Diamond proxy: 0x5b0323f95682228DE5b0db338bA9470D2D511F80        │
+│  Validator timelock: 0x686B1825b998007825ad4A34E0c00fF361D0667c   │
+│  Chain admin: 0x195Ec0826b0686D03E21De802588a28f253F69C7          │
+├───────────────────────────────────────────────────────────────────╯
+│
+✱  Deployment Summary ─────────────────────────────────────────╮
+│                                                              │
+│  Ecosystem: adi_ecosystem                                    │
+│  Chain: my-chain                                             │
+│  Diamond proxy: 0x5b0323f95682228DE5b0db338bA9470D2D511F80   │
+├──────────────────────────────────────────────────────────────╯
+│
+└   Deployment complete! You can now start containers and operate the rollup.
+```
+
 This command:
 
 1. Connects to the settlement layer and checks wallet balances
@@ -152,7 +236,7 @@ This command:
 
 All state lives in `~/.adi_cli/state/`. This directory contains wallets (with private keys), deployed contract addresses, and chain configurations. Back it up.
 
-State can optionally sync to S3-compatible storage with `adi state sync` / `adi state restore`. See the CLI repository for details.
+State can optionally sync to S3-compatible storage with `adi state sync` / `adi state restore`. See the [CLI Configuration Reference](../../references/cli-configuration.md#s3-state-synchronization) for details.
 
 ## Next Steps
 

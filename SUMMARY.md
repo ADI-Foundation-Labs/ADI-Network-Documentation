@@ -56,6 +56,10 @@
 * [L3 Chains](adi-network-components/l3-chains/overview.md)
   * [CLI](adi-network-components/l3-chains/cli.md)
 
+## References
+
+* [CLI Configuration](references/cli-configuration.md)
+
 ***
 
 * [Whitepaper](whitepaper.md)

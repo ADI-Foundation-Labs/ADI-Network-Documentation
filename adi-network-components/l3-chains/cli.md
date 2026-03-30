@@ -90,7 +90,7 @@ ecosystem:
 ```
 
 {% hint style="info" %}
-`protocol_version` determines which Docker toolkit image the CLI uses. Each protocol version is tied to a specific server version (e.g., protocol `v0.30.1` works with server `v13.1`).
+`protocol_version` determines which Docker toolkit image the CLI uses. Each protocol version is tied to a specific server version (e.g., protocol `v0.30.1` works with server `v13.1.0-b1`).
 {% endhint %}
 
 Wallet funding amounts and the funder key are not required in the config — they can be provided via CLI flags or environment variables during `adi deploy`. The only required config fields are the ecosystem definition and chain parameters.
@@ -286,8 +286,7 @@ State can optionally sync to S3-compatible storage with `adi state sync` / `adi 
 Once contracts are deployed, set up the chain infrastructure (sequencer, prover, explorer, bridge) using Docker Compose:
 
 {% content-ref url="run-a-rollup/" %}
-# [Infrastructure Setup](run-a-rollup/)
-Infrastructure Setup
+# [Infrastructure Setup](./run-a-rollup/)
 {% endcontent-ref %}
 
 Additional CLI commands for post-deployment:

@@ -37,12 +37,6 @@
 * [The Bridge](how-to-start/the-bridge.md)
 * [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
 * [Run Your Own Node](how-to-start/run-your-own-node.md)
-* [Run a Rollup with Docker Compose](how-to-start/run-a-rollup/README.md)
-  * [Core Stack](how-to-start/run-a-rollup/core-stack.md)
-  * [Infrastructure Stack](how-to-start/run-a-rollup/infrastructure-stack.md)
-  * [Blockscout Explorer](how-to-start/run-a-rollup/blockscout.md)
-  * [Operations](how-to-start/run-a-rollup/operations.md)
-  * [Configuration Reference](how-to-start/run-a-rollup/configuration-reference.md)
 * [Network Contracts](how-to-start/network-contracts.md)
 * [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)
 * [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)
@@ -61,6 +55,12 @@
 * [Airbender](adi-network-components/airbender.md)
 * [L3 Chains](adi-network-components/l3-chains/overview.md)
   * [CLI](adi-network-components/l3-chains/cli.md)
+  * [Run a Rollup with Docker Compose](adi-network-components/l3-chains/run-a-rollup/README.md)
+    * [Core Stack](adi-network-components/l3-chains/run-a-rollup/core-stack.md)
+    * [Infrastructure Stack](adi-network-components/l3-chains/run-a-rollup/infrastructure-stack.md)
+    * [Blockscout Explorer](adi-network-components/l3-chains/run-a-rollup/blockscout.md)
+    * [Operations](adi-network-components/l3-chains/run-a-rollup/operations.md)
+    * [Configuration Reference](adi-network-components/l3-chains/run-a-rollup/configuration-reference.md)
 
 ## References
 

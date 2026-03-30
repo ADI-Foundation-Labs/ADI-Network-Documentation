@@ -18,7 +18,6 @@ The sequencer uses environment variables in `component_setting_name` format (low
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `general_node_role` | `MainNode` | Node role — `MainNode` (sequencer) or `external` (follower) |
 | `general_l1_rpc_url` | `http://localhost:8545` | Ethereum L1 JSON-RPC endpoint |
 | `general_rocks_db_path` | `./db` | Path to RocksDB state storage |
 | `general_main_node_rpc_url` | — | Main node RPC URL (required for External Nodes) |
@@ -33,16 +32,18 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `sequencer_max_transactions_in_block` | `1000` | Maximum transactions per block |
 | `sequencer_block_gas_limit` | `100000000` | Gas limit per block |
 | `sequencer_block_pubdata_limit_bytes` | `110000` | Pubdata size limit per block |
-| `sequencer_block_dump_path` | — | Path to dump block data for replay |
+| `sequencer_block_dump_path` | `./db/block_dumps` | Path to dump block data for replay |
+| `sequencer_block_replay_server_address` | `0.0.0.0:3053` | Replay server address used by External Nodes |
+| `sequencer_block_replay_download_address` | — | Replay source address; setting this enables External Node mode |
 | `sequencer_fee_collector_address` | `0x3661...c049` | Address that collects transaction fees |
 
-### Fee
+### Sequencer Fee Overrides
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `fee_base_fee_override` | — | Override base fee (hex, e.g. `0x3e8`) |
-| `fee_pubdata_price_override` | — | Override pubdata price (hex) |
-| `fee_native_price_override` | — | Override native token price (hex) |
+| `sequencer_base_fee_override` | — | Override base fee (hex, e.g. `0x3e8`) |
+| `sequencer_pubdata_price_override` | — | Override pubdata price (hex) |
+| `sequencer_native_price_override` | — | Override native token price (hex) |
 
 ### RPC
 
@@ -51,7 +52,7 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `rpc_address` | `0.0.0.0:3050` | JSON-RPC listen address |
 | `rpc_max_connections` | `1000` | Maximum concurrent connections |
 | `rpc_eth_call_gas` | `10000000` | Gas limit for `eth_call` |
-| `rpc_max_logs_per_response` | `10000` | Maximum log entries returned per request |
+| `rpc_max_logs_per_response` | `20000` | Maximum log entries returned per request |
 | `rpc_max_request_size` | `15` | Maximum request payload size (MB) |
 | `rpc_max_response_size` | `24` | Maximum response payload size (MB) |
 
@@ -62,24 +63,33 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `l1_sender_operator_commit_pk` | — | Private key for committing batches to L1 |
 | `l1_sender_operator_prove_pk` | — | Private key for submitting proofs to L1 |
 | `l1_sender_operator_execute_pk` | — | Private key for executing batches on L1 |
-| `l1_sender_max_fee_per_gas` | `200 Gwei` | Maximum gas price for L1 transactions |
+| `l1_sender_max_fee_per_gas` | `100 Gwei` | Maximum gas price for L1 transactions |
+| `l1_sender_max_fee_per_gas_gwei` | — | Same setting expressed with a Gwei suffix for easier Docker env usage |
 | `l1_sender_max_priority_fee_per_gas` | `1 Gwei` | Maximum priority fee for L1 transactions |
-| `l1_sender_max_fee_per_blob_gas` | `2 Gwei` | Maximum blob gas price |
+| `l1_sender_max_priority_fee_per_gas_gwei` | — | Same setting expressed with a Gwei suffix |
+| `l1_sender_max_fee_per_blob_gas` | `1 Gwei` | Maximum blob gas price |
+| `l1_sender_max_fee_per_blob_gas_gwei` | — | Same setting expressed with a Gwei suffix |
 | `l1_sender_pubdata_mode` | — | Pubdata availability mode — `Blobs` or `Calldata` |
 | `l1_sender_enabled` | `true` | Enable L1 settlement transactions |
+| `l1_sender_fusaka_upgrade_timestamp` | `18446744073709551615` | Switch to Fusaka blob format after this Unix timestamp |
 
 ### Prover API (on Sequencer)
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `prover_api_enabled` | `true` | Enable the prover API endpoint |
 | `prover_api_address` | `0.0.0.0:3124` | Prover API listen address |
 | `prover_api_fake_fri_provers_enabled` | `true` | Use fake FRI provers (set `false` for production) |
 | `prover_api_fake_snark_provers_enabled` | `true` | Use fake SNARK provers (set `false` for production) |
 | `prover_api_fri_job_timeout` | `300s` | Timeout before reassigning a FRI job |
 | `prover_api_snark_job_timeout` | `300s` | Timeout before reassigning a SNARK job |
 | `prover_api_max_fris_per_snark` | `10` | Maximum FRI proofs aggregated per SNARK proof |
-| `prover_api_proof_storage_path` | `./db/fri_proofs/` | Path for prover proof storage |
+| `prover_api_object_store_file_backed_base_path` | `./db/shared` | Base path for file-backed prover proof storage |
+
+### Prover Input Generator
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `prover_input_generator_maximum_in_flight_blocks` | `16` | Number of blocks the prover input generator can process concurrently |
 
 ### Batching
 
@@ -87,24 +97,6 @@ The sequencer uses environment variables in `component_setting_name` format (low
 |----------|---------|-------------|
 | `batcher_batch_timeout` | `1s` | Maximum time to wait before sealing a batch |
 | `batcher_blocks_per_batch_limit` | `10` | Maximum blocks per batch |
-| `batcher_tx_per_batch_limit` | `10000` | Maximum transactions per batch |
-
-### P2P Network
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `network_enabled` | `false` | Enable devp2p networking |
-| `network_secret_key` | — | 256-bit ECDSA secret key (64 hex chars) |
-| `network_address` | `0.0.0.0` | P2P listen address |
-| `network_port` | `3060` | P2P listen port |
-| `network_boot_nodes` | — | Comma-separated enode URLs for peer discovery |
-
-### Price Oracle
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `external_price_api_client_source` | — | Price source — `Forced` for static pricing |
-| `external_price_api_client_forced_prices__json` | — | JSON map of token address to USD price |
 
 ### Genesis
 
@@ -120,6 +112,7 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `observability_prometheus_port` | `3312` | Prometheus metrics port |
+| `status_server_address` | `0.0.0.0:3071` | Status server address; set a different port on the External Node when both run on one host |
 | `RUST_LOG` | — | Log level filter (e.g. `info`, `debug`, `warn`) |
 
 > Full server configuration reference: [ADI-Stack-Server/node/bin/src/config](https://github.com/ADI-Foundation-Labs/ADI-Stack-Server/tree/main/node/bin/src/config)

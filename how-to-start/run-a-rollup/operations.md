@@ -33,7 +33,8 @@ docker compose \
 |------|---------|-------------|
 | `3050` | Sequencer | L2 JSON-RPC endpoint |
 | `3051` | External Node | L2 JSON-RPC (read replica) |
-| `3060` | Sequencer | P2P network |
+| `3053` | Sequencer | Block replay server used by the External Node |
+| `3054` | External Node | Replay server override to avoid conflict on the same host |
 | `3320` | Sequencer | Prover API (internal) |
 | `3000` | Bridge | dApp Portal / Bridge UI |
 | `3010` | Explorer App | Block Explorer frontend |

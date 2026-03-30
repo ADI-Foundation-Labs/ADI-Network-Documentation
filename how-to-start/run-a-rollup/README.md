@@ -155,15 +155,8 @@ OPERATOR_COMMIT_PK=0x<your-commit-private-key>
 OPERATOR_PROVE_PK=0x<your-prove-private-key>
 OPERATOR_EXECUTE_PK=0x<your-execute-private-key>
 
-# ── Sequencer P2P Network ──────────────────────────
-SEQUENCER_NETWORK_KEY=<64-hex-char-random-key>
-EN_NETWORK_KEY=<64-hex-char-random-key>
-# See "Deriving the enode URL" below for how to get this value
-SEQUENCER_ENODE=enode://<128-hex-char-pubkey>@127.0.0.1:3060
-
 # ── Image Versions ─────────────────────────────────
-SERVER_IMAGE=harbor.sre.ideasoft.io/adi-chain/server:v0.16.0-b1
-EN_IMAGE=harbor.sre.ideasoft.io/adi-chain/external-node:v0.16.0-b1
+SERVER_IMAGE=harbor.sre.ideasoft.io/adi-chain/external-node:v0.13.0-b1
 PROVER_FRI_IMAGE=ghcr.io/matter-labs/zksync-os-prover-fri:v0.7.0
 PROVER_SNARK_IMAGE=ghcr.io/matter-labs/zksync-os-prover-snark:v0.7.0
 EXPLORER_APP_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-app:latest
@@ -191,26 +184,6 @@ Generate random keys with:
 openssl rand -hex 32
 ```
 
-### Deriving the Enode URL
-
-The `SEQUENCER_ENODE` requires the uncompressed secp256k1 public key derived from `SEQUENCER_NETWORK_KEY`. The enode format is:
-
-```
-enode://<128-hex-char-pubkey>@<sequencer-ip>:<sequencer-p2p-port>
-```
-
-Derive it with Python:
-
-```bash
-pip install eciespy
-python3 -c "
-from ecies import utils
-key = utils.generate_key(bytes.fromhex('YOUR_SEQUENCER_NETWORK_KEY'))
-print('enode://' + key.public_key.format(False).hex()[2:] + '@127.0.0.1:3060')
-"
-```
-
-Replace `YOUR_SEQUENCER_NETWORK_KEY` with the value of `SEQUENCER_NETWORK_KEY` from your `.env` file.
 
 ---
 

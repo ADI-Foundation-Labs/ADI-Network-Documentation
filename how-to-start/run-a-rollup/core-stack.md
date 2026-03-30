@@ -46,19 +46,11 @@ services:
     working_dir: /app
     environment:
       # Fee overrides
-      fee_base_fee_override: "0x3e8"
-      fee_pubdata_price_override: "0x1"
-      fee_native_price_override: "0x1"
+      sequencer_base_fee_override: "0x3e8"
+      sequencer_pubdata_price_override: "0x1"
+      sequencer_native_price_override: "0x1"
       sequencer_block_dump_path: "/chain/db/block_dumps"
-
-      # Price oracle
-      external_price_api_client_source: "Forced"
-      external_price_api_client_forced_prices__json: '{"0x0000000000000000000000000000000000000000": 1.0}'
-
-      # P2P network
-      network_enabled: "true"
-      network_secret_key: "${SEQUENCER_NETWORK_KEY}"
-      network_port: "3060"
+      sequencer_block_replay_server_address: "0.0.0.0:3053"
 
       # Storage
       general_rocks_db_path: "/chain/db/node1"
@@ -73,15 +65,13 @@ services:
       genesis_chain_id: ${CHAIN_ID}
 
       # L1 gas
-      l1_sender_max_fee_per_blob_gas: 1000
+      l1_sender_max_fee_per_blob_gas_gwei: 20
 
       # Prover API
-      prover_api_proof_storage_path: "/shared"
-      prover_api_enabled: "true"
+      prover_api_object_store_file_backed_base_path: "/shared"
       prover_api_fake_fri_provers_enabled: "false"
       prover_api_fake_snark_provers_enabled: "false"
       prover_api_address: "0.0.0.0:3320"
-      prover_input_generator_app_bin_unpack_path: "/chain/db/app_bins"
       prover_input_generator_maximum_in_flight_blocks: 120
       prover_api_fri_job_timeout: "1200s"
       prover_api_snark_job_timeout: "1200s"
@@ -95,8 +85,8 @@ services:
       l1_sender_operator_commit_pk: ${OPERATOR_COMMIT_PK}
       l1_sender_operator_prove_pk: ${OPERATOR_PROVE_PK}
       l1_sender_operator_execute_pk: ${OPERATOR_EXECUTE_PK}
-      l1_sender_max_fee_per_gas: 1000
-      l1_sender_max_priority_fee_per_gas: 1000
+      l1_sender_max_fee_per_gas_gwei: 20
+      l1_sender_max_priority_fee_per_gas_gwei: 10
       l1_sender_fusaka_upgrade_timestamp: 0
       l1_sender_pubdata_mode: "Calldata"
 
@@ -110,7 +100,7 @@ services:
   # External Node — syncs from sequencer
   # ─────────────────────────────────────────────
   external-node:
-    image: ${EN_IMAGE}
+    image: ${SERVER_IMAGE}
     container_name: ${CHAIN_SHORT_NAME}-external-node
     restart: unless-stopped
     network_mode: host
@@ -118,26 +108,19 @@ services:
     depends_on: [server]
     environment:
       # EN mode
-      general_node_role: "external"
+      sequencer_block_replay_download_address: "127.0.0.1:3053"
       general_main_node_rpc_url: "http://127.0.0.1:3050"
 
-      # EN network ports (avoid conflicts with sequencer)
+      # EN service ports (avoid conflicts with sequencer)
+      sequencer_block_replay_server_address: "0.0.0.0:3054"
       rpc_address: "0.0.0.0:3051"
-      status_server_address: "0.0.0.0:3072"
+      status_server_address: "0.0.0.0:3073"
       observability_prometheus_port: "3316"
-      private_api_address: "127.0.0.1:8547"
-
-      # P2P
-      network_enabled: "true"
-      network_secret_key: "${EN_NETWORK_KEY}"
-      network_address: "127.0.0.1"
-      network_port: "3061"
-      network_boot_nodes: "${SEQUENCER_ENODE}"
 
       # Fee overrides (must match sequencer)
-      fee_base_fee_override: "0x3E8"
-      fee_pubdata_price_override: "0x1"
-      fee_native_price_override: "0x1"
+      sequencer_base_fee_override: "0x3E8"
+      sequencer_pubdata_price_override: "0x1"
+      sequencer_native_price_override: "0x1"
 
       # Storage
       general_rocks_db_path: "/chain/db/node1"

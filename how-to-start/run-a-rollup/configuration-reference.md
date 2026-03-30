@@ -34,7 +34,7 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `sequencer_block_pubdata_limit_bytes` | `110000` | Pubdata size limit per block |
 | `sequencer_block_dump_path` | `./db/block_dumps` | Path to dump block data for replay |
 | `sequencer_block_replay_server_address` | `0.0.0.0:3053` | Replay server address used by External Nodes |
-| `sequencer_block_replay_download_address` | — | Replay source address; setting this enables External Node mode |
+| `sequencer_block_replay_download_address` | — | Replay source address; setting this enables External Node mode (must include `http://` or `https://`) |
 | `sequencer_fee_collector_address` | `0x3661...c049` | Address that collects transaction fees |
 
 ### Sequencer Fee Overrides
@@ -55,6 +55,7 @@ The sequencer uses environment variables in `component_setting_name` format (low
 | `rpc_max_logs_per_response` | `20000` | Maximum log entries returned per request |
 | `rpc_max_request_size` | `15` | Maximum request payload size (MB) |
 | `rpc_max_response_size` | `24` | Maximum response payload size (MB) |
+| `private_api_address` | `127.0.0.1:8546` | Private API listen address (use a different port for External Nodes on the same host) |
 
 ### L1 Sender
 
@@ -77,7 +78,7 @@ The sequencer uses environment variables in `component_setting_name` format (low
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `prover_api_address` | `0.0.0.0:3124` | Prover API listen address |
+| `prover_api_address` | `0.0.0.0:3320` | Prover API listen address |
 | `prover_api_fake_fri_provers_enabled` | `true` | Use fake FRI provers (set `false` for production) |
 | `prover_api_fake_snark_provers_enabled` | `true` | Use fake SNARK provers (set `false` for production) |
 | `prover_api_fri_job_timeout` | `300s` | Timeout before reassigning a FRI job |

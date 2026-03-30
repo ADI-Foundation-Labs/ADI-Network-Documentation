@@ -126,6 +126,14 @@ adi-rollup/
 mkdir -p adi-rollup && cd adi-rollup
 mkdir -p volumes/{chain,en_chain,shared,prover}
 ```
+## Save `genesis.json`
+
+Place your chain’s `genesis.json` file in the project root so the compose files can mount it into the server containers:
+
+```bash
+# From your chain configs
+cp /path/to/your/chain/configs/genesis.json ./genesis.json
+```
 
 ---
 
@@ -159,11 +167,11 @@ OPERATOR_EXECUTE_PK=0x<your-execute-private-key>
 SERVER_IMAGE=harbor.sre.ideasoft.io/adi-chain/external-node:v0.13.0-b1
 PROVER_FRI_IMAGE=ghcr.io/matter-labs/zksync-os-prover-fri:v0.7.0
 PROVER_SNARK_IMAGE=ghcr.io/matter-labs/zksync-os-prover-snark:v0.7.0
-EXPLORER_APP_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-app:latest
-EXPLORER_API_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-api:latest
-EXPLORER_WORKER_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-worker:latest
-EXPLORER_DATA_FETCHER_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-data-fetcher:latest
-BRIDGE_IMAGE=harbor.sde.adifoundation.ai/adi-chain/bridge:latest
+EXPLORER_APP_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-app:dev
+EXPLORER_API_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-api:dev
+EXPLORER_WORKER_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-worker:dev
+EXPLORER_DATA_FETCHER_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-data-fetcher:dev
+BRIDGE_IMAGE=harbor.sde.adifoundation.ai/adi-chain/bridge:dev
 
 # ── GPU Devices ────────────────────────────────────
 # Run `nvidia-smi -L` to list GPU or MIG instance UUIDs
@@ -177,12 +185,6 @@ EOF
 ```
 
 > **Warning:** Never commit `.env` to version control. It contains private keys and secrets. Use dedicated operator wallets — never use keys holding significant funds.
-
-Generate random keys with:
-
-```bash
-openssl rand -hex 32
-```
 
 
 ---

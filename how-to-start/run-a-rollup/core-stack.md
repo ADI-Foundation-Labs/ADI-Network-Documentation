@@ -40,6 +40,7 @@ services:
   # ─────────────────────────────────────────────
   server:
     image: ${SERVER_IMAGE}
+    user: "0:0"
     container_name: ${CHAIN_SHORT_NAME}-sequencer
     restart: unless-stopped
     network_mode: host
@@ -90,7 +91,7 @@ services:
       l1_sender_fusaka_upgrade_timestamp: 0
       l1_sender_pubdata_mode: "Calldata"
 
-      RUST_LOG: "info"
+      RUST_LOG: "info,zksync_os_server=info,zksync_os_sequencer=info,zksync_os_merkle_tree=info,zksync_os_priority_tree=info"
     volumes:
       - ./volumes/chain:/chain
       - ./volumes/shared:/shared
@@ -101,6 +102,7 @@ services:
   # ─────────────────────────────────────────────
   external-node:
     image: ${SERVER_IMAGE}
+    user: "0:0"
     container_name: ${CHAIN_SHORT_NAME}-external-node
     restart: unless-stopped
     network_mode: host
@@ -108,7 +110,7 @@ services:
     depends_on: [server]
     environment:
       # EN mode
-      sequencer_block_replay_download_address: "127.0.0.1:3053"
+      sequencer_block_replay_download_address: "http://127.0.0.1:3053"
       general_main_node_rpc_url: "http://127.0.0.1:3050"
 
       # EN service ports (avoid conflicts with sequencer)
@@ -125,6 +127,7 @@ services:
       # Storage
       general_rocks_db_path: "/chain/db/node1"
       sequencer_block_dump_path: "/chain/db/block_dumps"
+      prover_api_object_store_file_backed_base_path: "/shared"
 
       # L1 / Genesis
       general_l1_rpc_url: "${L1_RPC_URL}"
@@ -133,7 +136,10 @@ services:
       genesis_genesis_input_path: "/genesis/genesis.json"
       genesis_chain_id: ${CHAIN_ID}
 
-      RUST_LOG: "info"
+      # Private API
+      private_api_address: "127.0.0.1:8547"
+
+      RUST_LOG: "info,zksync_os_server=info,zksync_os_sequencer=info,zksync_os_merkle_tree=info,zksync_os_priority_tree=info"
     volumes:
       - ./volumes/en_chain:/chain
       - ./volumes/shared:/shared

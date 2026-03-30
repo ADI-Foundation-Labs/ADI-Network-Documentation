@@ -68,8 +68,8 @@ services:
       ECTO_USE_SSL: "false"
       POOL_SIZE: "80"
       POOL_SIZE_API: "10"
-      ETHEREUM_JSONRPC_HTTP_URL: http://${RPC_HOST:-172.17.0.1}:${RPC_PORT:-3050}
-      ETHEREUM_JSONRPC_TRACE_URL: http://${RPC_HOST:-172.17.0.1}:${RPC_PORT:-3050}
+      ETHEREUM_JSONRPC_HTTP_URL: http://${RPC_HOST:-host.docker.internal}:${RPC_PORT:-3050}
+      ETHEREUM_JSONRPC_TRACE_URL: http://${RPC_HOST:-host.docker.internal}:${RPC_PORT:-3050}
       ETHEREUM_JSONRPC_TRANSPORT: http
       ETHEREUM_JSONRPC_VARIANT: geth
       CHAIN_ID: ${CHAIN_ID:-444}
@@ -257,6 +257,8 @@ volumes:
 ---
 
 ## Start
+
+> **Note:** The default RPC host is `host.docker.internal`, which works out of the box with the `extra_hosts` entry on Linux and on Docker Desktop for macOS/Windows. If your node runs on a different machine, set `RPC_HOST` and `RPC_PORT` in `.env` and consider an SSH tunnel.
 
 ```bash
 docker compose -f docker-compose.blockscout.yml up -d

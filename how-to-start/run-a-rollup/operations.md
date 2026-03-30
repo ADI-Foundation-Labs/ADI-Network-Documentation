@@ -150,26 +150,3 @@ docker compose restart server
 # Restart the entire core stack
 docker compose down && docker compose up -d
 ```
-
----
-
-## Resetting Data
-
-To wipe all data and start from genesis:
-
-```bash
-# Stop everything
-docker compose down
-docker compose -f docker-compose.infra.yml down
-docker compose -f docker-compose.blockscout.yml down
-
-# Remove volumes
-docker volume prune
-rm -rf volumes/*
-
-# Recreate directories and start
-mkdir -p volumes/{chain,en_chain,shared,prover}
-docker compose up -d
-```
-
-> **Warning:** This is irreversible. All chain state, explorer data, and prover artifacts will be deleted.

@@ -26,11 +26,28 @@ The ADI CLI is a Rust-based tool that manages the full lifecycle of L3 chain dep
 cargo install --git https://github.com/ADI-Foundation-Labs/ADI-CLI
 ```
 
-Optionally generate shell completions:
+Verify the installation:
 
 ```bash
-adi completions --shell zsh > ~/.zfunc/_adi
+adi version
 ```
+
+Optionally generate shell completions:
+
+{% tabs %}
+{% tab title="Zsh" %}
+```bash
+adi completions zsh > ~/.zfunc/_adi
+```
+{% endtab %}
+
+{% tab title="Bash" %}
+```bash
+mkdir -p ~/.local/share/bash-completion/completions/
+adi completions bash > ~/.local/share/bash-completion/completions/adi
+```
+{% endtab %}
+{% endtabs %}
 
 ## Configuration
 
@@ -96,6 +113,12 @@ When `ownership.new_owner` is set:
 * **Address only** — ownership is transferred after deployment. The new owner must run `adi accept` to complete the transfer.
 * **Address + `private_key`** — ownership is transferred and accepted automatically during deployment.
 {% endhint %}
+
+Verify the merged configuration:
+
+```bash
+adi config
+```
 
 ## Deployment Workflow
 

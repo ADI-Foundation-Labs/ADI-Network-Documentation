@@ -37,7 +37,8 @@ Optionally generate shell completions:
 {% tabs %}
 {% tab title="Zsh" %}
 ```bash
-adi completions zsh > ~/.zfunc/_adi
+mkdir -p ~/.oh-my-zsh/completions
+adi completions zsh > ~/.oh-my-zsh/completions/_adi
 ```
 {% endtab %}
 
@@ -45,6 +46,22 @@ adi completions zsh > ~/.zfunc/_adi
 ```bash
 mkdir -p ~/.local/share/bash-completion/completions/
 adi completions bash > ~/.local/share/bash-completion/completions/adi
+```
+{% endtab %}
+{% endtabs %}
+
+Restart your shell to activate:
+
+{% tabs %}
+{% tab title="Zsh" %}
+```bash
+source ~/.zshrc
+```
+{% endtab %}
+
+{% tab title="Bash" %}
+```bash
+source ~/.bashrc
 ```
 {% endtab %}
 {% endtabs %}
@@ -68,7 +85,7 @@ ecosystem:
   chains:
     - name: my-chain
       chain_id: 222
-      prover_mode: no-proofs   # no-proofs (testing) | gpu (production)
+      prover_mode: gpu   # no-proofs (testing) | gpu (production)
       base_token_address: "0x..." # custom gas token address, or omit for ETH
 ```
 
@@ -137,6 +154,9 @@ adi init --chain my-chain
 | `--force` | Overwrite existing ecosystem state          |
 | `--yes`   | Skip confirmation prompts                   |
 
+{% hint style="info" %}
+If you have a single ecosystem and chain configured, the CLI selects them automatically. Otherwise it will prompt you to choose. You can also specify `--chain` explicitly.
+{% endhint %}
 
 Example output:
 
@@ -201,7 +221,7 @@ The funder private key can be provided in three ways (in priority order): `--fun
 
 ```bash
 export ADI_FUNDER_KEY="0x..."
-adi deploy --ecosystem-name my-ecosystem --chain-name my-chain
+adi deploy
 ```
 
 Example output:

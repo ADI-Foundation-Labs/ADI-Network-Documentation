@@ -50,6 +50,7 @@
 ## ADI NETWORK COMPONENTS
 
 * [Overview](adi-network-components/overview.md)
+* [Canonical Bridge](adi-network-components/canonical-bridge.md)
 * [Double Resource Accounting](adi-network-components/double-resource-accounting.md)
 * [Bootloader](adi-network-components/bootloader.md)
 * [Execution Environment](adi-network-components/execution-environment.md)
@@ -58,6 +59,7 @@
 * [System Hooks](adi-network-components/system-hooks.md)
 * [Runner Flow](adi-network-components/runner-flow.md)
 * [Airbender](adi-network-components/airbender.md)
+* [L3 Chains](adi-network-components/l3-chains.md)
 
 ***
 

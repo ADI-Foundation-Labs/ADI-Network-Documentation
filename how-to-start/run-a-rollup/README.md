@@ -164,7 +164,7 @@ OPERATOR_PROVE_PK=0x<your-prove-private-key>
 OPERATOR_EXECUTE_PK=0x<your-execute-private-key>
 
 # ── Image Versions ─────────────────────────────────
-SERVER_IMAGE=harbor-v2.dev.internal.adifoundation.ai/adi-public/chain/server:v0.13.0-b1
+SERVER_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/server:v0.13.0-b1
 PROVER_FRI_IMAGE=ghcr.io/matter-labs/zksync-os-prover-fri:v0.7.0
 PROVER_SNARK_IMAGE=ghcr.io/matter-labs/zksync-os-prover-snark:v0.7.0
 EXPLORER_APP_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/explorer/app:v1.0.0

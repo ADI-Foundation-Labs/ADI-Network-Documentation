@@ -53,7 +53,18 @@
 * [System Hooks](adi-network-components/system-hooks.md)
 * [Runner Flow](adi-network-components/runner-flow.md)
 * [Airbender](adi-network-components/airbender.md)
-* [L3 Chains](adi-network-components/l3-chains.md)
+* [L3 Chains](adi-network-components/l3-chains/overview.md)
+  * [CLI](adi-network-components/l3-chains/cli.md)
+  * [Run a Rollup with Docker Compose](adi-network-components/l3-chains/run-a-rollup/README.md)
+    * [Core Stack](adi-network-components/l3-chains/run-a-rollup/core-stack.md)
+    * [Infrastructure Stack](adi-network-components/l3-chains/run-a-rollup/infrastructure-stack.md)
+    * [Blockscout Explorer](adi-network-components/l3-chains/run-a-rollup/blockscout.md)
+    * [Operations](adi-network-components/l3-chains/run-a-rollup/operations.md)
+    * [Configuration Reference](adi-network-components/l3-chains/run-a-rollup/configuration-reference.md)
+
+## References
+
+* [CLI Configuration](references/cli-configuration.md)
 
 ***
 

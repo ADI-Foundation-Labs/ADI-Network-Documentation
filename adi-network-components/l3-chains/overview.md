@@ -132,7 +132,7 @@ Soft confirmations provide immediate usability. Users can transact with transfer
 
 ## Proving
 
-Both L3 and L2 layers generate validity proofs using the [Airbender](airbender.md) proving system (FRI/STARK → FFLONK SNARK pipeline).
+Both L3 and L2 layers generate validity proofs using the [Airbender](../airbender.md) proving system (FRI/STARK → FFLONK SNARK pipeline).
 
 ### L3 vs L2 Proving
 

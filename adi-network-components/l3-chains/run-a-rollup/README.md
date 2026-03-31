@@ -164,14 +164,14 @@ OPERATOR_PROVE_PK=0x<your-prove-private-key>
 OPERATOR_EXECUTE_PK=0x<your-execute-private-key>
 
 # ── Image Versions ─────────────────────────────────
-SERVER_IMAGE=harbor.sre.ideasoft.io/adi-chain/external-node:v0.13.0-b1
+SERVER_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/server:v0.13.0-b1
 PROVER_FRI_IMAGE=ghcr.io/matter-labs/zksync-os-prover-fri:v0.7.0
 PROVER_SNARK_IMAGE=ghcr.io/matter-labs/zksync-os-prover-snark:v0.7.0
-EXPLORER_APP_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-app:dev
-EXPLORER_API_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-api:dev
-EXPLORER_WORKER_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-worker:dev
-EXPLORER_DATA_FETCHER_IMAGE=harbor.sde.adifoundation.ai/adi-chain/explorer-data-fetcher:dev
-BRIDGE_IMAGE=harbor.sde.adifoundation.ai/adi-chain/bridge:dev
+EXPLORER_APP_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/explorer/app:v1.0.0
+EXPLORER_API_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/explorer/api:v1.0.0
+EXPLORER_WORKER_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/explorer/worker:v1.0.0
+EXPLORER_DATA_FETCHER_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/explorer/data-fetcher:v1.0.0
+BRIDGE_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/bridge:v1.0.0
 
 # ── GPU Devices ────────────────────────────────────
 # Run `nvidia-smi -L` to list GPU or MIG instance UUIDs

@@ -1,5 +1,9 @@
 # ADI Chain Infrastructure & Ecosystem Features
 
+{% hint style="info" %}
+ADI Chain supports a growing ecosystem of compliant institutional and government applications. Browse the full [ADI Ecosystem Map](https://ecosystem.adi.foundation/) to see deployed projects, partners, and interconnected L3 networks.
+{% endhint %}
+
 While $ADI powers the network, the broader ADI Chain infrastructure introduces features that enhance utility and adoption:
 
 #### 1. Stablecoin Rail

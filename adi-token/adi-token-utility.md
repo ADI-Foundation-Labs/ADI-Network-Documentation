@@ -14,4 +14,6 @@ $ADI acts as the settlement currency within the ecosystem, facilitating payments
 
 Token holders can stake $ADI into a treasury-backed pool to earn rewards. This model avoids minting and supports long-term token value preservation.
 
-<br>
+{% hint style="info" %}
+Discover projects, partners, institutional L3s, dApps, and tools built on or connected to ADI Chain in the [ADI Ecosystem Map](https://ecosystem.adi.foundation/).
+{% endhint %}

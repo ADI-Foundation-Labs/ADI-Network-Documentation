@@ -36,6 +36,7 @@
 * [Block explorer](how-to-start/block-explorer.md)
 * [The Bridge](how-to-start/the-bridge.md)
 * [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
+* [Safe on ADI Chain](how-to-start/safe-on-adi-chain.md)
 * [Run Your Own Node](how-to-start/run-your-own-node.md)
 * [Network Contracts](how-to-start/network-contracts.md)
 * [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)

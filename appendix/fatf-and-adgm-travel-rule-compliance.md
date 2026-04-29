@@ -1,3 +1,9 @@
+---
+description: >-
+  Travel Rule compliance responsibilities for L3 operators and ecosystem
+  participants.
+---
+
 # FATF and ADGM Travel Rule Compliance
 
 The Foundation provides blockchain infrastructure and does not itself act as a Virtual Asset Service Provider (VASP) as defined by the Financial Action Task Force (FATF) Recommendation 16 (“Travel Rule”) and the Abu Dhabi Global Market (ADGM) regulatory framework.

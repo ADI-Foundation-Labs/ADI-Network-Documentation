@@ -1,3 +1,7 @@
+---
+description: What MEV is, how it affects users, and how ADI reduces exposure.
+---
+
 # What is MEV? How Can You Avoid It?
 
 When you use the blockchain, you might hear the term **MEV** — it stands for _Maximal Extractable Value_. In simple terms: MEV is the additional value that can be captured by a block-producer (or someone who can influence block ordering) beyond the standard rewards and transaction fees.

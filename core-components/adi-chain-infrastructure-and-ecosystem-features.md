@@ -1,3 +1,9 @@
+---
+description: >-
+  Key infrastructure, stablecoin, interoperability, and L3 features across the
+  ADI ecosystem.
+---
+
 # ADI Chain Infrastructure & Ecosystem Features
 
 {% hint style="info" %}

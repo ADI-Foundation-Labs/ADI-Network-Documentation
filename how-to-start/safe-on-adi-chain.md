@@ -1,3 +1,7 @@
+---
+description: Official Safe interfaces and transaction services for ADI Chain.
+---
+
 # Safe on ADI Chain
 
 ADI Chain supports **Safe** (formerly Gnosis Safe), the leading smart account infrastructure for secure multi-signature and account abstraction setups.

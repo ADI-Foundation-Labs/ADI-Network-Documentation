@@ -1,3 +1,9 @@
+---
+description: >-
+  How to verify official channels and avoid phishing, scam sites, and fake
+  support.
+---
+
 # Protect Yourself From Imposters
 
 Fraudsters target new ecosystems with cloned sites, fake support desks, and social accounts that look real. The guidelines below help you stay safe when interacting with the network.

@@ -1,3 +1,7 @@
+---
+description: How to run a read-only ADI external node and monitor sync.
+---
+
 # Run Your Own Node
 
 The [ADI Stack Setup repository](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script) provides a one-command setup for running an ADI (external) node (ZK rollup follower) plus two helper sidecars:
@@ -7,7 +11,7 @@ The [ADI Stack Setup repository](https://github.com/ADI-Foundation-Labs/ADI-Stac
 * `proof-sync`: periodically syncs proving artifacts from the foundation-hosted Azure Blob storage into your local `<chain>_data/db/shared`.
 
 {% hint style="warning" %}
-What it does **not** do:&#x20;
+What it does **not** do:
 
 * It does not generate new proofs or participate as a validator/sequencer. It locally replays and verifies the chain state and serves RPC for your own queries. Proofs are downloaded, not produced.
 * It does not enable passing new transactions to the network currently, serving only as a read-only node

@@ -1,6 +1,10 @@
+---
+description: Mainnet L1 core, bridge, and infrastructure contract addresses.
+---
+
 # Network Contracts
 
-This page contains the key L1 contracts for `mainnet`.&#x20;
+This page contains the key L1 contracts for `mainnet`.
 
 ### L1 Core Contracts
 

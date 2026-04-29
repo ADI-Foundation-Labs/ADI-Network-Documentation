@@ -1,3 +1,7 @@
+---
+description: Access the ADI whitepaper and audit whitepaper.
+---
+
 # Whitepaper
 
 {% embed url="https://drive.google.com/file/d/1HcZUaGvEbDjdFYL8T-GKPegVA8mBvGwy/view?usp=sharing" %}

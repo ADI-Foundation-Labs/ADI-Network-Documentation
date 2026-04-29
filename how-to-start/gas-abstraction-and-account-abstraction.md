@@ -1,3 +1,9 @@
+---
+description: >-
+  Supported account abstraction paths, paymaster options, and deployed entry
+  points.
+---
+
 # Gas Abstraction & Account Abstraction
 
 You can leverage either native EVM flows or overlay ERC-4337-style account abstraction.
@@ -18,7 +24,7 @@ For both paths, we recommend auditing as a final step.
 
 Using [Pimlico](https://docs.pimlico.io/) + `permissionless.js` gives you a fully functional smart-account and paymaster stack on any EVM-compatible network, including zkOS.
 
-We recommend using the battle-tested [Pimlico Bundler](https://docs.pimlico.io/references/bundler).&#x20;
+We recommend using the battle-tested [Pimlico Bundler](https://docs.pimlico.io/references/bundler).
 
 {% hint style="info" %}
 **Note**: at time of writing, the Bundler does not work in safe mode due to missing `debug_trace` support on the RPC, therefore other bundlers will likely also not work if they require safe mode by default.

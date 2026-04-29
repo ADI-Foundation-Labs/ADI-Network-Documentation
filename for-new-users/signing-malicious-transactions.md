@@ -1,3 +1,7 @@
+---
+description: How to spot malicious transactions and reduce wallet signing risk.
+---
+
 # Signing Malicious Transactions
 
 ### Why You Should Care About Spoof / Malicious Transactions

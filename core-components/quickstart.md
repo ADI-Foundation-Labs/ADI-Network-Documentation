@@ -1,3 +1,7 @@
+---
+description: Overview of the modular zkEVM framework that powers ADI Chain.
+---
+
 # Development Engine
 
 A modular zkEVM framework, based on the zkSync stack, powers ADI’s scalability, security, and Ethereum equivalence.

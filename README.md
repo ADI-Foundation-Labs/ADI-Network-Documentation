@@ -1,3 +1,7 @@
+---
+description: ADI Chain's mission, vision, and role in compliant onchain infrastructure.
+---
+
 # ADI's Mission & Vision
 
 If you’re reading this, you’re likely familiar with the profound impact blockchain technology has made on the global financial industry over the past decade - as well as blockchain’s immense potential to serve as the rails for the future of finance.

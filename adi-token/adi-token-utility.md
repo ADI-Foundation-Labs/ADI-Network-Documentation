@@ -1,3 +1,7 @@
+---
+description: Core utility, gas, settlement, and staking roles of the ADI token.
+---
+
 # ADI Token Utility
 
 The $ADI token is the core utility token of the ADI Chain ecosystem, designed to support both Web3-native and enterprise-grade use cases. Its functions are explicitly tied to network operations and ecosystem incentives:

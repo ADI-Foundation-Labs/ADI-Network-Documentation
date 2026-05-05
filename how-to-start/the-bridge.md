@@ -249,11 +249,13 @@ Each step in this waterfall is irreversible and verifiable on-chain:
 
 ### Batch Phases in Detail
 
-| Phase | Function | What Happens | State After |
-|-------|----------|-------------|-------------|
-| **Commit** | `commitBatchesSharedBridge()` | Batch data posted to L1. L2 system logs validated (timestamps, priority ops hash, L2→L1 message root). DA proof checked. | `totalBatchesCommitted++` |
-| **Prove** | `proveBatchesSharedBridge()` | ZK proof verified on-chain. Proof covers state transition from previous batch commitment to current. | `totalBatchesVerified++` |
-| **Execute** | `executeBatchesSharedBridge()` | Batch finalized. L2→L1 logs root stored in `l2LogsRootHashes[batchNumber]`. Priority operations marked as processed. Withdrawals become claimable. | `totalBatchesExecuted++` |
+| Phase | Function | What Happens | State After | Avg. Gas |
+|-------|----------|-------------|-------------|----------|
+| **Commit** | `commitBatchesSharedBridge()` | Batch data posted to L1. L2 system logs validated (timestamps, priority ops hash, L2→L1 message root). DA proof checked. | `totalBatchesCommitted++` | ~136,000 |
+| **Prove** | `proveBatchesSharedBridge()` | ZK proof verified on-chain. Proof covers state transition from previous batch commitment to current. | `totalBatchesVerified++` | ~494,000 |
+| **Execute** | `executeBatchesSharedBridge()` | Batch finalized. L2→L1 logs root stored in `l2LogsRootHashes[batchNumber]`. Priority operations marked as processed. Withdrawals become claimable. | `totalBatchesExecuted++` | ~117,000 |
+
+Gas figures are measured against the L1 settlement layer; the same call pattern applies at any settlement boundary, so the magnitudes are broadly representative.
 
 Withdrawals cannot be claimed until the batch completes all three phases. Attempting to claim before execution reverts with `LocalRootIsZero` (batch not yet executed) or returns a null proof (batch not yet committed).
 

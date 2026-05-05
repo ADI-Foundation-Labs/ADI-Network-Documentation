@@ -307,3 +307,16 @@ Multiple wallets are required to operate an L3 chain. Each serves a specific rol
 | Prove Operator   | Submits validity proofs     | L2 Native token (ADI) for gas |
 | Execute Operator | Executes verified batches   | L2 Native token (ADI) for gas |
 | Governor         | Protocol governance         | Minimal (infrequent use)      |
+
+## Average Gas per Settlement Stage
+
+Approximate gas consumed by each stage of the settlement flow:
+
+| Stage   | Avg. Gas     |
+| ------- | ------------ |
+| Commit  | ~136,000     |
+| Prove   | ~494,000     |
+| Execute | ~117,000     |
+| **Total** | **~747,000** |
+
+Figures are measured against the L1 settlement layer; the same call pattern applies at any settlement boundary, so the magnitudes are broadly representative.

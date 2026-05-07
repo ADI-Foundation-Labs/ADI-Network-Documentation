@@ -37,7 +37,7 @@ $$
 $$
 
 <figure>
-  <img src="../.gitbook/assets/gas-model-l2-economy.png" alt="L2 transaction revenue vs L1 batch sealing">
+  <img src="../.gitbook/assets/adi-gas-model.png" alt="L2 transaction revenue vs L1 batch sealing">
   <figcaption><p>Each L2 transaction's <code>gas × baseFee</code> revenue, collected across a batch,
 must cover the three L1 transactions (commit / approve / execute) that seal it.</p></figcaption>
 </figure>
@@ -60,11 +60,11 @@ and each is a **gravity point** that pulls the price with a different weight.
   <figcaption><p>Live <code>baseFee</code> drifting between its three anchors over a measurement window.</p></figcaption>
 </figure>
 
-| Base fee anchors               | Definition                                    | Role                                                 | Weight |
-| ------------------------------ | --------------------------------------------- | ---------------------------------------------------- | :----: |
-| `feeUsable` (Usability target) | Theoretical "sane" fee from typical use cases | Stable center, the dominant anchor                   |  1/2   |
-| `feeL1Max` (Soft MAX)          | L1 gas price converted to L2 scale            | L1-aligned profitable ceiling                        |  1/3   |
-| `feeBreakEven` (Soft MIN)      | L2 break-even fee (see below)                 | Noisiest input, soft pull toward profitability floor |  1/6   |
+| Base fee anchors               | Definition                                    | Role                | Weight |
+| ------------------------------ | --------------------------------------------- | ------------------- | :----: |
+| `feeUsable` (Usability target) | Theoretical "sane" fee from typical use cases | Stable center       |  1/2   |
+| `feeL1Max` (Soft MAX)          | L1 gas price converted to L2 scale            | Profitable ceiling  |  1/3   |
+| `feeBreakEven` (Soft MIN)      | L2 break-even fee (noisiest metric)           | Profitability floor |  1/6   |
 
 In normal conditions, we'd expect:
 

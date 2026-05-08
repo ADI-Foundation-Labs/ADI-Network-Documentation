@@ -78,6 +78,11 @@ not hard limits, and why the formula gravitates toward a geometric mean rather t
 
 ### `feeUsable`: theoretical sane fee
 
+{% hint style="success" %}
+**Definition.** The usability target is the gas price that makes typical transactions cost
+what we think a user should pay (about $0.004 for a native transfer, $0.012 for an ERC-20 transfer, and so on).
+{% endhint %}
+
 We curate a basket of 16 representative on-chain operations, each tagged with a typical gas cost
 and a target USD cost the user should pay for it. For each operation, we solve for the gas price
 that hits its target, then take a weighted average across the basket:
@@ -116,7 +121,9 @@ This is the most stable input to `feeMid` and therefore carries the largest weig
 
 ### `feeL1Max`: soft maximum
 
-We define the “maximum fee” as the **L1 chain's gas price** converted to L2 scale.:
+{% hint style="success" %}
+**Definition.** The soft maximum is the L1 chain's gas price converted to L2 scale.
+{% endhint %}
 
 $$
 \text{feeL1Max} = \frac{\text{L1 gas price}}{\text{adiEthRatio}}
@@ -177,13 +184,14 @@ The exponents sum to 1 (1/6 + 1/3 + 1/2), giving:
 
 {% tabs %}
 {% tab title="Derivation of the exponents" %}
-We start from a plain geometric mean of three components, but use a **cold-start-adjusted** break-even instead of the raw value:
+We start from a plain geometric mean of three components, but use a **cold-start-adjusted** break-even
+instead of the raw value:
 
 $$
 \text{feeMid}_{L2} = \sqrt[3]{\text{feeBreakEvenAdjusted} \cdot \text{feeL1Max} \cdot \text{feeUsable}}
 $$
 
-The adjustment scales `feeBreakEven` toward `feeUsable` to dampen cold-start spikes (see [Cold Start](#cold-start-handling)):
+The adjustment scales `feeBreakEven` toward `feeUsable` to dampen cold-start spikes (see [Cold Start](#cold-start)):
 
 $$
 \text{feeBreakEvenAdjusted}_{L2} = \sqrt{\text{feeBreakEven} \cdot \text{feeUsable}}
@@ -201,7 +209,7 @@ Distributing exponents collapses to the boxed form above with weights 1/6, 1/3, 
 
 <figure><img src="../.gitbook/assets/gas-model-fee-impact.png" alt="baseFee, baseMin, baseMax, baseMid statistics"><figcaption><p>Last / Min / Max for the live <code>baseFee</code> and the three anchor series.</p></figcaption></figure>
 
-## Cold Start Handling
+## Cold Start
 
 <figure><img src="../.gitbook/assets/gas-model-cold-start.png" alt="Cold start basefee growth"><figcaption><p>With near-zero TPS, raw <code>feeBreakEven</code> grows without bound.</p></figcaption></figure>
 
@@ -277,13 +285,6 @@ $$
 ## Final `baseFee` Formula
 
 Combining gravity, corrected demand, and the geometric center:
-
-$$
-\begin{aligned}
-\text{baseFee}_{t+1} \;=\; & \text{baseFee}_t \cdot \left(1 + k \cdot \min\!\left(\frac{\text{baseFee}}{\text{feeMid}}, \frac{\text{feeMid}}{\text{baseFee}}\right)^{p=1|2} \cdot \left(\frac{\text{gasUsed}}{\text{gasTarget}} - 1\right)\right) \\
-& + \; g \cdot (\text{feeMid} - \text{baseFee}_t)
-\end{aligned}
-$$
 
 {% tabs %}
 {% tab title="Formula" %}

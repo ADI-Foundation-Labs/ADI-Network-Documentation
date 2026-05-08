@@ -182,6 +182,8 @@ The exponents sum to 1 (1/6 + 1/3 + 1/2), giving:
 * `feeBreakEven` ≈ 17% of the weight. Smallest because it is the noisiest input.
   Its job is to softly pull the price toward break-even when economics demand it, without overpowering the more stable anchors.
 
+<figure><img src="../.gitbook/assets/gas-model-fee-impact.png" alt="baseFee, baseMin, baseMax, baseMid statistics"><figcaption><p>Last / Min / Max for the live <code>baseFee</code> and the three anchor series.</p></figcaption></figure>
+
 {% tabs %}
 {% tab title="Derivation of the exponents" %}
 We start from a plain geometric mean of three components, but use a **cold-start-adjusted** break-even
@@ -207,9 +209,7 @@ Distributing exponents collapses to the boxed form above with weights 1/6, 1/3, 
 {% endtab %}
 {% endtabs %}
 
-<figure><img src="../.gitbook/assets/gas-model-fee-impact.png" alt="baseFee, baseMin, baseMax, baseMid statistics"><figcaption><p>Last / Min / Max for the live <code>baseFee</code> and the three anchor series.</p></figcaption></figure>
-
-## Cold Start
+### Cold Start
 
 <figure><img src="../.gitbook/assets/gas-model-cold-start.png" alt="Cold start basefee growth"><figcaption><p>With near-zero TPS, raw <code>feeBreakEven</code> grows without bound.</p></figcaption></figure>
 
@@ -224,7 +224,7 @@ $$
 The square root with a stable companion compresses extreme values into a workable range, and the further reduction
 to a 1/6 weight inside `feeMid` finishes the job.
 
-## Why No Hard Caps
+### Why No Hard Caps
 
 We deliberately avoid `if-else` branches around the corner cases. Instead, the price gravitates slowly toward `feeMid`,
 which behaves well in every extreme:

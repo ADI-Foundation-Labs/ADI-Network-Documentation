@@ -327,3 +327,14 @@ the result is clipped to ±10% of the previous value:
 $$
 \text{baseFee}^{\text{clipped}}_{\text{new}} = \min\!\bigl(1.1 \cdot \text{baseFee}_{\text{old}}, \; \max\!\bigl(0.9 \cdot \text{baseFee}_{\text{old}}, \; \text{baseFee}_{\text{new}}\bigr)\bigr)
 $$
+
+## Fee Adjusting Logic
+
+Fee adjusting logic happens continuously: it observes recent L1 gas prices, evaluates the formula above,
+and propagates the resulting `baseFee` into the chain. Updates run as often as the system allows,
+so the price tracks L1 movement and demand shifts smoothly rather than in discrete jumps.
+
+<figure>
+  <img src="../.gitbook/assets/gas-model-fee-adjusting.png" alt="Fee-adjusting flow">
+  <figcaption><p>Read L1 gas prices, compute the next <code>baseFee</code>, apply it to the chain.</p></figcaption>
+</figure>

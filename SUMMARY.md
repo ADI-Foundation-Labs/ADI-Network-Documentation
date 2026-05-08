@@ -18,6 +18,7 @@
 * [Shared Incentives](core-components/shared-incentives.md)
 * [Opportunities for Key Stakeholders](core-components/opportunities-for-key-stakeholders.md)
 * [ADI Chain Infrastructure & Ecosystem Features](core-components/adi-chain-infrastructure-and-ecosystem-features.md)
+* [Gas Model](core-components/gas-model.md)
 
 ## ADI Token
 
@@ -54,7 +55,6 @@
 * [System Hooks](adi-network-components/system-hooks.md)
 * [Runner Flow](adi-network-components/runner-flow.md)
 * [Airbender](adi-network-components/airbender.md)
-* [Gas Model](adi-network-components/gas-model.md)
 * [L3 Chains](adi-network-components/l3-chains/overview.md)
   * [CLI](adi-network-components/l3-chains/cli.md)
   * [Run a Rollup with Docker Compose](adi-network-components/l3-chains/run-a-rollup/README.md)

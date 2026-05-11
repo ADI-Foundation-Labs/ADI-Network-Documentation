@@ -2,7 +2,7 @@
 description: Get connected to ADI Network Mainnet
 ---
 
-# ADI Network Mainnet Details
+# ADI Mainnet
 
 <a href="https://adi-foundation-labs.github.io/adi-mainnet-connect/connect.html" class="button primary" data-icon="wallet">Add ADI Network to Wallet</a>
 

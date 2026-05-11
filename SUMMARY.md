@@ -4,6 +4,21 @@
 
 * [ADI's Mission & Vision](README.md)
 
+## ADI Networks
+
+* [ADI Mainnet](adi-networks/adi-mainnet.md)
+* [ADI Testnet](adi-networks/adi-testnet.md)
+
+## HOW TO START
+
+* [Quickstart](how-to-start/quickstart.md)
+* [Block explorer](how-to-start/block-explorer.md)
+* [The Bridge](how-to-start/the-bridge.md)
+* [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
+* [Safe on ADI Chain](how-to-start/safe-on-adi-chain.md)
+* [Run Your Own Node](how-to-start/run-your-own-node.md)
+* [Network Contracts](how-to-start/network-contracts.md)
+
 ## For New Users
 
 * [Signing Malicious Transactions](for-new-users/signing-malicious-transactions.md)
@@ -29,18 +44,6 @@
 * [Appendix A - Technical Deep Dive](appendix/appendix-a-technical-deep-dive.md)
 * [Appendix B - Governance](appendix/appendix-b-governance.md)
 * [FATF and ADGM Travel Rule Compliance](appendix/fatf-and-adgm-travel-rule-compliance.md)
-
-## HOW TO START
-
-* [ADI Network Mainnet Details](how-to-start/adi-network-mainnet-details.md)
-* [Block explorer](how-to-start/block-explorer.md)
-* [The Bridge](how-to-start/the-bridge.md)
-* [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
-* [Safe on ADI Chain](how-to-start/safe-on-adi-chain.md)
-* [Run Your Own Node](how-to-start/run-your-own-node.md)
-* [Network Contracts](how-to-start/network-contracts.md)
-* [ADI Network Testnet Details](how-to-start/adi-network-testnet-details.md)
-* [ADI Network Testnet Quickstart](how-to-start/adi-network-testnet-quickstart.md)
 
 ## ADI NETWORK COMPONENTS
 

@@ -2,9 +2,9 @@
 description: Getting starting developing with ADI Network Testnet
 ---
 
-# ADI Network Testnet Quickstart
+# Quickstart
 
-You can use all standard EVM tooling for ADI Network Testnet. You can find instructions for bridging testnet ADI and ETH to the ADI Network Testnet in the [Network Details](adi-network-testnet-details.md) page.
+You can use all standard EVM tooling for ADI Network Testnet. You can find instructions for bridging testnet ADI and ETH to the ADI Network Testnet in the [Network Details](../adi-networks/adi-testnet.md) page.
 
 To get started with Foundry or Hardhat, follow the steps below:
 

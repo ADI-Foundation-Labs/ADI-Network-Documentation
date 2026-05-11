@@ -4,7 +4,7 @@ description: Base fee calculation in the ADI economics
 
 # Gas Model
 
-ADI gas economics is built around a single goal: an L2 base fee that is **sane** for users,
+ADI gas economics is built around a single goal: an L2 base fee that is **reasonable** for users,
 **competitive** with L1, and **profitable** for the chain, all at the same time.
 
 This page walks through the anchors and block-to-block dynamics that produce the [final `baseFee` formula](#final-basefee-formula).
@@ -23,13 +23,14 @@ $$
 \text{txFee} = \text{L2 gas} \times \text{baseFee}
 $$
 
-ADI's approach is intentionally generic: each transaction's `gas × baseFee` is what stands against the chain's system
-spending across a batch. There is no separate line item for L1 pubdata
-(the bytes the transaction commits to the L1 state diff); pubdata cost is implicitly accounted for inside the gas.
+ADI's approach is intentionally generic: each transaction's `gas × baseFee` is what pays for the chain's costs
+over a batch. There is no separate charge for L1 pubdata (the bytes the transaction writes to the L1 state diff);
+the pubdata cost is already included in the gas.
 *The entire economics lives in `baseFee`.*
 
 {% hint style="success" %}
-**Profitability rule.** Across a sealed batch, the total L2 fees must cover the L1 sealing cost plus infrastructure spending.
+**Profitability rule.** The total fees from all L2 transactions in a batch cover the L1 batch cost
+and the infrastructure cost.
 {% endhint %}
 
 $$
@@ -57,9 +58,9 @@ as long as the price is reasonable (proportional to EVM ops, proving, verifying,
   <figcaption><p>Read L1 gas prices, compute the next <code>baseFee</code>, apply it to the chain.</p></figcaption>
 </figure>
 
-Fee adjusting logic happens continuously: it observes recent L1 gas prices, evaluates the formula above,
-and propagates the resulting `baseFee` into the chain. Updates run as often as the system allows,
-so the price tracks L1 movement and demand shifts smoothly rather than in discrete jumps.
+Fee adjusting logic runs continuously: it reads recent L1 gas prices, evaluates the gas model formula,
+and applies the new `baseFee` to the chain. Updates run as often as the system allows,
+so the price tracks L1 movement and demand shifts smoothly.
 
 ## Three Pricing Anchors
 
@@ -73,7 +74,7 @@ and each is a **gravity point** that pulls the price with a different weight.
 
 | Base fee anchors               | Definition                                    | Role / Weight       | Weight |
 | ------------------------------ | --------------------------------------------- | ------------------- | :----: |
-| `feeUsable` (Usability target) | Theoretical "sane" fee from typical use cases | Stable center       |  1/2   |
+| `feeUsable` (Usability target) | Reasonable fee for typical operations         | Stable center       |  1/2   |
 | `feeL1Max` (Soft MAX)          | L1 gas price converted to L2 scale            | Profitable ceiling  |  1/3   |
 | `feeBreakEven` (Soft MIN)      | L2 break-even fee (noisiest metric)           | Profitability floor |  1/6   |
 
@@ -87,15 +88,15 @@ In practice, the break-even price can exceed the L1-derived cap (`min > max`), f
 when there aren't enough transactions to cover the chain's expenses. This is why the anchors are **gravity points**,
 not hard limits, and why the formula gravitates toward a geometric mean rather than clipping.
 
-### `feeUsable`: theoretical sane fee
+### `feeUsable`: reasonable fee for typical operations
 
 {% hint style="success" %}
 **Definition.** The usability target is the gas price that makes typical transactions cost
 what we think a user should pay (about $0.004 for a native transfer, $0.012 for an ERC-20 transfer, and so on).
 {% endhint %}
 
-We curate a basket of 16 representative on-chain operations, each tagged with a typical gas cost
-and a target USD cost the user should pay for it. For each operation, we solve for the gas price
+We curate a basket of 16 representative on-chain "typical" user operations, each tagged with a typical gas cost
+and a **target USD cost** the user should pay for it. For each operation, we solve for the gas price
 that hits its target, then take a weighted average across the basket:
 
 $$
@@ -106,11 +107,11 @@ $$
 \text{feeUsable} = \sum_{i=1}^{n} \frac{\text{price}_i \cdot \text{weight}_i}{n}
 $$
 
-The example of a basket in the operator config:
+The example of a basket of typical user operations and target prices:
 
 {% tabs %}
 {% tab title="Basket" %}
-| Operation            |    Gas | Target cost (USD) | Weight |
+| Typical operation    |    Gas | Target cost (USD) | Weight |
 | -------------------- | -----: | ----------------: | :----: |
 | `native_transfer`    | 21,000 |             0.004 |   1    |
 | `erc20_approve`      | 45,000 |             0.008 |   1    |
@@ -119,7 +120,7 @@ The example of a basket in the operator config:
 
 {% tab title="Source" %}
 ```typescript
-export const DEFAULT_BASEMAX_OPERATIONS: BaseMaxOperation[] = [
+export const DEFAULT_TYPICAL_OPERATIONS: TypicalOperation[] = [
   { operationType: "native_transfer",         gasUsed:  21_000, targetCostUsd: 0.004, weight: 1 },
   { operationType: "erc20_approve",           gasUsed:  45_000, targetCostUsd: 0.008, weight: 1 },
   { operationType: "erc20_transferFrom",      gasUsed:  65_000, targetCostUsd: 0.012, weight: 1 },
@@ -166,7 +167,7 @@ $$
 \text{infraCost}_{batch} = \frac{\text{infraCost}_{year} \cdot \text{avgBatchTime}_{sec} \cdot 10^{18}_{wei}}{31{,}536{,}000_{sec} \cdot \text{ethPriceUsd}}
 $$
 
-`feeBreakEven` is a useful starting point but has well-known rough edges:
+`feeBreakEven` is a useful starting point, but it has some known issues:
 
 {% hint style="warning" %}
 **Corner cases.**
@@ -245,8 +246,8 @@ which behaves well in every extreme:
 * The geometric average can't drag the price into a permanent loss zone, because `feeUsable` and `feeL1Max` keep pulling.
 
 The `min > max` case is essentially a low-TPS edge case. We want to raise the base fee,
-but not so much that we destroy user economics. Gravitating toward `mid = ∛(min · max · usable)`
-strikes that balance and removes the need for explicit branches.
+but not so much that the chain becomes too expensive for users. Gravitating toward `mid = ∛(min · max · usable)`
+keeps the balance and removes the need for explicit branches.
 
 ## Two-Spring Dynamics
 
@@ -287,7 +288,7 @@ $$
 k_g = \min\!\left(\frac{\text{baseFee}}{\text{feeMid}}, \; \frac{\text{feeMid}}{\text{baseFee}}\right)^{p=1|2}
 $$
 
-Now, just let’s substitute the `k_g` and `util` terms in the `baseFee` equation:
+Now, let's substitute the `k_g` and `util` terms in the `baseFee` equation:
 
 $$
 k_g \cdot (\text{util} - 1) = \min\!\left(\frac{\text{baseFee}}{\text{feeMid}}, \; \frac{\text{feeMid}}{\text{baseFee}}\right)^{p=1|2} \cdot \left(\frac{\text{gasUsed}}{\text{gasTarget}} - 1\right)

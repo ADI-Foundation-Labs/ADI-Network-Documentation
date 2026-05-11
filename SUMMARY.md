@@ -9,7 +9,7 @@
 * [ADI Mainnet](adi-networks/adi-mainnet.md)
 * [ADI Testnet](adi-networks/adi-testnet.md)
 
-## HOW TO START
+## How to Start
 
 * [Quickstart](how-to-start/quickstart.md)
 * [Block explorer](how-to-start/block-explorer.md)

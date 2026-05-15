@@ -197,7 +197,7 @@ The exponents sum to 1 (1/6 + 1/3 + 1/2), giving:
 <figure><img src="../.gitbook/assets/gas-model-fee-impact.png" alt="baseFee, baseMin, baseMax, baseMid statistics"><figcaption><p>Last / Min / Max for the live <code>baseFee</code> and the three anchor series.</p></figcaption></figure>
 
 {% tabs %}
-{% tab title="Derivation of the exponents" %}
+{% tab title="Derivation of the Exponents" %}
 We start from a plain geometric mean of three components, but use a **cold-start-adjusted** break-even
 instead of the raw value:
 
@@ -219,10 +219,8 @@ $$
 
 Distributing exponents collapses to the boxed form above with weights 1/6, 1/3, 1/2.
 {% endtab %}
-{% endtabs %}
 
-### Cold Start
-
+{% tab title="Cold Start" %}
 <figure><img src="../.gitbook/assets/gas-model-cold-start.png" alt="Cold start basefee growth"><figcaption><p>With near-zero TPS, raw <code>feeBreakEven</code> grows without bound.</p></figcaption></figure>
 
 At cold start `feeBreakEven` can reach 20,000,000,000 gwei or more.
@@ -235,6 +233,8 @@ $$
 
 The square root with a stable companion compresses extreme values into a workable range, and the further reduction
 to a 1/6 weight inside `feeMid` finishes the job.
+{% endtab %}
+{% endtabs %}
 
 ### Why No Hard Caps
 

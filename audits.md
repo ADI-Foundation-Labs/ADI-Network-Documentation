@@ -1,3 +1,7 @@
+---
+description: This page contains published reports on audits for ADI Chain
+---
+
 # Audits
 
 Find below completed public audit reports:

@@ -70,3 +70,4 @@
 ***
 
 * [Whitepaper](whitepaper.md)
+* [Audits](audits.md)

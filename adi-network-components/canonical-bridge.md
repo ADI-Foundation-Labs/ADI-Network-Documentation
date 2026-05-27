@@ -256,7 +256,7 @@ flowchart TD
     A[L1 NTV bridgeBurn — encode metadata] --> B{Token exists on L2?}
     B -->|Yes| F[bridgeMint to recipient]
     B -->|No| C[_deployBridgedToken]
-    C --> D[ContractDeployer.create2 — deploy BeaconProxy]
+    C --> D[CREATE2 — deploy BeaconProxy]
     D --> E[bridgeInitialize — set name, symbol, decimals]
     E --> F
 
@@ -272,32 +272,24 @@ The same process works in reverse: if an L2-native token is bridged to L1, the L
 
 Bridged token addresses are fully deterministic — given the same inputs, the same token will always deploy to the same address on any chain.
 
-**On L2 (ZKsync CREATE2)**:
-```
-address = keccak256(
-    keccak256("zksyncCreate2") ||
-    L2NTV (0x10004) ||
-    salt ||
-    L2_TOKEN_PROXY_BYTECODE_HASH ||
-    keccak256(abi.encode(beaconAddress, ""))
-)
-```
+Both L1 and L2 use the standard EVM CREATE2 formula:
 
-**On L1 (Standard CREATE2)**:
 ```
 address = keccak256(
     0xff ||
-    L1NTV ||
+    NTV ||
     salt ||
-    keccak256(BeaconProxy.creationCode + abi.encode(beacon, ""))
+    keccak256(BeaconProxy.creationCode || abi.encode(beaconAddress, ""))
 )
 ```
 
-The **salt** depends on token origin:
-- From L1 to L2: `bytes32(uint256(uint160(l1TokenAddress)))` — the address padded to 32 bytes
-- From other chains: `keccak256(abi.encode(originChainId, tokenAddress))`
+- `NTV` — the Native Token Vault deploying the proxy: `L1NativeTokenVault` on L1, `0x10004` on L2.
+- `beaconAddress` — the `UpgradeableBeacon` for `BridgedStandardERC20` (same on every chain in the ecosystem).
+- `salt` depends on which chain the token is native to:
+  - L1-native token — `bytes32(uint256(uint160(tokenAddress)))`, the L1 address left-padded to 32 bytes.
+  - Token native to any non-L1 chain (e.g. a different L2 in the ecosystem) — `keccak256(abi.encode(originChainId, tokenAddress))`. Origin chain id is folded in so addresses don't collide across origins.
 
-This means the same L1 token deployed across multiple L2 chains within the same ecosystem will have **identical L2 addresses**.
+Because the L2 deployer (`0x10004`), beacon, and salt are reproducible across any chain in the ecosystem, the same L1 token bridged to multiple L2 chains lands at **identical L2 addresses**.
 
 ### Return Trip: No New Deployment
 

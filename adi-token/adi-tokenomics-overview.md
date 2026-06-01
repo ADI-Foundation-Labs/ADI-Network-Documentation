@@ -14,3 +14,7 @@ Genesis supply: 999,999,999
 
 \
 Note: During the first year, tokens unlock monthly on the 9th of each month.
+
+#### ADI Tokenomics Paper
+
+{% embed url="https://drive.google.com/file/d/1UQ9DpMXCPHmY2I_SPNEFgbl2r2SBSX2M/view?usp=sharing" %}

@@ -23,6 +23,7 @@
 
 * [ADI Token Utility](adi-token/adi-token-utility.md)
 * [ADI Tokenomics Overview](adi-token/adi-tokenomics-overview.md)
+* [ADI Tokenomics Paper](adi-token/adi-tokenomics-paper.md)
 
 ## Appendix
 

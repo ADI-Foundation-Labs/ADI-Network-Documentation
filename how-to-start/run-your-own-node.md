@@ -4,6 +4,12 @@ description: How to run a read-only ADI external node and monitor sync.
 
 # Run Your Own Node
 
+{% hint style="success" %}
+External node version v0.13.0-b2 has been released on 3-June-2026
+
+_It is backwards compatible with previous versions and contains minor fixes that improve resilience and stability when running against reth Ethereum nodes_
+{% endhint %}
+
 The [ADI Stack Setup repository](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script) provides a one-command setup for running an ADI (external) node (ZK rollup follower) plus two helper sidecars:
 
 * `external_node`: replays L2 blocks from the canonical main node, maintains local state/RPC, and serves JSON-RPC + status/metrics.

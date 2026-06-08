@@ -52,10 +52,18 @@ To manually add ADI Network Testnet as a custom network in your wallet, follow t
       <td><strong>Faucet</strong></td>
       <td><a href="http://faucet.ab.testnet.adifoundation.ai/">http://faucet.ab.testnet.adifoundation.ai/</a></td>
     </tr>
+    <tr>
+      <td><strong>Bridgehub</strong></td>
+      <td><a href="https://sepolia.etherscan.io/address/0xFd3cE61C65dDd1039e6e9e07FB6D6e16388d1cc7"><code>0xFd3cE61C65dDd1039e6e9e07FB6D6e16388d1cc7</code></a></td>
+    </tr>
+    <tr>
+      <td><strong>Asset Router</strong></td>
+      <td><a href="https://sepolia.etherscan.io/address/0x5BA5B3a62745cD4eC5a59A22c988b2Dc2ae06573"><code>0x5BA5B3a62745cD4eC5a59A22c988b2Dc2ae06573</code></a></td>
+    </tr>
   </tbody>
 </table>
 
-\*You can also access the RPC through [Alchemy](https://dashboard.alchemy.com/?utm_source=chain_partner\&utm_medium=referral\&utm_campaign=adi)
+\*You can also access the RPC through [Alchemy](https://dashboard.alchemy.com/?utm_source=chain_partner&utm_medium=referral&utm_campaign=adi)
 
 ### Get Testnet funds for your wallet.
 
@@ -70,7 +78,7 @@ You can use the [The Bridge](https://bridge.ab.testnet.adifoundation.ai/) to bri
 {% hint style="warning" %}
 What is not supported currently:
 
-* ERC-7702
-* ERC-4844
-* `debug_traceCall` RPC call with custom tracers
-{% endhint %}
+- ERC-7702
+- ERC-4844
+- `debug_traceCall` RPC call with custom tracers
+  {% endhint %}

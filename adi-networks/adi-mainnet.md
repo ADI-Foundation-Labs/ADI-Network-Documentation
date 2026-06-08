@@ -54,16 +54,16 @@ To manually add ADI Network Mainnet as a custom network in your wallet, follow t
     </tr>
     <tr>
       <td><strong>Bridgehub</strong></td>
-      <td><code>0xcf1c73439c85f7eb9d4439daf398fd6392d176e6</code></td>
+      <td><a href="https://etherscan.io/address/0xcf1c73439c85f7eb9d4439daf398fd6392d176e6"><code>0xcf1c73439c85f7eb9d4439daf398fd6392d176e6</code></a></td>
     </tr>
     <tr>
       <td><strong>Asset Router</strong></td>
-      <td><code>0x47eec6f57c7e84391ba6c9ac976537d0db0bb257</code></td>
+      <td><a href="https://etherscan.io/address/0x47eec6f57c7e84391ba6c9ac976537d0db0bb257"><code>0x47eec6f57c7e84391ba6c9ac976537d0db0bb257</code></a></td>
     </tr>
   </tbody>
 </table>
 
-\*You can also access the RPC through [Alchemy](https://dashboard.alchemy.com/?utm_source=chain_partner\&utm_medium=referral\&utm_campaign=adi)
+\*You can also access the RPC through [Alchemy](https://dashboard.alchemy.com/?utm_source=chain_partner&utm_medium=referral&utm_campaign=adi)
 
 #### Bridging ADI and ETH
 
@@ -74,7 +74,7 @@ You can use the [Bridge](https://bridge.adifoundation.ai/) to bridge ADI and ETH
 {% hint style="warning" %}
 What is not supported currently:
 
-* ERC-7702
-* ERC-4844
-* `debug_traceCall` RPC call with custom tracers
-{% endhint %}
+- ERC-7702
+- ERC-4844
+- `debug_traceCall` RPC call with custom tracers
+  {% endhint %}

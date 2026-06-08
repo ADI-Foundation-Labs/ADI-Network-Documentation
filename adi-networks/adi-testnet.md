@@ -54,11 +54,11 @@ To manually add ADI Network Testnet as a custom network in your wallet, follow t
     </tr>
     <tr>
       <td><strong>Bridgehub</strong></td>
-      <td><a href="https://etherscan.io/address/0xFd3cE61C65dDd1039e6e9e07FB6D6e16388d1cc7"><code>0xFd3cE61C65dDd1039e6e9e07FB6D6e16388d1cc7</code></a></td>
+      <td><a href="https://sepolia.etherscan.io/address/0xFd3cE61C65dDd1039e6e9e07FB6D6e16388d1cc7"><code>0xFd3cE61C65dDd1039e6e9e07FB6D6e16388d1cc7</code></a></td>
     </tr>
     <tr>
       <td><strong>Asset Router</strong></td>
-      <td><a href="https://etherscan.io/address/0x5BA5B3a62745cD4eC5a59A22c988b2Dc2ae06573"><code>0x5BA5B3a62745cD4eC5a59A22c988b2Dc2ae06573</code></a></td>
+      <td><a href="https://sepolia.etherscan.io/address/0x5BA5B3a62745cD4eC5a59A22c988b2Dc2ae06573"><code>0x5BA5B3a62745cD4eC5a59A22c988b2Dc2ae06573</code></a></td>
     </tr>
   </tbody>
 </table>

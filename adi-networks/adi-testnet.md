@@ -52,6 +52,14 @@ To manually add ADI Network Testnet as a custom network in your wallet, follow t
       <td><strong>Faucet</strong></td>
       <td><a href="http://faucet.ab.testnet.adifoundation.ai/">http://faucet.ab.testnet.adifoundation.ai/</a></td>
     </tr>
+    <tr>
+      <td><strong>Bridgehub</strong></td>
+      <td><code>0xFd3cE61C65dDd1039e6e9e07FB6D6e16388d1cc7</code></td>
+    </tr>
+    <tr>
+      <td><strong>Asset Router</strong></td>
+      <td><code>0x5BA5B3a62745cD4eC5a59A22c988b2Dc2ae06573</code></td>
+    </tr>
   </tbody>
 </table>
 

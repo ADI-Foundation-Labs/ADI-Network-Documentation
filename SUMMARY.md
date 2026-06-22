@@ -28,7 +28,7 @@
 ## Core Components
 
 * [Development Engine](core-components/quickstart.md)
-* [ZKSync: foundation of the stack](core-components/publish-your-docs.md)
+* [zkSync: foundation of the stack](core-components/publish-your-docs.md)
 * [Onramping Institutions and Governments](core-components/onramping-institutions-and-governments.md)
 * [Shared Incentives](core-components/shared-incentives.md)
 * [Opportunities for Key Stakeholders](core-components/opportunities-for-key-stakeholders.md)

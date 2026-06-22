@@ -22,7 +22,7 @@ For both paths, we recommend auditing as a final step.
 
 #### ERC-4337 via Pimlico & `permissionless.js`
 
-Using [Pimlico](https://docs.pimlico.io/) + `permissionless.js` gives you a fully functional smart-account and paymaster stack on any EVM-compatible network, including zkOS.
+Using [Pimlico](https://docs.pimlico.io/) + `permissionless.js` gives you a fully functional smart-account and paymaster stack on any EVM-compatible network, including zkSync OS.
 
 We recommend using the battle-tested [Pimlico Bundler](https://docs.pimlico.io/references/bundler).
 

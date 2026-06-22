@@ -4,14 +4,14 @@ description: Introduction to ADI Network
 
 # Overview
 
-**ADI Network**, utilizing the ZKsync stack and based on two complementary pillars: \
+**ADI Network**, utilizing the zkSync stack and based on two complementary pillars:\
 \
-[**ZKsync Airbender**](airbender.md), a next-generation proof system and a modular execution layer based on the ZKsync OS stack.
+[**zkSync Airbender**](airbender.md), a next-generation proof system and a modular execution layer based on the zkSync OS stack.
 
 In this section, we will deep dive into the ADI Network execution layer.
 
 {% hint style="warning" %}
-The ADI network and ZKsync OS are under active development; you can track the updates for [**ZKsync OS**](https://docs.zksync.io/zksync-protocol/zksyncos/overview) here.&#x20;
+The ADI network and zkSync OS are under active development; you can track the updates for [**zkSync OS**](https://docs.zksync.io/zksync-protocol/zksyncos/overview) here.
 {% endhint %}
 
 ### ADI Network: The Execution Layer

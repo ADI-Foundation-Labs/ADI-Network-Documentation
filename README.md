@@ -12,7 +12,7 @@ While ADI Chain was developed to co-write the next chapter of financial history,
 
 The ADI Foundation’s goal is to play a major role in leveling this playing field by bringing one billion people onchain in emerging markets by 2030 with the launch of ADI Chain.
 
-ADI Chain is a modular, highly performant, customizable, and cost-effective Layer-2 (L2) blockchain secured by Ethereum. Built on ZKsync’s Atlas and Airbender stacks, ADI Chain executes transactions off-chain, verifies them via zero-knowledge validity proofs, and finalizes on Ethereum — combining high throughput with L1-grade security.
+ADI Chain is a modular, highly performant, customizable, and cost-effective Layer-2 (L2) blockchain secured by Ethereum. Built on zkSync OS and the Airbender proving system, ADI Chain executes transactions off-chain, verifies them via zero-knowledge validity proofs, and finalizes on Ethereum — combining high throughput with L1-grade security.
 
 ADI Chain is EVM-compatible, allowing developers to deploy Ethereum smart contracts and dApps with minimal modifications, while benefiting from dramatically lower fees and faster finality.
 

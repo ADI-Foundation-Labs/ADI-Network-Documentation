@@ -4,12 +4,12 @@ description: Introduction to Airbender
 
 # Airbender
 
-* ZKsync Airbender is a new ZK proof system.
-* [**ADI Network**](overview.md) utilized an **“operating system”** based on ZKsync O&#x53;**.**
+* zkSync Airbender is a new ZK proof system.
+* [**ADI Network**](overview.md) utilizes an execution layer based on **zkSync OS**.
 
 ### What is Airbender?
 
-Airbender is ZKsync's next-generation proof system, purpose-built to enable efficient ZK proofs of RISC-V bytecode execution. Built on the foundation of highly optimized STARK/FRI implementations, Airbender is designed to support long-term scaling strategy by being fast, cheap, and flexible to a wide range of use cases (without compromising security).
+Airbender is zkSync's next-generation proof system, purpose-built to enable efficient ZK proofs of RISC-V bytecode execution. Built on the foundation of highly optimized STARK/FRI implementations, Airbender is designed to support long-term scaling strategy by being fast, cheap, and flexible across a wide range of use cases without compromising security.
 
 ### Key Features
 

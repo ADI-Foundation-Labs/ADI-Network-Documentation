@@ -12,6 +12,10 @@ An L3 chain is a Layer 3 ZK rollup that settles on the ADI Chain (L2), which its
 L3 chains inherit security guarantees from both the ADI Chain (L2) and Ethereum Mainnet (L1) through validity proofs at each layer.
 {% endhint %}
 
+{% hint style="warning" %}
+The public ADI Mainnet RPC endpoint enforces strict rate limits. For L3 deployments we use IP whitelisting: send us the IP addresses of your operator infrastructure and we will add them to the RPC whitelist.
+{% endhint %}
+
 **Settlement hierarchy:**
 
 ```mermaid

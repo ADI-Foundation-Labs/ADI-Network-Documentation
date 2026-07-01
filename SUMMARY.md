@@ -69,6 +69,7 @@
 
 ## References
 
+* [JSON-RPC API](references/json-rpc-api.md)
 * [CLI Configuration](references/cli-configuration.md)
 
 ***

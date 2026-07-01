@@ -1,0 +1,180 @@
+---
+description: >-
+  The JSON-RPC methods served by the ADI Sequencer - the Ethereum-compatible
+  namespaces plus the zks extensions, including the finality API.
+---
+
+# JSON-RPC API
+
+The node serves everything over one JSON-RPC endpoint: `https://rpc.ab.testnet.adifoundation.ai/` for Testnet and `https://rpc.testnet.adifoundation.ai/` for Mainnet.
+
+Most of it is plain Ethereum JSON-RPC, so ethers, viem, web3.js and Foundry all work without any special handling. On top of that there are two extra namespaces: `zks` for the rollup-specific bits (bridge addresses, L2->L1 proofs, finality) and `ots` for the Otterscan explorer.
+
+Every call is a normal JSON-RPC 2.0 POST:
+
+```bash
+curl -s -X POST -H 'Content-Type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
+  https://rpc.ab.testnet.adifoundation.ai
+```
+
+## What's available
+
+| Namespace | What it covers |
+| --------- | -------------- |
+| `eth`     | The usual chain / state / transaction methods, log filters, and WebSocket subscriptions. |
+| `zks`     | Rollup extras - contract addresses, L2->L1 log proofs, genesis, block metadata, and the [finality API](#finality). |
+| `debug`   | Raw block/header/receipt bytes and transaction/block tracing. |
+| `ots`     | Otterscan support: block details, transaction search, contract creator, internal ops. |
+| `net`     | Network id. |
+| `web3`    | Client version and `keccak256`. |
+
+## eth
+
+Standard Ethereum JSON-RPC, grouped by what you'd use it for.
+
+| Group | Methods |
+| ----- | ------- |
+| Chain & state | `eth_chainId`, `eth_blockNumber`, `eth_syncing`, `eth_gasPrice`, `eth_maxPriorityFeePerGas`, `eth_feeHistory`, `eth_getBalance`, `eth_getCode`, `eth_getStorageAt`, `eth_getTransactionCount` |
+| Blocks & headers | `eth_getBlockByHash`, `eth_getBlockByNumber`, `eth_getBlockReceipts`, `eth_getBlockTransactionCountByHash` / `ByNumber`, `eth_getHeaderByHash` / `ByNumber` |
+| Transactions | `eth_getTransactionByHash`, `eth_getTransactionReceipt`, `eth_getTransactionByBlockHashAndIndex`, `eth_getTransactionByBlockNumberAndIndex`, `eth_getTransactionBySenderAndNonce`, `eth_getRawTransactionByHash` |
+| Execution | `eth_call`, `eth_estimateGas` |
+| Submitting | `eth_sendRawTransaction`, `eth_sendRawTransactionSync` |
+| Filters | `eth_newFilter`, `eth_newBlockFilter`, `eth_newPendingTransactionFilter`, `eth_getFilterChanges`, `eth_getFilterLogs`, `eth_getLogs`, `eth_uninstallFilter` |
+| Subscriptions (WebSocket) | `eth_subscribe` / `eth_unsubscribe` for `newHeads`, `logs`, `newPendingTransactions`, `syncing` |
+
+### Block tags
+
+The three block tags line up with the rollup's path to L1:
+
+| Tag | Points at |
+| --- | --------- |
+| `latest`    | the newest block the sequencer has sealed |
+| `safe`      | the newest block committed to L1 |
+| `finalized` | the newest block whose batch has been executed on L1 |
+
+## zks
+
+The rollup-specific methods.
+
+| Method | What it returns |
+| ------ | --------------- |
+| `zks_getBridgehubContract` | Address of the L1 Bridgehub contract. |
+| `zks_getBytecodeSupplierContract` | Address of the bytecode supplier contract. |
+| `zks_getL2ToL1LogProof` | Merkle proof for an L2->L1 log, by tx hash and log index. `null` until the batch is executed on L1. |
+| `zks_getGenesis` | The chain's genesis input. |
+| `zks_getBlockMetadataByNumber` | Extended metadata for an L2 block. |
+| `zks_getBlockFinality` | Finality of a block - see [below](#finality). |
+| `zks_getTransactionFinality` | Finality of a transaction. |
+| `zks_getBatchFinality` | Finality of an L1 batch. |
+| `zks_getFinalityStatus` | Every finality frontier the node tracks, in one call. |
+
+## Finality
+
+Blocks don't become final the moment they're produced - they're sealed by the sequencer, later committed to L1, and finally executed on L1. The finality methods let you ask exactly where something sits in that journey, whether you're pointing at a block, a transaction, or a whole batch.
+
+The three stages, least to most final:
+
+| Stage | JSON | Meaning | Matches tag |
+| ----- | ---- | ------- | ----------- |
+| Pending   | `"pending"`   | sealed by the sequencer, not yet on L1 | `latest` |
+| Committed | `"committed"` | committed to L1 | `safe` |
+| Executed  | `"executed"`  | executed on L1 - fully final | `finalized` |
+
+{% hint style="info" %}
+A batch and its blocks can only be linked once the batch is **executed** on L1 (the same rule `zks_getL2ToL1LogProof` follows). So `batchNumber` on a block/transaction lookup, and `blockNumber` on a batch lookup, stay `null` until execution - then they fill in.
+{% endhint %}
+
+### The response shape
+
+`zks_getBlockFinality`, `zks_getTransactionFinality` and `zks_getBatchFinality` all return the same object:
+
+| Field | Type | Notes |
+| ----- | ---- | ----- |
+| `stage` | string | `"pending"`, `"committed"` or `"executed"`. |
+| `blockNumber` | number \| null | The L2 block - the one you asked for, the transaction's block, or (for a batch) the batch's last block. Only filled in for a batch once it's executed. |
+| `batchNumber` | number \| null | The L1 batch the block/transaction landed in, or the batch you asked about. Only filled in for a block/transaction once it's executed. |
+
+### zks\_getBlockFinality
+
+Finality of a block, by number or tag. `null` if the node doesn't have that block.
+
+```bash
+curl -s -X POST -H 'Content-Type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"zks_getBlockFinality","params":["0x10"],"id":1}' \
+  https://rpc.ab.testnet.adifoundation.ai
+```
+
+```json
+{"jsonrpc":"2.0","id":1,"result":{"stage":"executed","blockNumber":16,"batchNumber":1}}
+```
+
+### zks\_getTransactionFinality
+
+Finality of a transaction, by hash. `null` if the node hasn't seen it.
+
+```bash
+curl -s -X POST -H 'Content-Type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"zks_getTransactionFinality","params":["0xabc...def"],"id":1}' \
+  https://rpc.ab.testnet.adifoundation.ai
+```
+
+```json
+{"jsonrpc":"2.0","id":1,"result":{"stage":"committed","blockNumber":42,"batchNumber":null}}
+```
+
+The block is committed but not executed yet, which is why `batchNumber` is still `null`.
+
+### zks\_getBatchFinality
+
+Finality of an L1 batch, by number. Anything past the committed frontier comes back as `pending`. This one always returns an object - never `null`.
+
+```bash
+curl -s -X POST -H 'Content-Type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"zks_getBatchFinality","params":[3],"id":1}' \
+  https://rpc.ab.testnet.adifoundation.ai
+```
+
+```json
+{"jsonrpc":"2.0","id":1,"result":{"stage":"executed","blockNumber":55,"batchNumber":3}}
+```
+
+Once the batch is executed, `blockNumber` is its last L2 block.
+
+### zks\_getFinalityStatus
+
+Every frontier the node is tracking, in a single call. Handy for a dashboard or a sync check - no params needed.
+
+```bash
+curl -s -X POST -H 'Content-Type: application/json' \
+  --data '{"jsonrpc":"2.0","method":"zks_getFinalityStatus","params":[],"id":1}' \
+  https://rpc.ab.testnet.adifoundation.ai
+```
+
+```json
+{"jsonrpc":"2.0","id":1,"result":{"lastSealedBlock":368727,"lastCommittedBlock":368691,"lastCommittedBatch":11881,"lastExecutedBlock":368691,"lastExecutedBatch":11881}}
+```
+
+| Field | Meaning | Tag |
+| ----- | ------- | --- |
+| `lastSealedBlock` | newest block the sequencer sealed | `latest` |
+| `lastCommittedBlock` | newest block committed to L1 | `safe` |
+| `lastCommittedBatch` | newest batch committed to L1 | - |
+| `lastExecutedBlock` | newest block whose batch executed on L1 | `finalized` |
+| `lastExecutedBatch` | newest batch executed on L1 | - |
+
+## debug
+
+Transaction and block tracing: `debug_traceBlockByHash`, `debug_traceBlockByNumber`, `debug_traceTransaction`, `debug_traceCall`.
+
+## ots
+
+Otterscan explorer support: `ots_getApiLevel`, `ots_hasCode`, `ots_getHeaderByNumber`, `ots_getBlockDetails`, `ots_getBlockDetailsByHash`, `ots_getBlockTransactions`, `ots_searchTransactionsBefore`, `ots_searchTransactionsAfter`, `ots_getTransactionBySenderAndNonce`.
+
+## net and web3
+
+| Method | Returns |
+| ------ | ------- |
+| `net_version` | Network (chain) id, as a decimal string. |
+| `web3_clientVersion` | Client version string. |
+| `web3_sha3` | Keccak-256 of the input data. |

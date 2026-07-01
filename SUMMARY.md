@@ -70,6 +70,7 @@
 ## References
 
 * [CLI Configuration](references/cli-configuration.md)
+* [Changelog](references/changelog.md)
 
 ***
 

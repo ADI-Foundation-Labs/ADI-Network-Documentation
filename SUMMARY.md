@@ -69,6 +69,8 @@
 
 ## References
 
+* [JSON-RPC API](references/json-rpc-api/README.md)
+  * [Finality](references/json-rpc-api/finality.md)
 * [CLI Configuration](references/cli-configuration.md)
 
 ***

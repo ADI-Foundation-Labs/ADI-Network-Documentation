@@ -27,6 +27,11 @@ L1 watcher hardening.
 * **l1-watcher** - leave 2 confirmation blocks unprocessed, matching the upgrade watcher's behavior, to avoid `block range extends beyond current head block` errors.
 * **tests** - add the missing private API server config and bind it to a dynamically allocated port.
 
+**Images**
+
+* `harbor.sde.adifoundation.ai/adi-public/chain/external-node@v0.13.0-b4`
+* `harbor.sde.adifoundation.ai/adi-public/chain/server@v0.13.0-b4`
+
 ## [v0.13.0-b3](https://github.com/ADI-Foundation-Labs/ADI-Stack-Server/releases/tag/v0.13.0-b3)
 
 _2026-06-11_

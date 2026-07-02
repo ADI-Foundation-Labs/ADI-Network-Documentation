@@ -1,11 +1,20 @@
 ---
 description: >-
-  Release history for the ADI Server - the node behind ADI's sequencer and external nodes.
+  Release history for the ADI Server - the node behind ADI's sequencer and
+  external nodes.
 ---
 
 # Changelog
 
-Release notes for the ADI Server, newest first. These betas track upstream `v0.13.0` of Matter Labs' [zksync-os-server](https://github.com/matter-labs/zksync-os-server), with ADI-specific features and fixes layered on top.
+### Deployed versions
+
+| Component      | Mainnet version | Testnet version |
+| -------------- | --------------- | --------------- |
+| Protocol       | `v0.30.1`       | `v0.30.1`       |
+| Sequencer      | `v0.13.0-b1`    | `v0.13.0-b4`    |
+| External nodes | `v0.13.0-b4`    | `v0.13.0-b4`    |
+
+### Release notes
 
 ## [v0.13.0-b4](https://github.com/ADI-Foundation-Labs/ADI-Stack-Server/releases/tag/v0.13.0-b4)
 

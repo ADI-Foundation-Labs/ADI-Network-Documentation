@@ -11,7 +11,7 @@ description: >-
 | Component      | Mainnet version | Testnet version |
 | -------------- | --------------- | --------------- |
 | Protocol       | `v0.30.1`       | `v0.30.1`       |
-| Sequencer      | `v0.13.0-b1`    | `v0.13.0-b4`    |
+| Sequencer      | `v0.13.0-b4`    | `v0.13.0-b4`    |
 | External nodes | `v0.13.0-b4`    | `v0.13.0-b4`    |
 
 ### Release notes
@@ -40,7 +40,7 @@ The `zks` finality RPC and ADI-native CI/CD.
 
 **Features**
 
-* **rpc(finality)** - add `zks_getBlockFinality`, `zks_getTransactionFinality`, `zks_getBatchFinality`, and `zks_getFinalityStatus`, reporting how far a block, transaction, or batch has moved through L1 finality (`pending` -> `committed` -> `executed`), plus a single-call snapshot of every finality frontier. See the [JSON-RPC API](json-rpc-api.md#finality).
+* **rpc(finality)** - add `zks_getBlockFinality`, `zks_getTransactionFinality`, `zks_getBatchFinality`, and `zks_getFinalityStatus`, reporting how far a block, transaction, or batch has moved through L1 finality (`pending` -> `committed` -> `executed`), plus a single-call snapshot of every finality frontier. See the [JSON-RPC API](https://github.com/ADI-Foundation-Labs/ADI-Network-Documentation/blob/main/references/json-rpc-api.md#finality).
 
 **CI/CD**
 

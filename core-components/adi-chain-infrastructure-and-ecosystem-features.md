@@ -32,4 +32,8 @@ ADI Chain is designed to support scalable, compliant L3s for use cases such as:
 
 These domains benefit from the security and performance of ADI Chain while leveraging $ADI for gas and settlement.
 
-<br>
+#### 4. Trusted AI Agent Infrastructure
+
+ADI Chain supports trusted, verifiable AI agents through the ERC-8004 registry layer for identity, reputation, and validation.
+
+For the full architecture, deployed contracts, and institutional design considerations, see [AI Agents Infrastructure on ADI Chain](ai-agent-infrastructure.md).

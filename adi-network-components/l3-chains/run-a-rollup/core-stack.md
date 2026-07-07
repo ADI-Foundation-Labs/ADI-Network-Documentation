@@ -11,7 +11,7 @@ The core stack runs the **Sequencer** (block production), **External Node** (rea
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
 sequenceDiagram
-    participant L1 as Ethereum L1
+    participant L1 as Settlement Layer
     participant SEQ as Sequencer
     participant EN as External Node
     participant FRI as FRI Prover
@@ -27,7 +27,7 @@ sequenceDiagram
     SEQ->>L1: commit → prove → execute
 ```
 
----
+***
 
 ## Docker Compose
 
@@ -56,7 +56,8 @@ services:
       # Storage
       general_rocks_db_path: "/chain/db/node1"
 
-      # L1 connection
+      # Settlement-layer connection
+      # For L3s on ADI, L1_RPC_URL points to ADI Chain.
       general_l1_rpc_url: "${L1_RPC_URL}"
 
       # Genesis
@@ -129,7 +130,7 @@ services:
       sequencer_block_dump_path: "/chain/db/block_dumps"
       prover_api_object_store_file_backed_base_path: "/shared"
 
-      # L1 / Genesis
+      # Settlement layer / Genesis
       general_l1_rpc_url: "${L1_RPC_URL}"
       genesis_bridgehub_address: "${BRIDGEHUB_ADDRESS}"
       genesis_bytecode_supplier_address: "${BYTECODE_SUPPLIER_ADDRESS}"
@@ -212,7 +213,45 @@ services:
               capabilities: [gpu]
 ```
 
----
+### Public RPC tuning
+
+The default watcher settings target local development against a local reth node. They are too aggressive for most public RPC endpoints.
+
+Set these values on the sequencer and any external nodes that talk to a public settlement RPC:
+
+```yaml
+l1_watcher_poll_interval: "2s"
+l1_watcher_max_blocks_to_process: 10
+```
+
+Defaults are `100ms` and `1000`. Keep those only for local development.
+
+### Multi-VM deployments
+
+This sample is single-host only. It uses `depends_on` and `127.0.0.1` addresses.
+
+For a multi-VM layout, start the sequencer first. Wait until this succeeds:
+
+```bash
+curl -s -X POST http://<seq-ip>:3050 \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}'
+```
+
+Then start the RPC nodes. External nodes need both of these sequencer endpoints before they can sync:
+
+```yaml
+sequencer_block_replay_download_address: "http://<seq-ip>:3053"
+general_main_node_rpc_url: "http://<seq-ip>:3050"
+```
+
+Open ports `3050` and `3053` between hosts.
+
+{% hint style="warning" %}
+`restart: unless-stopped` is the right default for transient RPC outages such as upstream `502` responses. If startup is failing with `429` rate limits, set `restart: "no"` until your outbound IP is allowlisted. Restore `restart: unless-stopped` after allowlisting.
+{% endhint %}
+
+***
 
 ## Start
 

@@ -32,6 +32,7 @@ ecosystem:
   l1_network: sepolia
 
   # Settlement layer RPC endpoint
+  # For L3s on ADI, this is ADI Chain.
   # Anvil: http://host.docker.internal:8545
   # ADI Testnet: https://rpc.ab.testnet.adifoundation.ai
   rpc_url: https://rpc.ab.testnet.adifoundation.ai
@@ -56,7 +57,8 @@ ecosystem:
       # false: calldata (L3 settling on L2)
       blobs: false
 
-      # Custom ERC20 token for gas payments (omit for native ETH)
+      # Custom ERC20 token for gas payments on the settlement layer
+      # Omit this to use ADI as the gas token
       # base_token_address: "0x..."
       # base_token_price_nominator: 1
       # base_token_price_denominator: 1
@@ -111,6 +113,10 @@ gas_multiplier: 200
 #   image_tag: "latest"
 ```
 
+{% hint style="info" %}
+For L3 chains, `ecosystem.rpc_url` points to your settlement layer. For deployments on ADI, that means ADI Chain. If `base_token_address` is omitted, ADI is the gas token. To use a custom token, set `base_token_address` before `adi init`.
+{% endhint %}
+
 ## Config Resolution Priority
 
 Config file sources are mutually exclusive — only one file is loaded:
@@ -126,25 +132,25 @@ Override sources are always applied on top:
 
 ## Environment Variables
 
-| Variable | Purpose |
-| --- | --- |
-| `ADI_FUNDER_KEY` | Private key (hex) of the wallet that funds ecosystem wallets |
-| `ADI_PRIVATE_KEY` | Private key (hex) for accepting ownership as new owner |
-| `ADI_RPC_URL` | Settlement layer RPC endpoint |
-| `ADI_EXPLORER_URL` | Block explorer API URL for contract verification |
-| `ADI_EXPLORER_API_KEY` | Block explorer API key |
-| `ADI_CONFIG` | Path to an alternative config file |
-| `ADI__PROTOCOL_VERSION` | Default protocol version |
-| `ADI__TOOLKIT__IMAGE_TAG` | Override Docker image tag |
-| `ADI_OPERATOR` | Operator address (PRECOMMITTER, COMMITTER, REVERTER) |
-| `ADI_PROVE_OPERATOR` | Prove operator address (PROVER) |
-| `ADI_EXECUTE_OPERATOR` | Execute operator address (EXECUTOR) |
-| `AWS_ACCESS_KEY_ID` | AWS access key for S3 state sync |
-| `AWS_SECRET_ACCESS_KEY` | AWS secret key for S3 state sync |
-| `ADI__S3__ENABLED` | Enable S3 sync (`true`/`false`) |
-| `ADI__S3__TENANT_ID` | Tenant identifier for S3 key prefix |
-| `ADI__S3__BUCKET` | S3 bucket name |
-| `RUST_LOG` | Logging verbosity: `error`, `warn`, `info`, `debug`, `trace` |
+| Variable                  | Purpose                                                      |
+| ------------------------- | ------------------------------------------------------------ |
+| `ADI_FUNDER_KEY`          | Private key (hex) of the wallet that funds ecosystem wallets |
+| `ADI_PRIVATE_KEY`         | Private key (hex) for accepting ownership as new owner       |
+| `ADI_RPC_URL`             | Settlement layer RPC endpoint                                |
+| `ADI_EXPLORER_URL`        | Block explorer API URL for contract verification             |
+| `ADI_EXPLORER_API_KEY`    | Block explorer API key                                       |
+| `ADI_CONFIG`              | Path to an alternative config file                           |
+| `ADI__PROTOCOL_VERSION`   | Default protocol version                                     |
+| `ADI__TOOLKIT__IMAGE_TAG` | Override Docker image tag                                    |
+| `ADI_OPERATOR`            | Operator address (PRECOMMITTER, COMMITTER, REVERTER)         |
+| `ADI_PROVE_OPERATOR`      | Prove operator address (PROVER)                              |
+| `ADI_EXECUTE_OPERATOR`    | Execute operator address (EXECUTOR)                          |
+| `AWS_ACCESS_KEY_ID`       | AWS access key for S3 state sync                             |
+| `AWS_SECRET_ACCESS_KEY`   | AWS secret key for S3 state sync                             |
+| `ADI__S3__ENABLED`        | Enable S3 sync (`true`/`false`)                              |
+| `ADI__S3__TENANT_ID`      | Tenant identifier for S3 key prefix                          |
+| `ADI__S3__BUCKET`         | S3 bucket name                                               |
+| `RUST_LOG`                | Logging verbosity: `error`, `warn`, `info`, `debug`, `trace` |
 
 Override any config value using the `ADI__` prefix with double underscores as path separators:
 
@@ -200,7 +206,7 @@ Set credentials via `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`.
 
 These fields still work but will be removed in a future release:
 
-| Field | Replacement |
-| --- | --- |
+| Field                 | Replacement                                             |
+| --------------------- | ------------------------------------------------------- |
 | Top-level `ownership` | `ecosystem.ownership` or `ecosystem.chains[].ownership` |
-| Top-level `operators` | `ecosystem.chains[].operators` |
+| Top-level `operators` | `ecosystem.chains[].operators`                          |

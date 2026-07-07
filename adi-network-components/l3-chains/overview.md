@@ -13,7 +13,7 @@ L3 chains inherit security guarantees from both the ADI Chain (L2) and Ethereum 
 {% endhint %}
 
 {% hint style="warning" %}
-The public ADI Mainnet RPC endpoint enforces strict rate limits. For L3 deployments we use IP whitelisting: send us the IP addresses of your operator infrastructure and we will add them to the RPC whitelist.
+The mainnet RPC at `https://rpc.adifoundation.ai/` enforces per-IP rate limits for L3 traffic. If sequencer startup hits HTTP `429` with Cloudflare `1015`, send us the outbound IPs of your operator infrastructure for allowlisting. Testnet `https://rpc.ab.testnet.adifoundation.ai/` does not enforce these limits.
 {% endhint %}
 
 **Settlement hierarchy:**
@@ -316,11 +316,11 @@ Multiple wallets are required to operate an L3 chain. Each serves a specific rol
 
 Approximate gas consumed by each stage of the settlement flow:
 
-| Stage   | Avg. Gas     |
-| ------- | ------------ |
-| Commit  | ~136,000     |
-| Prove   | ~494,000     |
-| Execute | ~117,000     |
-| **Total** | **~747,000** |
+| Stage     | Avg. Gas      |
+| --------- | ------------- |
+| Commit    | \~136,000     |
+| Prove     | \~494,000     |
+| Execute   | \~117,000     |
+| **Total** | **\~747,000** |
 
 Figures are measured against the L1 settlement layer; the same call pattern applies at any settlement boundary, so the magnitudes are broadly representative.

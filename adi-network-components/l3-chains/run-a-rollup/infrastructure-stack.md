@@ -1,6 +1,5 @@
 ---
-description: >-
-  Deploy the Block Explorer and Bridge for your ADI Rollup.
+description: Deploy the Block Explorer and Bridge for your ADI Rollup.
 ---
 
 # Infrastructure Stack
@@ -24,7 +23,7 @@ graph LR
     style PG fill:#f5a623,stroke:#d4911e,color:#000
 ```
 
----
+***
 
 ## Docker Compose
 
@@ -216,7 +215,11 @@ volumes:
     name: ${CHAIN_SHORT_NAME:-myrollup}_explorer_db_data
 ```
 
----
+{% hint style="info" %}
+The bridge UI defaults to showing the settlement layer's base token. In this example, that is ADI. To bridge custom ERC20 tokens, add them to the `tokens` array in `RUNTIME_CONFIG`, or use `requestL2TransactionTwoBridges` directly.
+{% endhint %}
+
+***
 
 ## Start
 
@@ -226,10 +229,10 @@ docker compose -f docker-compose.infra.yml up -d
 
 ## Verify
 
-| Service | URL | What to Expect |
-|---------|-----|----------------|
+| Service        | URL                     | What to Expect                                     |
+| -------------- | ----------------------- | -------------------------------------------------- |
 | Block Explorer | `http://localhost:3010` | Block explorer UI — blocks, transactions, accounts |
-| Explorer API | `http://localhost:3020` | REST API for blockchain data |
-| Bridge | `http://localhost:3000` | Deposit and withdrawal interface |
+| Explorer API   | `http://localhost:3020` | REST API for blockchain data                       |
+| Bridge         | `http://localhost:3000` | Deposit and withdrawal interface                   |
 
 > **Warning:** The Bridge will not display any network data until the Block Explorer worker has indexed at least a few blocks. Allow a minute for the initial sync to complete.

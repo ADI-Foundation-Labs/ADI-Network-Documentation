@@ -4,15 +4,15 @@ description: >-
   and block explorers — using Docker Compose.
 ---
 
-# Running an ADI Rollup with Docker Compose
+# Run a Rollup with Docker Compose
 
 This guide walks you through deploying a complete ADI Rollup stack using Docker Compose. The deployment is modular — start the core chain, then layer on infrastructure services as needed.
 
 The stack is split into three compose files:
 
-* **[Core Stack](core-stack.md)** — Sequencer, External Node, and GPU Provers (FRI + SNARK)
-* **[Infrastructure Stack](infrastructure-stack.md)** — Block Explorer and Bridge
-* **[Blockscout](blockscout.md)** — Optional alternative block explorer with contract verification
+* [**Core Stack**](core-stack.md) — Sequencer, External Node, and GPU Provers (FRI + SNARK)
+* [**Infrastructure Stack**](infrastructure-stack.md) — Block Explorer and Bridge
+* [**Blockscout**](blockscout.md) — Optional alternative block explorer with contract verification
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
@@ -64,21 +64,21 @@ graph TB
 
 > **Warning:** The **Bridge requires the Block Explorer** to function. Blockscout is an additional explorer with contract verification support, but it cannot replace the Block Explorer for bridge operations.
 
----
+***
 
 ## Prerequisites
 
 ### Hardware Requirements
 
-| Component | CPU | RAM | GPU VRAM | Storage |
-|-----------|-----|-----|----------|---------|
-| Sequencer | 8+ cores | 16 GB+ | — | 100 GB SSD |
-| External Node | 4+ cores | 8 GB+ | — | 100 GB SSD |
-| FRI Prover | 4+ cores | 16 GB+ | 32 GB+ | 50 GB |
-| SNARK Prover | 4+ cores | 32 GB+ | 32 GB+ | 50 GB |
-| Infrastructure (Explorer + Bridge) | 2+ cores | 4 GB+ | — | 20 GB |
+| Component                          | CPU      | RAM    | GPU VRAM | Storage    |
+| ---------------------------------- | -------- | ------ | -------- | ---------- |
+| Sequencer                          | 8+ cores | 16 GB+ | —        | 100 GB SSD |
+| External Node                      | 4+ cores | 8 GB+  | —        | 100 GB SSD |
+| FRI Prover                         | 4+ cores | 16 GB+ | 32 GB+   | 50 GB      |
+| SNARK Prover                       | 4+ cores | 32 GB+ | 32 GB+   | 50 GB      |
+| Infrastructure (Explorer + Bridge) | 2+ cores | 4 GB+  | —        | 20 GB      |
 
-> **Note:** The entire stack (sequencer + provers) can run on a single machine with ~80 GB of system RAM. SNARK provers with less than 32 GB VRAM will fail with out-of-memory errors.
+> **Note:** The entire stack (sequencer + provers) can run on a single machine with \~80 GB of system RAM. SNARK provers with less than 32 GB VRAM will fail with out-of-memory errors.
 
 ### Software Requirements
 
@@ -86,7 +86,7 @@ graph TB
 * **NVIDIA Container Toolkit** — required for GPU provers
 * **NVIDIA drivers** with CUDA 12.2+ support
 * A `genesis.json` configuration file for your chain
-* An L1 RPC endpoint (e.g., ADI OS Testnet)
+* A settlement-layer RPC endpoint. For L3s on ADI, use ADI Chain
 
 ### Verify Docker and GPU Setup
 
@@ -102,7 +102,7 @@ docker run --rm --gpus all nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi
 
 > **Tip:** If both commands return version information and the GPU test container runs successfully, your environment is ready.
 
----
+***
 
 ## Directory Structure
 
@@ -126,6 +126,7 @@ adi-rollup/
 mkdir -p adi-rollup && cd adi-rollup
 mkdir -p volumes/{chain,en_chain,shared,prover}
 ```
+
 ## Save `genesis.json`
 
 Place your chain’s `genesis.json` file in the project root so the compose files can mount it into the server containers:
@@ -135,7 +136,11 @@ Place your chain’s `genesis.json` file in the project root so the compose file
 cp /path/to/your/chain/configs/genesis.json ./genesis.json
 ```
 
----
+{% hint style="info" %}
+`l1_chain_id` in `genesis.json` is the chain ID of your settlement layer. For L3s on ADI, use `36900` on mainnet or `99999` on testnet. `adi init` sets this automatically. Do not edit it manually.
+{% endhint %}
+
+***
 
 ## Environment Configuration
 
@@ -150,7 +155,7 @@ CHAIN_ID=444
 CHAIN_CURRENCY_SYMBOL=ADI
 CHAIN_CURRENCY_NAME="ADI Token"
 
-# ── L1 Connection ──────────────────────────────────
+# ── Settlement Layer Connection ───────────────────
 L1_RPC_URL=https://rpc.ab.testnet.adifoundation.ai
 
 # ── Contract Addresses (from chain deployment) ─────
@@ -184,10 +189,13 @@ BLOCKSCOUT_DB_PASSWORD=<strong-password>
 EOF
 ```
 
+{% hint style="info" %}
+For L3 chains, `L1_RPC_URL` points to your settlement layer. On ADI, that means ADI Chain. For L2 external nodes, it points to Ethereum. The variable name is inherited from zkSync OS upstream.
+{% endhint %}
+
 > **Warning:** Never commit `.env` to version control. It contains private keys and secrets. Use dedicated operator wallets — never use keys holding significant funds.
 
-
----
+***
 
 ## Next Steps
 

@@ -1,7 +1,5 @@
 ---
-
 description: Deploy and manage L3 chains using the ADI CLI
-
 ---
 
 # CLI
@@ -12,13 +10,11 @@ The ADI CLI is a Rust-based tool that manages the full lifecycle of L3 chain dep
 
 ## Prerequisites
 
-
-| Requirement   | Details                                                                                                                                                             |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Docker        | Running daemon. The CLI pulls and runs toolkit images automatically                                                                                                 |
-| Rust          | Install via [rustup](https://rustup.rs/)                                                                                                                            |
-| Funded wallet | ~270 ADI tokens on the settlement layer for deployment gas costs. Testnet faucet: [faucet.ab.testnet.adifoundation.ai](https://faucet.ab.testnet.adifoundation.ai/) |
-
+| Requirement   | Details                                                                                                                                                              |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Docker        | Running daemon. The CLI pulls and runs toolkit images automatically                                                                                                  |
+| Rust          | Install via [rustup](https://rustup.rs/)                                                                                                                             |
+| Funded wallet | \~270 ADI tokens on the settlement layer for deployment gas costs. Testnet faucet: [faucet.ab.testnet.adifoundation.ai](https://faucet.ab.testnet.adifoundation.ai/) |
 
 ## Installation
 
@@ -86,29 +82,31 @@ ecosystem:
     - name: my-chain
       chain_id: 222
       prover_mode: gpu   # no-proofs (testing) | gpu (production)
-      base_token_address: "0x..." # custom gas token address, or omit for ETH
+      base_token_address: "0x..." # custom gas token address on the settlement layer
 ```
 
 {% hint style="info" %}
 `protocol_version` determines which Docker toolkit image the CLI uses. Each protocol version is tied to a specific server version (e.g., protocol `v0.30.1` works with server `v13.1.0-b1`).
 {% endhint %}
 
+{% hint style="info" %}
+If `base_token_address` is omitted, ADI is the gas token. You cannot change this after deployment. To use a custom token, set `base_token_address` to your ERC20 address on the settlement layer before `adi init`.
+{% endhint %}
+
 Wallet funding amounts and the funder key are not required in the config — they can be provided via CLI flags or environment variables during `adi deploy`. The only required config fields are the ecosystem definition and chain parameters.
 
 ### Key Options
 
-
-| Option                       | Scope           | Description                                      |
-| ---------------------------- | --------------- | ------------------------------------------------ |
-| `base_token_address`         | chain           | Custom Gas Token (CGT) contract address on L2    |
-| `governor_cgt_units`         | funding         | Amount of CGT to fund the governor wallet        |
-| `operators.operator`         | chain/global    | Address for batch commit/revert roles            |
-| `operators.prove_operator`   | chain/global    | Address for proof submission                     |
-| `operators.execute_operator` | chain/global    | Address for batch execution                      |
-| `ownership.new_owner`        | ecosystem/chain | Transfer ownership to this address after deploy  |
-| `ownership.private_key`      | ecosystem/chain | If provided, ownership is accepted automatically |
-| `gas_multiplier`             | global          | Gas price buffer percentage (default: 200)       |
-
+| Option                       | Scope           | Description                                                     |
+| ---------------------------- | --------------- | --------------------------------------------------------------- |
+| `base_token_address`         | chain           | Custom Gas Token (CGT) contract address on the settlement layer |
+| `governor_cgt_units`         | funding         | Amount of CGT to fund the governor wallet                       |
+| `operators.operator`         | chain/global    | Address for batch commit/revert roles                           |
+| `operators.prove_operator`   | chain/global    | Address for proof submission                                    |
+| `operators.execute_operator` | chain/global    | Address for batch execution                                     |
+| `ownership.new_owner`        | ecosystem/chain | Transfer ownership to this address after deploy                 |
+| `ownership.private_key`      | ecosystem/chain | If provided, ownership is accepted automatically                |
+| `gas_multiplier`             | global          | Gas price buffer percentage (default: 200)                      |
 
 Set the funder wallet private key via environment variable:
 
@@ -146,7 +144,6 @@ The `init` command creates the ecosystem and chain configuration. It spins up a 
 ```bash
 adi init --chain my-chain
 ```
-
 
 | Flag      | Description                                 |
 | --------- | ------------------------------------------- |
@@ -212,6 +209,14 @@ After init, state is written to `~/.adi_cli/state/<ecosystem>/`:
         ├── genesis.yaml
         └── ...
 ```
+
+{% hint style="info" %}
+Wallets are plain EOAs. You can reuse operator keys across L3 deployments by copying `wallets.yaml` and `secrets.yaml` from a previous deployment. Do not reuse `genesis.yaml` or `contracts.yaml`. Those files are chain-specific.
+{% endhint %}
+
+{% hint style="info" %}
+The generated `genesis.json` used by the server includes `l1_chain_id` for your settlement layer. For L3s on ADI, that is `36900` on mainnet or `99999` on testnet. `adi init` sets this automatically. Do not edit it manually.
+{% endhint %}
 
 ### 2. Deploy
 
@@ -286,11 +291,10 @@ State can optionally sync to S3-compatible storage with `adi state sync` / `adi 
 Once contracts are deployed, set up the chain infrastructure (sequencer, prover, explorer, bridge) using Docker Compose:
 
 {% content-ref url="run-a-rollup/" %}
-# [Infrastructure Setup](./run-a-rollup/)
+[run-a-rollup](run-a-rollup/)
 {% endcontent-ref %}
 
 Additional CLI commands for post-deployment:
-
 
 | Command             | Purpose                                                   |
 | ------------------- | --------------------------------------------------------- |
@@ -299,5 +303,3 @@ Additional CLI commands for post-deployment:
 | `adi owners`        | Display current contract owners                           |
 | `adi transfer`      | Transfer ownership to a new address                       |
 | `adi upgrade`       | Upgrade contracts to a new protocol version               |
-
-

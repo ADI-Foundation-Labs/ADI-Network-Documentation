@@ -277,15 +277,3 @@ A registry authority can run agents that process title transfers, verify support
 * Query summaries with `getSummary(agentId, clientAddresses, tag1, tag2)` on the Reputation Registry
 
 All common EVM tooling works on ADI Chain. Start with [Quickstart](../how-to-start/quickstart.md).
-
-### References
-
-* [ERC-8004 specification](https://github.com/ADI-Foundation-Labs/ERC-8004-Contracts/blob/main/ERC8004SPEC.md)
-* [ERC-8004 contracts](https://github.com/ADI-Foundation-Labs/ERC-8004-Contracts)
-* [8004.org](https://www.8004.org)
-* [ADI Mainnet](../adi-networks/adi-mainnet.md)
-* [ADI Testnet](../adi-networks/adi-testnet.md)
-* [L3 Chains](../adi-network-components/l3-chains/overview.md)
-* [ADI DLT Framework](../adi-dlt-framework.md)
-* [ADI Ecosystem Map](https://ecosystem.adi.foundation)
-* [ADI CLI](https://github.com/ADI-Foundation-Labs/ADI-CLI)

@@ -4,13 +4,15 @@ description: >-
   verification for your ADI Rollup.
 ---
 
-# Blockscout Explorer (Optional)
+# Blockscout Explorer
 
 [Blockscout](https://www.blockscout.com/) provides an alternative block explorer with smart contract verification (Solidity + Vyper), Solidity-to-UML visualization, function signature decoding, and chain statistics.
 
 > **Warning:** Blockscout is entirely optional and runs independently from the Block Explorer. The Bridge requires the **Block Explorer** ([Infrastructure Stack](infrastructure-stack.md)) — not Blockscout. You can run both explorers side by side.
 
----
+For verifying contracts on the public ADI explorers instead of your self-hosted one, see [Verify smart contracts](../../../how-to-start/verify-smart-contracts.md).
+
+***
 
 ## Docker Compose
 
@@ -254,7 +256,7 @@ volumes:
     name: ${CHAIN_SHORT_NAME:-adi}_blockscout_stats_db_data
 ```
 
----
+***
 
 ## Start
 

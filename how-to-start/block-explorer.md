@@ -11,7 +11,10 @@ description: >-
 * **Block Explorer App:** This is the user interface that enables users and developers to navigate and examine transactions, blocks, batches, contracts, tokens, and other elements within the ADI Network.
 * **Block Explorer API:** This component provides an HTTP API for accessing structured data from the ADI Network. It retrieves data from the database maintained by the Block Explorer Worker.
 * **Alternative Block Explorer URL:** [https://explorer-bls.adifoundation.ai/](https://explorer-bls.adifoundation.ai/)
+* **Testnet Explorer API:** [https://explorer-api.ab.testnet.adifoundation.ai/](https://explorer-api.ab.testnet.adifoundation.ai/)
 
 {% hint style="warning" %}
-Currently, the block explorer's contract verification functionality does not work properly
+Contract verification is broken on the primary explorer at `explorer.adifoundation.ai`. Use the [BLS mainnet explorer](https://explorer-bls.adifoundation.ai/) or the [ADI Network AB Testnet explorer](https://explorer.ab.testnet.adifoundation.ai/) instead. Verification works on both.
 {% endhint %}
+
+See [Verify smart contracts](verify-smart-contracts.md) for supported verification workflows.

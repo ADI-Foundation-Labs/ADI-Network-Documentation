@@ -1,5 +1,5 @@
 ---
-description: How to run a read-only ADI external node and monitor sync.
+description: How to run an ADI external node and monitor sync.
 ---
 
 # Run Your Own Node
@@ -9,11 +9,17 @@ The [ADI Stack Setup repository](https://github.com/ADI-Foundation-Labs/ADI-Stac
 * `external_node`: replays L2 blocks from the canonical main node, maintains local state/RPC, and serves JSON-RPC + status/metrics.
 * `proof-sync`: periodically syncs proving artifacts from the foundation-hosted Azure Blob storage into your local `<chain>_data/db/shared`.
 
-{% hint style="warning" %}
+{% hint style="info" %}
 What it does **not** do:
 
 * It does not generate new proofs or participate as a validator/sequencer. It locally replays and verifies the chain state and serves RPC for your own queries. Proofs are downloaded, not produced.
-* It does not enable passing new transactions to the network currently, serving only as a read-only node
+* It does not sequence or produce blocks. That is the sequencer's role.
+
+What it **does** do for transactions:
+
+* It accepts `eth_sendRawTransaction` calls and adds transactions to its local mempool.
+* It **forwards transactions to the main node/sequencer** through `general_main_node_rpc_url`.
+* If the sequencer rejects a transaction, the node removes it from its mempool and returns the error. You can submit transactions to any external node and they will reach the network.
 {% endhint %}
 
 ### Requirements
@@ -107,6 +113,12 @@ Testnet may upgrade frequently; join [Discord](https://discord.gg/adi-foundation
     ./external-node.sh --testnet start
     ```
 
+### Transaction forwarding
+
+The Docker Compose setting `general_main_node_rpc_url` controls the transaction forwarding target. The default points to the ADI sequencer endpoint.
+
+When this setting is unset, the node accepts transactions into its local mempool. It does not forward them, so they remain local-only.
+
 ### Monitoring
 
 * JSON-RPC: `http://localhost:3050`
@@ -129,6 +141,6 @@ Testnet may upgrade frequently; join [Discord](https://discord.gg/adi-foundation
 
 ### What This Node Provides You
 
-* A self-hosted, read-only ADI L2 RPC endpoint, backed by locally replayed and verified state.
+* A self-hosted ADI L2 RPC endpoint, backed by locally replayed and verified state.
 * Locally stored proofs (synced from the foundation blob), not generated locally.
 * No participation in sequencing, proving, or validator duties; it is for verification, data availability, and private querying.

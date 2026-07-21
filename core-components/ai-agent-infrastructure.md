@@ -136,7 +136,7 @@ All three ERC-8004 registries are deployed at vanity addresses on ADI Mainnet.
 * **Owner:** `0x547289319C3e6aedB179C0b8e8aF0B5ACd062603`
 
 {% hint style="warning" %}
-Canonical testnet addresses are targeted for ADI Testnet (`99999`). Testnet deployment was still pending in June 2026 because the Safe singleton factory required for CREATE2 vanity deployment had not yet been published. Verify current status before depending on testnet availability.
+As of July 2026, the canonical ERC-8004 Identity, Reputation, and Validation singleton contracts are not deployed on ADI Testnet. Third-party agent infrastructure may use separate registries and integration contracts; those deployments should not be treated as the canonical ERC-8004 registry set.
 {% endhint %}
 
 ### How agents use the ADI stack
@@ -260,6 +260,20 @@ Utility operators can run agents that negotiate purchases, verify consumption da
 A registry authority can run agents that process title transfers, verify supporting documents, and route approvals to authorized validators such as notaries.
 
 ### Getting started
+
+#### Third-party testnet integration: Pearl Digital P3
+
+Pearl Digital operates the Pearl Path Protocol (P3), a third-party test environment available on ADI Testnet (`99999`). P3 provides permissioned agent onboarding, Know Your Agent (KYA) controls, delegation credentials, agent discovery, reputation integration, rolling transfer limits, x402 payments, and test payment assets.
+
+Developers can use the following Pearl-operated resources:
+
+* [P3 Agentic Registry API](https://testagentic.pearldigital.com/docs)
+* [Supported chains and deployed contract addresses](https://testagentic.pearldigital.com/api/v1/chains)
+* [Pearl testnet faucet and onboarding service](https://faucet.pearldigital.com/)
+
+{% hint style="warning" %}
+Pearl P3 is a third-party testnet integration operated by Pearl Digital. Its contracts are separate from ADI Chain’s canonical ERC-8004 Identity, Reputation, and Validation registries. Availability, contract addresses, test assets, and access requirements may change while the service remains in public testnet.
+{% endhint %}
 
 #### For institutions
 

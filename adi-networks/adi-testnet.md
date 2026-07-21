@@ -24,6 +24,18 @@ To manually add ADI Network Testnet as a custom network in your wallet, follow t
 
 Once you have your wallet connected to the ADI Network Testnet environment, you can get testnet funds from [testnet faucet](http://faucet.ab.testnet.adifoundation.ai/).
 
+**Third-party test assets**
+
+Some ecosystem applications operate their own faucets for application-specific test assets. Pearl Digital provides a third-party faucet and onboarding service for its P3 environment, including PRLUSD and FlashD test assets:
+
+* [Pearl P3 testnet faucet](https://faucet.pearldigital.com/)
+
+Pearl’s faucet does not replace the official ADI Testnet faucet. Use the official faucet for native ADI test tokens required for general network gas.
+
+{% hint style="warning" %}
+Third-party faucets are independently operated. They may have their own eligibility, onboarding, rate-limit, and availability requirements.
+{% endhint %}
+
 #### Bridging testnet ADI and ETH
 
 You can use the [The Bridge](https://bridge.ab.testnet.adifoundation.ai/) to bridge testnet ADI and ETH over to the testnet.

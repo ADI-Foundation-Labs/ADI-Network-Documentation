@@ -6,7 +6,8 @@ description: Deploy and manage L3 chains using the ADI CLI
 
 The ADI CLI is a Rust-based tool that manages the full lifecycle of L3 chain deployment. It runs all operations inside pre-built Docker toolkit containers (zkstack, foundry-zksync, era-contracts) and outputs the resulting state files and generated wallets to your host machine.
 
-**Source**: [ADI-Foundation-Labs/ADI-CLI](https://github.com/ADI-Foundation-Labs/ADI-CLI)
+**Source**: [ADI-Foundation-Labs/ADI-CLI](https://github.com/ADI-Foundation-Labs/ADI-CLI)\
+**Changelog**: [CHANGELOG.md](https://github.com/ADI-Foundation-Labs/ADI-CLI/blob/main/CHANGELOG.md)
 
 ## Prerequisites
 

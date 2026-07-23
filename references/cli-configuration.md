@@ -225,5 +225,5 @@ These fields still work but will be removed in a future release:
 | Top-level `operators` | `ecosystem.chains[].operators`                          |
 
 {% hint style="warning" %}
-The former `chains[].blobs` boolean has been **removed** and replaced by `chains[].pubdata_mode`. A leftover `blobs:` key in an old config is silently ignored — the chain falls back to the default `pubdata_mode: calldata`.
+The former `chains[].blobs` boolean has been **removed** and replaced by `chains[].pubdata_mode`. A leftover `blobs:` key in an old config is silently ignored — the chain falls back to the default `pubdata_mode: calldata`. See the [CLI changelog (v0.4.0)](https://github.com/ADI-Foundation-Labs/ADI-CLI/blob/main/CHANGELOG.md#040---2026-07-23) for details.
 {% endhint %}

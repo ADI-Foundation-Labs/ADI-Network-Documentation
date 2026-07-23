@@ -64,7 +64,7 @@ source ~/.bashrc
 
 ## Configuration
 
-The CLI reads configuration from a YAML file. Default location is `~/.adi.yml`.
+The CLI reads configuration from a YAML file. Default location is `~/.adi_cli/.adi.yml` — the same directory that holds ecosystem state. The legacy `~/.adi.yml` location still works as a fallback, but is deprecated.
 
 {% hint style="info" %}
 Override the config path with the `--config` flag or `ADI_CONFIG` environment variable.

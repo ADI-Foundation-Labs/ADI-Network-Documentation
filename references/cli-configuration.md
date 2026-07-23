@@ -4,7 +4,7 @@ description: Full configuration reference for the ADI CLI
 
 # CLI Configuration
 
-Complete reference for `~/.adi.yml`. For a quick start, see the [minimal config](../adi-network-components/l3-chains/cli.md#minimal-config) in the CLI guide.
+Complete reference for the ADI CLI config file at `~/.adi_cli/.adi.yml`. For a quick start, see the [minimal config](../adi-network-components/l3-chains/cli.md#minimal-config) in the CLI guide.
 
 ## Full Annotated Config
 
@@ -135,12 +135,13 @@ Config file sources are mutually exclusive — only one file is loaded:
 
 1. `--config` flag
 2. `ADI_CONFIG` environment variable
-3. `~/.adi.yml` (default)
+3. `~/.adi_cli/.adi.yml` (default)
+4. `~/.adi.yml` (legacy fallback, deprecated — the CLI warns and suggests moving it to `~/.adi_cli/`)
 
 Override sources are always applied on top:
 
-4. `ADI__*` environment variables
-5. CLI flags (highest priority)
+5. `ADI__*` environment variables
+6. CLI flags (highest priority)
 
 ## Environment Variables
 

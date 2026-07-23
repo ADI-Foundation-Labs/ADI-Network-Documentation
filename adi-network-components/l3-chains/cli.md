@@ -101,19 +101,19 @@ Wallet funding amounts and the funder key are not required in the config — the
 
 ### Key Options
 
-| Option                       | Scope           | Description                                                     |
-| ---------------------------- | --------------- | --------------------------------------------------------------- |
+| Option                       | Scope           | Description                                                                        |
+| ---------------------------- | --------------- | ---------------------------------------------------------------------------------- |
 | `settlement`                 | ecosystem       | `l1` (chain is an L2) or `l2` (chain is an L3; default). For L3s on ADI, keep `l2` |
-| `prover_mode`                | chain           | `no-proofs` (testing, default) or `gpu` (production)            |
-| `pubdata_mode`               | chain           | `blobs`, `calldata` (default), or `custom_da`. `blobs` requires `settlement: l1` |
-| `base_token_address`         | chain           | Custom Gas Token (CGT) contract address on the settlement layer |
-| `governor_cgt_units`         | funding         | Amount of CGT to fund the governor wallet                       |
-| `operators.operator`         | chain/global    | Address for batch commit/revert roles                           |
-| `operators.prove_operator`   | chain/global    | Address for proof submission                                    |
-| `operators.execute_operator` | chain/global    | Address for batch execution                                     |
-| `ownership.new_owner`        | ecosystem/chain | Transfer ownership to this address after deploy                 |
-| `ownership.private_key`      | ecosystem/chain | If provided, ownership is accepted automatically                |
-| `gas_multiplier`             | global          | Gas price buffer percentage (default: 200)                      |
+| `prover_mode`                | chain           | `no-proofs` (testing, default) or `gpu` (production)                               |
+| `pubdata_mode`               | chain           | `blobs`, `calldata` (default), or `custom_da`. `blobs` requires `settlement: l1`   |
+| `base_token_address`         | chain           | Custom Gas Token (CGT) contract address on the settlement layer                    |
+| `governor_cgt_units`         | funding         | Amount of CGT to fund the governor wallet                                          |
+| `operators.operator`         | chain/global    | Address for batch commit/revert roles                                              |
+| `operators.prove_operator`   | chain/global    | Address for proof submission                                                       |
+| `operators.execute_operator` | chain/global    | Address for batch execution                                                        |
+| `ownership.new_owner`        | ecosystem/chain | Transfer ownership to this address after deploy                                    |
+| `ownership.private_key`      | ecosystem/chain | If provided, ownership is accepted automatically                                   |
+| `gas_multiplier`             | global          | Gas price buffer percentage (default: 200)                                         |
 
 Set the funder wallet private key via environment variable:
 

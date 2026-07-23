@@ -37,25 +37,37 @@ ecosystem:
   # ADI Testnet: https://rpc.ab.testnet.adifoundation.ai
   rpc_url: https://rpc.ab.testnet.adifoundation.ai
 
+  # Settlement layer the chains settle on
+  #   l1: settles on Ethereum L1 (the chain is an L2)
+  #   l2: settles on an L2 such as ADI Chain (the chain is an L3)
+  # For L3s on ADI, keep the default l2.
+  # Default: l2
+  settlement: l2
+
   # Ecosystem-level ownership transfer after deploy
   # ownership:
   #   new_owner: "0x..."
 
   chains:
-    - name: my-chain
+    - name: my_chain
       chain_id: 222
 
       # no-proofs: development/testing (fast, no real proofs)
       # gpu: production (requires GPU prover infrastructure)
+      # Default: no-proofs
       prover_mode: no-proofs
 
       # EVM bytecode emulator for unmodified Ethereum contracts
       evm_emulator: false
 
-      # Blob-based pubdata (EIP-4844)
-      # true: blobs (L2 settling on L1)
-      # false: calldata (L3 settling on L2)
-      blobs: false
+      # Data-availability pubdata mode
+      #   blobs:     EIP-4844 blobs — requires settlement: l1
+      #   calldata:  pubdata posted as calldata on the settlement layer
+      #   custom_da: external DA, e.g. Avail (validium)
+      # blobs is incompatible with settlement: l2 — an L3 cannot post EIP-4844
+      # blobs, so init and deploy reject that combination.
+      # Default: calldata (the only mode valid on either settlement layer)
+      pubdata_mode: calldata
 
       # Custom ERC20 token for gas payments on the settlement layer
       # Omit this to use ADI as the gas token
@@ -210,3 +222,7 @@ These fields still work but will be removed in a future release:
 | --------------------- | ------------------------------------------------------- |
 | Top-level `ownership` | `ecosystem.ownership` or `ecosystem.chains[].ownership` |
 | Top-level `operators` | `ecosystem.chains[].operators`                          |
+
+{% hint style="warning" %}
+The former `chains[].blobs` boolean has been **removed** and replaced by `chains[].pubdata_mode`. A leftover `blobs:` key in an old config is silently ignored — the chain falls back to the default `pubdata_mode: calldata`.
+{% endhint %}

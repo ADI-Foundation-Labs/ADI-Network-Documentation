@@ -1,3 +1,9 @@
+---
+description: >-
+  Why institutional AI agents need verifiable identity, trust, and compliance
+  controls.
+---
+
 # Why Agents
 
 AI agents are moving beyond single-organization workflows. They now act across institutions, jurisdictions, and compliance domains.

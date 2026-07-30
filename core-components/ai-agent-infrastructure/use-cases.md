@@ -1,3 +1,9 @@
+---
+description: >-
+  Institutional agent use cases for payments, assets, compliance, energy, and
+  registries.
+---
+
 # Use Cases
 
 #### Regulated cross-border payments

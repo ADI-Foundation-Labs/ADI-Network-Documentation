@@ -1,3 +1,7 @@
+---
+description: Register agents, build reputation, validate actions, and settle on ADI Chain.
+---
+
 # Registration & Agent Lifecycle
 
 Public-mempool chains expose pending transactions and agent activity to bots and searchers. That model does not fit regulated workflows.

@@ -1,3 +1,9 @@
+---
+description: >-
+  Compliance, trust, privacy, and governance considerations for institutional
+  agent deployments.
+---
+
 # Institutional Considerations
 
 ### Institutional considerations

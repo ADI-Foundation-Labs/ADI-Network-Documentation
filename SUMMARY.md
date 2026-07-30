@@ -35,7 +35,11 @@
 * [Shared Incentives](core-components/shared-incentives.md)
 * [Opportunities for Key Stakeholders](core-components/opportunities-for-key-stakeholders.md)
 * [ADI Chain Infrastructure & Ecosystem Features](core-components/adi-chain-infrastructure-and-ecosystem-features.md)
-* [AI Agent Infrastructure](core-components/ai-agent-infrastructure.md)
+* [AI Agent Infrastructure](core-components/ai-agent-infrastructure/README.md)
+  * [Why Agents](core-components/ai-agent-infrastructure/why-agents.md)
+  * [Registration & Agent Lifecycle](core-components/ai-agent-infrastructure/registration-and-agent-lifecycle.md)
+  * [Institutional Considerations](core-components/ai-agent-infrastructure/institutional-considerations.md)
+  * [Use Cases](core-components/ai-agent-infrastructure/use-cases.md)
 
 ## ADI Token
 

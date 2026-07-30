@@ -36,4 +36,4 @@ These domains benefit from the security and performance of ADI Chain while lever
 
 ADI Chain supports trusted, verifiable AI agents through the ERC-8004 registry layer for identity, reputation, and validation.
 
-For the full architecture, deployed contracts, and institutional design considerations, see [AI Agents Infrastructure on ADI Chain](ai-agent-infrastructure.md).
+For the full architecture, deployed contracts, and institutional design considerations, see [AI Agents Infrastructure on ADI Chain](ai-agent-infrastructure/).

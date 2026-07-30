@@ -81,7 +81,7 @@ Below are just a few real world examples, imposters are creative and will use mo
 
 <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 **Read More:**\
 [https://me-en.kaspersky.com/blog/twitter-fake-crypto-scheme/20549](https://me-en.kaspersky.com/blog/twitter-fake-crypto-scheme/20549)

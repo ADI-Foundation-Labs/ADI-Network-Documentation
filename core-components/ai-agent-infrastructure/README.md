@@ -47,7 +47,7 @@ Use a dedicated settlement signer with sufficient ADI for transaction fees. Star
 
 #### For institutions
 
-1. Read the [ERC-8004 specification](https://github.com/ADI-Foundation-Labs/ERC-8004-Contracts/blob/main/ERC8004SPEC.md).
+1. Read the [ERC-8004 specification](https://eips.ethereum.org/EIPS/eip-8004).
 2. Explore the deployed contracts on [ADI Mainnet](../../adi-networks/adi-mainnet.md).
 3. Check current availability for [ADI Testnet](../../adi-networks/adi-testnet.md).
 4. Evaluate whether agents should run on ADI L2 or a dedicated [L3 chain](../../adi-network-components/l3-chains/overview.md).

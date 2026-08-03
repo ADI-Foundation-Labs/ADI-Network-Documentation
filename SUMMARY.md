@@ -73,6 +73,7 @@
     * [Blockscout Explorer](adi-network-components/l3-chains/run-a-rollup/blockscout.md)
     * [Operations](adi-network-components/l3-chains/run-a-rollup/operations.md)
     * [Configuration Reference](adi-network-components/l3-chains/run-a-rollup/configuration-reference.md)
+  * [L3 Chains on Mainnet](adi-network-components/overview-1/l3-chains-on-mainnet.md)
 
 ## References
 

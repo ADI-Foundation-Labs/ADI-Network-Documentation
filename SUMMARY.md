@@ -38,6 +38,7 @@
 * [AI Agent Infrastructure](core-components/ai-agent-infrastructure/README.md)
   * [Why Agents](core-components/ai-agent-infrastructure/why-agents.md)
   * [Registration & Agent Lifecycle](core-components/ai-agent-infrastructure/registration-and-agent-lifecycle.md)
+  * [Tools for Agents](core-components/ai-agent-infrastructure/tools-for-agents.md)
   * [Institutional Considerations](core-components/ai-agent-infrastructure/institutional-considerations.md)
   * [Use Cases](core-components/ai-agent-infrastructure/use-cases.md)
 

@@ -17,7 +17,7 @@
 * [Gas Abstraction & Account Abstraction](how-to-start/gas-abstraction-and-account-abstraction.md)
 * [Safe on ADI Chain](how-to-start/safe-on-adi-chain.md)
 * [Run Your Own Node](how-to-start/run-your-own-node.md)
-* [Network Contracts](how-to-start/network-contracts.md)
+* [Mainnet Network Contracts](how-to-start/network-contracts.md)
 * [Verify smart contracts](how-to-start/verify-smart-contracts.md)
 
 ## For New Users

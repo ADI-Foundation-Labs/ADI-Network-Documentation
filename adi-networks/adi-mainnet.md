@@ -4,6 +4,15 @@ description: Get connected to ADI Network Mainnet
 
 # ADI Mainnet
 
+{% hint style="warning" %}
+**Attention: Scheduled mainnet upgrade — August 20, 2026 at 15:00 UTC.** \
+This is a mandatory node upgrade required to keep your External Node connected to the network. HTTP block replay is being replaced with P2P (devp2p) networking — nodes on the old protocol cannot peer with upgraded nodes at all, and there is no fallback or dual-protocol period. During the upgrade window, the network may be temporarily unavailable (maximum downtime: 20 minutes). After the upgrade, external nodes still running the HTTP-replay version will stop syncing immediately.&#x20;
+
+* Please prepare ahead of time using the [v0.13.0 → v0.20.12 migration guide](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/main/upgrades/v0.13.0_to_v0.20.12.md).
+* _A particular guide on running/migrating the mainnet node using the new protocol can be found here:_ [_mainnet v0.20.12 migration guide._](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/feat/mainnet-update/upgrades/v0.13.0_to_v0.20.12.md)
+* As soon as the upgrade takes place, the changes related to the mainnet in the guide will be merged.
+{% endhint %}
+
 <a href="https://adi-foundation-labs.github.io/adi-mainnet-connect/connect.html" class="button primary" data-icon="wallet">Add ADI Network to Wallet</a>
 
 ### Manually Add ADI Network
@@ -21,9 +30,7 @@ To manually add ADI Network Mainnet as a custom network in your wallet, follow t
 \*RPC endpoint is rate-limited. You can also access the RPC through [Alchemy](https://dashboard.alchemy.com/?utm_source=chain_partner\&utm_medium=referral\&utm_campaign=adi) or [NowNodes](https://nownodes.io/nodes/adi-adi). NowNodes does not support WebSocket for ADI. It may return HTTP status errors instead of JSON-RPC error codes.
 
 {% hint style="info" %}
-**Building an L3 on ADI?** Send us the IP addresses of your sequencer and prover,
-and we will whitelist them for full-speed RPC access.
-See [L3 Chains](../adi-network-components/l3-chains/overview.md).
+**Building an L3 on ADI?** Send us the IP addresses of your sequencer and prover, and we will whitelist them for full-speed RPC access. See [L3 Chains](../adi-network-components/l3-chains/overview.md).
 {% endhint %}
 
 #### Bridging ADI and ETH

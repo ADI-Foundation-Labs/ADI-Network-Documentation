@@ -12,9 +12,9 @@ description: ADI Chain's mission, vision, and role in compliant onchain infrastr
 
 Here is what to expect:
 
-_• The testnet has been upgraded on August 18, 2026 at 12:00 UTC._ ✅
+[_• The testnet has been upgraded on August 18, 2026 at 12:00 UTC._ ✅](adi-networks/adi-testnet.md)
 
-• T**he mainnet will undergo this upgrade on August 20, 2026 at 15:00 UTC.**
+[• **The mainnet will undergo this upgrade on August 20, 2026 at 15:00 UTC.**](adi-networks/adi-mainnet.md)
 
 • During the upgrade window, the network may be temporarily unavailable (the maximum downtime window is 20 minutes).
 

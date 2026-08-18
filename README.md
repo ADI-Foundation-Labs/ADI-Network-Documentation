@@ -5,24 +5,24 @@ description: ADI Chain's mission, vision, and role in compliant onchain infrastr
 # ADI's Mission & Vision
 
 {% hint style="warning" %}
-We are planning a scheduled upgrade of the ADI testnet and mainnet. Please prepare your external node ahead of time to ensure a smooth transition. This is a mandatory upgrade to keep your External Nodes connected to the network.
+**We are planning a scheduled upgrade of the ADI testnet and mainnet. Please prepare your external node ahead of time to ensure a smooth transition. This is a mandatory upgrade to keep your External Nodes connected to the network.**
 
 \
-This means version compatibility isn't optional here - nodes on the old HTTP-replay protocol cannot peer with nodes on the new P2P protocol at all, regardless of chain state. There is no fallback or dual-protocol period.
+**This means version compatibility isn't optional here - nodes on the old HTTP-replay protocol cannot peer with nodes on the new P2P protocol at all, regardless of chain state. There is no fallback or dual-protocol period.**
 
 Here is what to expect:
 
-• The testnet will undergo this upgrade on August 18, 2026 at 12:00 UTC.
+_• The testnet has been upgraded on August 18, 2026 at 12:00 UTC._ ✅
 
-• The mainnet will undergo this upgrade on August 20, 2026 at 15:00 UTC.
+• T**he mainnet will undergo this upgrade on August 20, 2026 at 15:00 UTC.**
 
 • During the upgrade window, the network may be temporarily unavailable (the maximum downtime window is 20 minutes).
 
 • After the upgrade, external nodes still running the old HTTP-replay version will stop syncing immediately and must be updated to the P2P-enabled version.
 
-For detailed upgrade instructions and devnet testing configuration, please see the migration guide: [v0.13.0 → v0.20.12 migration guide (devnet)](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/main/upgrades/v0.13.0_to_v0.20.12.md)
+For detailed upgrade instructions, please see the migration guide: [v0.13.0 → v0.20.12 migration guide (devnet/testnet)](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/main/upgrades/v0.13.0_to_v0.20.12.md)
 
-Also, you can find the testnet upgrade manual separately here (it will be merged as soon as the testnet upgrade takes place): [v0.13.0 → v0.20.12 migration guide (testnet)](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/feat/testnet-update/upgrades/v0.13.0_to_v0.20.12.md)
+
 {% endhint %}
 
 If you’re reading this, you’re likely familiar with the profound impact blockchain technology has made on the global financial industry over the past decade - as well as blockchain’s immense potential to serve as the rails for the future of finance.

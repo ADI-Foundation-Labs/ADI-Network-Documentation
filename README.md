@@ -4,23 +4,19 @@ description: ADI Chain's mission, vision, and role in compliant onchain infrastr
 
 # ADI's Mission & Vision
 
-{% hint style="warning" %}
-**We are planning a scheduled upgrade of the ADI testnet and mainnet. Please prepare your external node ahead of time to ensure a smooth transition. This is a mandatory upgrade to keep your External Nodes connected to the network.**
+{% hint style="success" %}
+**Network Upgrade Complete**
 
-\
-**This means version compatibility isn't optional here - nodes on the old HTTP-replay protocol cannot peer with nodes on the new P2P protocol at all, regardless of chain state. There is no fallback or dual-protocol period.**
+The scheduled upgrade of the ADI testnet and mainnet has been successfully completed.
 
-Here is what to expect:
+* Testnet: upgraded on August 18, 2026 at 12:00 UTC
+* Mainnet: upgraded on August 20, 2026 at 15:00 UTC
 
-[_• The testnet has been upgraded on August 18, 2026 at 12:00 UTC._ ✅](adi-networks/adi-testnet.md)
+Both networks are now running the new P2P protocol and operating normally.
 
-[• **The mainnet will undergo this upgrade on August 20, 2026 at 15:00 UTC.**](adi-networks/adi-mainnet.md)
+**Action required:** External nodes still running the old HTTP-replay version have stopped syncing and cannot peer with the network. To reconnect, update your node to the P2P-enabled version by following the migration guide: v0.13.0 → v0.20.12 migration guide (devnet/testnet).
 
-• During the upgrade window, the network may be temporarily unavailable (the maximum downtime window is 20 minutes).
-
-• After the upgrade, external nodes still running the old HTTP-replay version will stop syncing immediately and must be updated to the P2P-enabled version.
-
-For detailed upgrade instructions, please see the migration guide: [v0.13.0 → v0.20.12 migration guide (devnet/testnet)](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/main/upgrades/v0.13.0_to_v0.20.12.md)
+Thank you for keeping your nodes up to date and ensuring a smooth transition.
 
 
 {% endhint %}

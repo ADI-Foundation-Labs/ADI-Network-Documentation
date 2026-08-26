@@ -4,7 +4,7 @@ description: Full configuration reference for the ADI CLI
 
 # CLI Configuration
 
-Complete reference for `~/.adi.yml`. For a quick start, see the [minimal config](../adi-network-components/l3-chains/cli.md#minimal-config) in the CLI guide.
+Complete reference for the ADI CLI config file at `~/.adi_cli/.adi.yml`. For a quick start, see the [minimal config](../adi-network-components/l3-chains/cli.md#minimal-config) in the CLI guide.
 
 ## Full Annotated Config
 
@@ -37,25 +37,37 @@ ecosystem:
   # ADI Testnet: https://rpc.ab.testnet.adifoundation.ai
   rpc_url: https://rpc.ab.testnet.adifoundation.ai
 
+  # Settlement layer the chains settle on
+  #   l1: settles on Ethereum L1 (the chain is an L2)
+  #   l2: settles on an L2 such as ADI Chain (the chain is an L3)
+  # For L3s on ADI, keep the default l2.
+  # Default: l2
+  settlement: l2
+
   # Ecosystem-level ownership transfer after deploy
   # ownership:
   #   new_owner: "0x..."
 
   chains:
-    - name: my-chain
+    - name: my_chain
       chain_id: 222
 
       # no-proofs: development/testing (fast, no real proofs)
       # gpu: production (requires GPU prover infrastructure)
+      # Default: no-proofs
       prover_mode: no-proofs
 
       # EVM bytecode emulator for unmodified Ethereum contracts
       evm_emulator: false
 
-      # Blob-based pubdata (EIP-4844)
-      # true: blobs (L2 settling on L1)
-      # false: calldata (L3 settling on L2)
-      blobs: false
+      # Data-availability pubdata mode
+      #   blobs:     EIP-4844 blobs — requires settlement: l1
+      #   calldata:  pubdata posted as calldata on the settlement layer
+      #   custom_da: external DA, e.g. Avail (validium)
+      # blobs is incompatible with settlement: l2 — an L3 cannot post EIP-4844
+      # blobs, so init and deploy reject that combination.
+      # Default: calldata (the only mode valid on either settlement layer)
+      pubdata_mode: calldata
 
       # Custom ERC20 token for gas payments on the settlement layer
       # Omit this to use ADI as the gas token
@@ -123,12 +135,13 @@ Config file sources are mutually exclusive — only one file is loaded:
 
 1. `--config` flag
 2. `ADI_CONFIG` environment variable
-3. `~/.adi.yml` (default)
+3. `~/.adi_cli/.adi.yml` (default)
+4. `~/.adi.yml` (legacy fallback, deprecated — the CLI warns and suggests moving it to `~/.adi_cli/`)
 
 Override sources are always applied on top:
 
-4. `ADI__*` environment variables
-5. CLI flags (highest priority)
+5. `ADI__*` environment variables
+6. CLI flags (highest priority)
 
 ## Environment Variables
 
@@ -210,3 +223,7 @@ These fields still work but will be removed in a future release:
 | --------------------- | ------------------------------------------------------- |
 | Top-level `ownership` | `ecosystem.ownership` or `ecosystem.chains[].ownership` |
 | Top-level `operators` | `ecosystem.chains[].operators`                          |
+
+{% hint style="warning" %}
+The former `chains[].blobs` boolean has been **removed** and replaced by `chains[].pubdata_mode`. A leftover `blobs:` key in an old config is silently ignored — the chain falls back to the default `pubdata_mode: calldata`. See the [CLI changelog (v0.4.0)](https://github.com/ADI-Foundation-Labs/ADI-CLI/blob/main/CHANGELOG.md#040---2026-07-23) for details.
+{% endhint %}

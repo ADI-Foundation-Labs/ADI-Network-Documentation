@@ -6,7 +6,8 @@ description: Deploy and manage L3 chains using the ADI CLI
 
 The ADI CLI is a Rust-based tool that manages the full lifecycle of L3 chain deployment. It runs all operations inside pre-built Docker toolkit containers (zkstack, foundry-zksync, era-contracts) and outputs the resulting state files and generated wallets to your host machine.
 
-**Source**: [ADI-Foundation-Labs/ADI-CLI](https://github.com/ADI-Foundation-Labs/ADI-CLI)
+**Source**: [ADI-Foundation-Labs/ADI-CLI](https://github.com/ADI-Foundation-Labs/ADI-CLI)\
+**Changelog**: [CHANGELOG.md](https://github.com/ADI-Foundation-Labs/ADI-CLI/blob/main/CHANGELOG.md)
 
 ## Prerequisites
 
@@ -64,7 +65,7 @@ source ~/.bashrc
 
 ## Configuration
 
-The CLI reads configuration from a YAML file. Default location is `~/.adi.yml`.
+The CLI reads configuration from a YAML file. Default location is `~/.adi_cli/.adi.yml` — the same directory that holds ecosystem state. The legacy `~/.adi.yml` location still works as a fallback, but is deprecated.
 
 {% hint style="info" %}
 Override the config path with the `--config` flag or `ADI_CONFIG` environment variable.
@@ -76,14 +77,18 @@ Override the config path with the `--config` flag or `ADI_CONFIG` environment va
 protocol_version: v0.30.1
 
 ecosystem:
-  name: my-ecosystem
+  name: my_ecosystem
   rpc_url: https://rpc.ab.testnet.adifoundation.ai
   chains:
-    - name: my-chain
+    - name: my_chain
       chain_id: 222
       prover_mode: gpu   # no-proofs (testing) | gpu (production)
       base_token_address: "0x..." # custom gas token address on the settlement layer
 ```
+
+{% hint style="info" %}
+Ecosystem and chain names must be **snake\_case** (lowercase letters, digits, single underscores) — the CLI rejects names like `my-chain`.
+{% endhint %}
 
 {% hint style="info" %}
 `protocol_version` determines which Docker toolkit image the CLI uses. Each protocol version is tied to a specific server version (e.g., protocol `v0.30.1` works with server `v13.1.0-b1`).
@@ -97,16 +102,19 @@ Wallet funding amounts and the funder key are not required in the config — the
 
 ### Key Options
 
-| Option                       | Scope           | Description                                                     |
-| ---------------------------- | --------------- | --------------------------------------------------------------- |
-| `base_token_address`         | chain           | Custom Gas Token (CGT) contract address on the settlement layer |
-| `governor_cgt_units`         | funding         | Amount of CGT to fund the governor wallet                       |
-| `operators.operator`         | chain/global    | Address for batch commit/revert roles                           |
-| `operators.prove_operator`   | chain/global    | Address for proof submission                                    |
-| `operators.execute_operator` | chain/global    | Address for batch execution                                     |
-| `ownership.new_owner`        | ecosystem/chain | Transfer ownership to this address after deploy                 |
-| `ownership.private_key`      | ecosystem/chain | If provided, ownership is accepted automatically                |
-| `gas_multiplier`             | global          | Gas price buffer percentage (default: 200)                      |
+| Option                       | Scope           | Description                                                                        |
+| ---------------------------- | --------------- | ---------------------------------------------------------------------------------- |
+| `settlement`                 | ecosystem       | `l1` (chain is an L2) or `l2` (chain is an L3; default). For L3s on ADI, keep `l2` |
+| `prover_mode`                | chain           | `no-proofs` (testing, default) or `gpu` (production)                               |
+| `pubdata_mode`               | chain           | `blobs`, `calldata` (default), or `custom_da`. `blobs` requires `settlement: l1`   |
+| `base_token_address`         | chain           | Custom Gas Token (CGT) contract address on the settlement layer                    |
+| `governor_cgt_units`         | funding         | Amount of CGT to fund the governor wallet                                          |
+| `operators.operator`         | chain/global    | Address for batch commit/revert roles                                              |
+| `operators.prove_operator`   | chain/global    | Address for proof submission                                                       |
+| `operators.execute_operator` | chain/global    | Address for batch execution                                                        |
+| `ownership.new_owner`        | ecosystem/chain | Transfer ownership to this address after deploy                                    |
+| `ownership.private_key`      | ecosystem/chain | If provided, ownership is accepted automatically                                   |
+| `gas_multiplier`             | global          | Gas price buffer percentage (default: 200)                                         |
 
 Set the funder wallet private key via environment variable:
 
@@ -142,7 +150,7 @@ adi config
 The `init` command creates the ecosystem and chain configuration. It spins up a Docker container, generates wallets and configs inside it, then drops the resulting state files to your host.
 
 ```bash
-adi init --chain my-chain
+adi init --chain my_chain
 ```
 
 | Flag      | Description                                 |
@@ -161,7 +169,7 @@ Example output:
 ┌   ADI Init
 │
 ✱  Select a chain
-│  my-chain
+│  my_chain
 │
 ◈  Validating chain ID against settlement layer...
 │
@@ -170,7 +178,7 @@ Example output:
 ✱  Protocol version: v0.30.1 ──────╮
 │                                  │
 │  Ecosystem: adi_ecosystem        │
-│  Chain: my-chain (ID: 222)       │
+│  Chain: my_chain (ID: 222)       │
 │  Prover mode: gpu                │
 ├──────────────────────────────────╯
 │
@@ -196,13 +204,13 @@ Example output:
 After init, state is written to `~/.adi_cli/state/<ecosystem>/`:
 
 ```
-~/.adi_cli/state/my-ecosystem/
+~/.adi_cli/state/my_ecosystem/
 ├── ZkStack.yaml
 ├── configs/
 │   ├── wallets.yaml        # generated ecosystem wallets
 │   ├── contracts.yaml
 │   └── ...
-└── chains/my-chain/
+└── chains/my_chain/
     ├── ZkStack.yaml
     └── configs/
         ├── wallets.yaml    # generated chain wallets (operators)
@@ -237,7 +245,7 @@ Example output:
 ✱  Deployment target ───────────────────────────────────────────────╮
 │                                                                   │
 │  Ecosystem: adi_ecosystem                                         │
-│  Chain: my-chain (L3)                                             │
+│  Chain: my_chain (L3)                                             │
 │  Settlement layer RPC: https://rpc.ab.testnet.adifoundation.ai/   │
 ├───────────────────────────────────────────────────────────────────╯
 │
@@ -265,7 +273,7 @@ Example output:
 ✱  Deployment Summary ─────────────────────────────────────────╮
 │                                                              │
 │  Ecosystem: adi_ecosystem                                    │
-│  Chain: my-chain                                             │
+│  Chain: my_chain                                             │
 │  Diamond proxy: 0x5b0323f95682228DE5b0db338bA9470D2D511F80   │
 ├──────────────────────────────────────────────────────────────╯
 │

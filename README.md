@@ -4,23 +4,6 @@ description: ADI Chain's mission, vision, and role in compliant onchain infrastr
 
 # ADI's Mission & Vision
 
-{% hint style="success" %}
-**Network Upgrade Complete**
-
-The scheduled upgrade of the ADI testnet and mainnet has been successfully completed.
-
-* Testnet: upgraded on August 18, 2026 at 12:00 UTC
-* Mainnet: upgraded on August 20, 2026 at 15:00 UTC
-
-Both networks are now running the new P2P protocol and operating normally.
-
-**Action required:** External nodes still running the old HTTP-replay version have stopped syncing and cannot peer with the network. To reconnect, update your node to the P2P-enabled version by following the migration guide: v0.13.0 → v0.20.12 migration guide (devnet/testnet).
-
-Thank you for keeping your nodes up to date and ensuring a smooth transition.
-
-
-{% endhint %}
-
 If you’re reading this, you’re likely familiar with the profound impact blockchain technology has made on the global financial industry over the past decade - as well as blockchain’s immense potential to serve as the rails for the future of finance.
 
 But even the blockchain industry’s most ardent proponents (including ADI Foundation) can acknowledge that the blockchain revolution is not yet truly global in scope. Most blockchain activity - and the corresponding benefits it can provide governments, businesses and citizens - is still concentrated in relatively few geographic markets.

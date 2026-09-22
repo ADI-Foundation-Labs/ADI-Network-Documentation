@@ -6,7 +6,7 @@ description: Access the ADI whitepaper and audit whitepaper.
 
 #### Whitepaper
 
-{% embed url="https://drive.google.com/file/d/1HcZUaGvEbDjdFYL8T-GKPegVA8mBvGwy/view?usp=sharing" %}
+{% embed url="https://drive.google.com/file/d/1U4yhTUUQhd_YD6mpECsge4IAcsRSuiLY" %}
 
 #### MiCA Whitepaper
 

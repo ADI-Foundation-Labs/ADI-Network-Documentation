@@ -7,4 +7,4 @@ description: >-
 
 # ADI DLT Framework
 
-{% embed url="https://drive.google.com/file/d/1QQz0H2fOLDFiCjfAmh8mYXzTmFXm0vsY" %}
+{% embed url="https://drive.google.com/file/d/1AN5WgRgrn6v0nEcnXB0uNyKEUr3PkU5N/preview" %}

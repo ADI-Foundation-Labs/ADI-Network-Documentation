@@ -6,7 +6,7 @@ description: MCP servers, agent frameworks, and protocols for building agents on
 
 ADI Chain is EVM-equivalent. Every MCP server and agent framework built for Ethereum works here by pointing it at an ADI RPC endpoint.
 
-This page covers agent-specific tooling not documented elsewhere. For network setup, see [ADI Testnet](../../adi-networks/adi-testnet.md).
+This page covers agent-specific tooling not documented elsewhere. For network setup, see [ADI Testnet](../../../adi-networks/adi-testnet.md).
 
 {% hint style="info" %}
 Use existing Ethereum integrations without an ADI-specific adapter. Configure the RPC URL and chain ID.
@@ -14,16 +14,17 @@ Use existing Ethereum integrations without an ADI-specific adapter. Configure th
 
 ### MCP servers
 
-Model Context Protocol (MCP) servers give agents blockchain data and onchain actions. Any EVM-compatible MCP server works with ADI Chain.
+Model Context Protocol (MCP) servers give agents blockchain data and onchain actions. The ADI-native server encodes bridging constraints that generic EVM servers do not, including `nativeTokenBridgingOnly`, CCIP-only USDC.e, and no DEX liquidity on Mainnet. Any EVM-compatible MCP server also works with ADI Chain.
 
-| MCP server                                                            | What it does                                                                                                                         | ADI setup                                                                                                                |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| [EVM MCP Server](https://github.com/mcpdotdirect/evm-mcp-server)      | Provides 22 tools across 60+ EVM networks. Read and write contracts, transfer tokens, query balances, and fetch ABIs from explorers. | Add ADI Testnet (`99999`) or Mainnet (`36900`) through `CUSTOM_NETWORKS`. Use `https://rpc.ab.testnet.adifoundation.ai`. |
-| [EVM MCP](https://github.com/JamesANZ/evm-mcp)                        | Provides 20+ RPC methods, contract calls, gas estimation, and transaction simulation with state overrides.                           | Set `CUSTOM_PROVIDERS` to an ADI RPC URL. No chain-specific configuration is needed.                                     |
-| [Ethereum JSON-RPC MCP](https://github.com/john0n1/ethereum-mcp)      | Proxies an Ethereum JSON-RPC endpoint as MCP tools. Includes admin, debug, and txpool tools.                                         | Point it at an ADI RPC endpoint.                                                                                         |
-| [Blockscout MCP](https://github.com/blockscout/mcp-server)            | Exposes balances, tokens, NFTs, transactions, and contract verification.                                                             | Use the [ADI Testnet explorer](https://explorer.ab.testnet.adifoundation.ai).                                            |
-| [The Graph MCP](https://thegraph.com/docs/en/subgraphs/querying/mcp/) | Queries indexed blockchain data through subgraphs.                                                                                   | Deploy or use subgraphs indexing ADI Chain contracts.                                                                    |
-| [GOAT SDK MCP](https://github.com/goat-sdk/goat)                      | Provides 200+ onchain actions across EVM chains.                                                                                     | Point it at an ADI RPC endpoint.                                                                                         |
+| MCP server                                                            | What it does                                                                                                                                           | ADI setup                                                                                                                |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| [ADI Chain MCP Server](adi-chain-mcp-server.md)                       | First-party MCP server for ADI Chain — canonical bridge (deposit/withdraw/claim), Chainlink CCIP transfers, funding-path planning, and ERC-8004 reads. | See [ADI Chain MCP Server](adi-chain-mcp-server.md).                                                                     |
+| [EVM MCP Server](https://github.com/mcpdotdirect/evm-mcp-server)      | Provides 22 tools across 60+ EVM networks. Read and write contracts, transfer tokens, query balances, and fetch ABIs from explorers.                   | Add ADI Testnet (`99999`) or Mainnet (`36900`) through `CUSTOM_NETWORKS`. Use `https://rpc.ab.testnet.adifoundation.ai`. |
+| [EVM MCP](https://github.com/JamesANZ/evm-mcp)                        | Provides 20+ RPC methods, contract calls, gas estimation, and transaction simulation with state overrides.                                             | Set `CUSTOM_PROVIDERS` to an ADI RPC URL. No chain-specific configuration is needed.                                     |
+| [Ethereum JSON-RPC MCP](https://github.com/john0n1/ethereum-mcp)      | Proxies an Ethereum JSON-RPC endpoint as MCP tools. Includes admin, debug, and txpool tools.                                                           | Point it at an ADI RPC endpoint.                                                                                         |
+| [Blockscout MCP](https://github.com/blockscout/mcp-server)            | Exposes balances, tokens, NFTs, transactions, and contract verification.                                                                               | Use the [ADI Testnet explorer](https://explorer.ab.testnet.adifoundation.ai).                                            |
+| [The Graph MCP](https://thegraph.com/docs/en/subgraphs/querying/mcp/) | Queries indexed blockchain data through subgraphs.                                                                                                     | Deploy or use subgraphs indexing ADI Chain contracts.                                                                    |
+| [GOAT SDK MCP](https://github.com/goat-sdk/goat)                      | Provides 200+ onchain actions across EVM chains.                                                                                                       | Point it at an ADI RPC endpoint.                                                                                         |
 
 #### Run EVM MCP Server on ADI Testnet
 
@@ -54,7 +55,7 @@ Expose tools such as:
 * `get_balance(address)` — check an ADI balance.
 * `call_contract(address, abi, function, args)` — call any contract.
 
-See [Registration & Agent Lifecycle](registration-and-agent-lifecycle.md) for registry behavior and deployed Mainnet contracts.
+See [Registration & Agent Lifecycle](../registration-and-agent-lifecycle.md) for registry behavior and deployed Mainnet contracts.
 
 ### Agent frameworks and protocols
 

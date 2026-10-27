@@ -12,15 +12,50 @@ description: >-
 | -------------- | --------------- | --------------- |
 | Protocol       | `v0.30.1`       | `v0.30.1`       |
 | Sequencer      | `v0.21.1-b4`    | `v0.21.1-b4`    |
-| External nodes | `v0.21.1-b4`    | `v0.21.1-b4`    |
+| External nodes | `v0.24.2-b7`    | `v0.24.2-b7`    |
 
 ### Release notes
 
+## [v0.24.2-b7](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/main/upgrades/v0.20.12_to_v0.24.2.md)
+
+_2026-10-21 - latest_
+
+External node version on testnet and mainnet, superseding `v0.21.1-b4` and `v0.20.12-b1`, the previous default of the EN setup script. The sequencer stays on `v0.21.1-b4` until the main-node upgrade. This entry lists the ADI and upstream changes across the `v0.21` -> `v0.24` line that affect external node operators.
+
+**Breaking changes**
+
+* **upgrade order** - upgrade external nodes **before** the main node. A `v0.24.2` main node writes blocks with `execution_version: 0`, and older nodes panic on these blocks with `Unsupported ZKsync OS execution version`. A `v0.24.2` external node follows the current `v0.21` main node, so you can upgrade early.
+  * There is no rollback. After a node stores blocks from a `v0.24.2` main node, it cannot go back to an older version.
+  * See the [v0.20.12 -> v0.24.2 migration guide](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/main/upgrades/v0.20.12_to_v0.24.2.md) for the steps.
+* **l1** - a new interop-roots watcher also runs on external nodes. On every start, it reads `eth_getLogs` from L1 block 0 up to the current block, 1,000 blocks per call: about 26,000 calls on mainnet and 12,000 on Sepolia.
+  * The L1 RPC must answer `eth_getLogs` for every 1,000-block range from block 0, so it cannot prune old history. To use smaller ranges, set `l1_watcher_max_blocks_to_process`. Smaller ranges mean more calls.
+  * The node retries a rate-limited call 5 times, about 1 second apart. If a call still fails, or the RPC rejects the range or the history, the node stops and the scan starts again on the next start. Many free public endpoints fail these checks.
+* **execution** - `execution_version` is deprecated. `zks_getBlockMetadataByNumber` no longer returns the `execution_version` field, and the metric `execution_last_execution_version` is replaced by `execution_last_protocol_version`. The new metric is a gauge with a `version` label: the current version has the value `1`, and the previous version has `0`. Update your dashboard queries.
+* **state** - the `Compacted` state backend and the `general_state_backend` key are removed. The node always uses `FullDiffs` and ignores the old key. A node that ran `Compacted` rebuilds its state by a replay of all blocks on upgrade, which is a full resync.
+
+**Features**
+
+* **evm** - support EIP-7702 set-code transactions. They turn on with the next chain upgrade. Restart external nodes after that chain upgrade lands.
+
+**Fixes**
+
+* **l1-watcher** - fix a panic when a node replays the `v0.30.1` -> `v0.30.2` patch upgrade block after governance stage 1 of the `v31` upgrade: `expected patch protocol upgrade 0.30.1->0.30.2 but found minor protocol upgrade 0.31.2`. Stage 1 has not run on testnet or mainnet yet. After it runs, an older node that syncs from zero or resyncs stops with this panic.
+* **l1-watcher** - an L1 RPC on reth returns an empty revert without a `data` field. The upgrade-tx watcher now treats this as a missing method and uses the legacy upgrade-cut scan. Before, it crashed on the pre-`v31` Chain Type Manager that both networks use.
+* **l1-watcher** - the commit-tx lookup now backs off exponentially from 200 ms to 10 s, about 2.5 minutes in total, and accepts a pending copy of the commit tx. Before, a slow load-balanced L1 RPC could panic the watcher and restart the node.
+* **network** - start without waiting for the boot-node DNS name to resolve.
+* **network** - key peer session state by connection, not by peer id.
+* **mempool** - do not wait for the initial replay upgrade at startup.
+* **pipeline** - make graceful shutdown race-free.
+
+**Images**
+
+* `harbor.sde.adifoundation.ai/adi-public/chain/server:v0.24.2-b7`
+
 ## [v0.21.1-b4](https://github.com/ADI-Foundation-Labs/ADI-Stack-Server/releases/tag/v0.21.1-b4)
 
-_2026-09-07 - latest_
+_2026-09-07_
 
-Current sequencer and external node version on testnet and mainnet, superseding `v0.13.0-b4`. This covers everything ADI changed across the `v0.13` -> `v0.21` line, plus the one upstream change that every node operator has to act on: block replay moved off HTTP onto devp2p.
+Sequencer and external node version on testnet and mainnet, superseding `v0.13.0-b4`. This covers everything ADI changed across the `v0.13` -> `v0.21` line, plus the one upstream change that every node operator has to act on: block replay moved off HTTP onto devp2p.
 
 **Breaking changes**
 

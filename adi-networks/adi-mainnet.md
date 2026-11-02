@@ -5,8 +5,8 @@ description: Get connected to ADI Network Mainnet
 # ADI Mainnet
 
 {% hint style="warning" %}
-**External node upgrade to v0.24.2-b7.** \
-Upgrade your external node to `v0.24.2-b7` before the mainnet main node is upgraded. ADI announces the dates by email. A node on an older version stops syncing when the main node switches. After the upgrade, a node cannot go back to an older version.
+**External node upgrade to v0.24.2-b7.**\
+Upgrade your external node to `v0.24.2-b7` before the mainnet main node is upgraded. ADI announces the dates by email, telegram and other channels. A node on an older version stops syncing when the main node switches. After the upgrade, a node cannot go back to an older version.
 
 Follow the [v0.20.12 → v0.24.2 migration guide](https://github.com/ADI-Foundation-Labs/ADI-Stack-EN-Setup-script/blob/main/upgrades/v0.20.12_to_v0.24.2.md). Before you upgrade, check your L1 RPC: v0.24.2 reads L1 logs from block 0 on every start. See the [changelog](../references/changelog.md) for the requirements.
 {% endhint %}

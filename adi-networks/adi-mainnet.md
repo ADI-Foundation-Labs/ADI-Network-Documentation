@@ -40,7 +40,7 @@ You can use the [Bridge](https://bridge.adifoundation.ai/) to bridge ADI and ETH
 {% hint style="warning" %}
 What is not supported currently:
 
-* ERC-7702
+* EIP-7702 set-code transactions arrive with the `v0.24.2` main-node upgrade. See [eip-7702-on-adi-chain.md](../how-to-start/eip-7702-on-adi-chain.md "mention").
 * ERC-4844
 * `debug_traceCall` RPC call with custom tracers
 {% endhint %}

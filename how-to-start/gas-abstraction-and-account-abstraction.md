@@ -6,15 +6,11 @@ description: >-
 
 # Gas Abstraction & Account Abstraction
 
-You can leverage either native EVM flows or overlay ERC-4337-style account abstraction.
+You can use either native EVM flows or overlay ERC-4337-style account abstraction.
 
 We do not ship audited “default paymaster” contracts. You are free to integrate with external AA infrastructure or deploy and own your own paymaster / smart-account stack.
 
-{% hint style="warning" %}
-What is not supported currently:
-
-* ERC-7702
-{% endhint %}
+EIP-7702 works on Testnet today. It arrives on Mainnet with the `v0.24.2` main-node upgrade. See [eip-7702-on-adi-chain.md](eip-7702-on-adi-chain.md "mention").
 
 ### Supported AA Paths
 

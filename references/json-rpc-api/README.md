@@ -20,28 +20,28 @@ curl -s -X POST -H 'Content-Type: application/json' \
 
 ## What's available
 
-| Namespace | What it covers |
-| --------- | -------------- |
-| `eth`     | The usual chain / state / transaction methods, log filters, and WebSocket subscriptions. |
+| Namespace | What it covers                                                                                                       |
+| --------- | -------------------------------------------------------------------------------------------------------------------- |
+| `eth`     | The usual chain / state / transaction methods, log filters, and WebSocket subscriptions.                             |
 | `zks`     | Rollup extras - contract addresses, L2->L1 log proofs, genesis, block metadata, and the [finality API](finality.md). |
-| `debug`   | Raw block/header/receipt bytes and transaction/block tracing. |
-| `ots`     | Otterscan support: block details, transaction search, contract creator, internal ops. |
-| `net`     | Network id. |
-| `web3`    | Client version and `keccak256`. |
+| `debug`   | Raw block/header/receipt bytes and transaction/block tracing.                                                        |
+| `ots`     | Otterscan support: block details, transaction search, contract creator, internal ops.                                |
+| `net`     | Network id.                                                                                                          |
+| `web3`    | Client version and `keccak256`.                                                                                      |
 
 ## eth
 
 Standard Ethereum JSON-RPC, grouped by what you'd use it for.
 
-| Group | Methods |
-| ----- | ------- |
-| Chain & state | `eth_chainId`, `eth_blockNumber`, `eth_syncing`, `eth_gasPrice`, `eth_maxPriorityFeePerGas`, `eth_feeHistory`, `eth_getBalance`, `eth_getCode`, `eth_getStorageAt`, `eth_getTransactionCount` |
-| Blocks & headers | `eth_getBlockByHash`, `eth_getBlockByNumber`, `eth_getBlockReceipts`, `eth_getBlockTransactionCountByHash` / `ByNumber`, `eth_getHeaderByHash` / `ByNumber` |
-| Transactions | `eth_getTransactionByHash`, `eth_getTransactionReceipt`, `eth_getTransactionByBlockHashAndIndex`, `eth_getTransactionByBlockNumberAndIndex`, `eth_getTransactionBySenderAndNonce`, `eth_getRawTransactionByHash` |
-| Execution | `eth_call`, `eth_estimateGas` |
-| Submitting | `eth_sendRawTransaction`, `eth_sendRawTransactionSync` |
-| Filters | `eth_newFilter`, `eth_newBlockFilter`, `eth_newPendingTransactionFilter`, `eth_getFilterChanges`, `eth_getFilterLogs`, `eth_getLogs`, `eth_uninstallFilter` |
-| Subscriptions (WebSocket) | `eth_subscribe` / `eth_unsubscribe` for `newHeads`, `logs`, `newPendingTransactions`, `syncing` |
+| Group                     | Methods                                                                                                                                                                                                          |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Chain & state             | `eth_chainId`, `eth_blockNumber`, `eth_syncing`, `eth_gasPrice`, `eth_maxPriorityFeePerGas`, `eth_feeHistory`, `eth_getBalance`, `eth_getCode`, `eth_getStorageAt`, `eth_getTransactionCount`                    |
+| Blocks & headers          | `eth_getBlockByHash`, `eth_getBlockByNumber`, `eth_getBlockReceipts`, `eth_getBlockTransactionCountByHash` / `ByNumber`, `eth_getHeaderByHash` / `ByNumber`                                                      |
+| Transactions              | `eth_getTransactionByHash`, `eth_getTransactionReceipt`, `eth_getTransactionByBlockHashAndIndex`, `eth_getTransactionByBlockNumberAndIndex`, `eth_getTransactionBySenderAndNonce`, `eth_getRawTransactionByHash` |
+| Execution                 | `eth_call`, `eth_estimateGas`, `eth_fillTransaction`. On Testnet, these methods accept `authorizationList` for [eip-7702-on-adi-chain.md](../../how-to-start/eip-7702-on-adi-chain.md "mention").                |
+| Submitting                | `eth_sendRawTransaction`, `eth_sendRawTransactionSync`                                                                                                                                                           |
+| Filters                   | `eth_newFilter`, `eth_newBlockFilter`, `eth_newPendingTransactionFilter`, `eth_getFilterChanges`, `eth_getFilterLogs`, `eth_getLogs`, `eth_uninstallFilter`                                                      |
+| Subscriptions (WebSocket) | `eth_subscribe` / `eth_unsubscribe` for `newHeads`, `logs`, `newPendingTransactions`, `syncing`                                                                                                                  |
 
 The `latest`, `safe`, and `finalized` block tags map onto the rollup's path to L1 - see [Finality](finality.md).
 
@@ -49,17 +49,17 @@ The `latest`, `safe`, and `finalized` block tags map onto the rollup's path to L
 
 The rollup-specific methods.
 
-| Method | What it returns |
-| ------ | --------------- |
-| `zks_getBridgehubContract` | Address of the L1 Bridgehub contract. |
-| `zks_getBytecodeSupplierContract` | Address of the bytecode supplier contract. |
-| `zks_getL2ToL1LogProof` | Merkle proof for an L2->L1 log, by tx hash and log index. `null` until the batch is executed on L1. |
-| `zks_getGenesis` | The chain's genesis input. |
-| `zks_getBlockMetadataByNumber` | Extended metadata for an L2 block. |
-| `zks_getBlockFinality` | Finality of a block. |
-| `zks_getTransactionFinality` | Finality of a transaction. |
-| `zks_getBatchFinality` | Finality of an L1 batch. |
-| `zks_getFinalityStatus` | Every finality frontier the node tracks, in one call. |
+| Method                            | What it returns                                                                                     |
+| --------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `zks_getBridgehubContract`        | Address of the L1 Bridgehub contract.                                                               |
+| `zks_getBytecodeSupplierContract` | Address of the bytecode supplier contract.                                                          |
+| `zks_getL2ToL1LogProof`           | Merkle proof for an L2->L1 log, by tx hash and log index. `null` until the batch is executed on L1. |
+| `zks_getGenesis`                  | The chain's genesis input.                                                                          |
+| `zks_getBlockMetadataByNumber`    | Extended metadata for an L2 block.                                                                  |
+| `zks_getBlockFinality`            | Finality of a block.                                                                                |
+| `zks_getTransactionFinality`      | Finality of a transaction.                                                                          |
+| `zks_getBatchFinality`            | Finality of an L1 batch.                                                                            |
+| `zks_getFinalityStatus`           | Every finality frontier the node tracks, in one call.                                               |
 
 The four finality methods have their own page, with request/response examples - see [Finality](finality.md).
 
@@ -73,8 +73,8 @@ Otterscan explorer support: `ots_getApiLevel`, `ots_hasCode`, `ots_getHeaderByNu
 
 ## net and web3
 
-| Method | Returns |
-| ------ | ------- |
-| `net_version` | Network (chain) id, as a decimal string. |
-| `web3_clientVersion` | Client version string. |
-| `web3_sha3` | Keccak-256 of the input data. |
+| Method               | Returns                                  |
+| -------------------- | ---------------------------------------- |
+| `net_version`        | Network (chain) id, as a decimal string. |
+| `web3_clientVersion` | Client version string.                   |
+| `web3_sha3`          | Keccak-256 of the input data.            |

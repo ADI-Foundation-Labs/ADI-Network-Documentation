@@ -10,8 +10,8 @@ description: >-
 
 | Component      | Mainnet version | Testnet version |
 | -------------- | --------------- | --------------- |
-| Protocol       | `v0.30.1`       | `v0.30.1`       |
-| Sequencer      | `v0.21.1-b4`    | `v0.21.1-b4`    |
+| Protocol       | `v0.30.2`       | `v0.31.2`       |
+| Sequencer      | `v0.21.1-b4`    | `v0.24.2-b7`    |
 | External nodes | `v0.24.2-b7`    | `v0.24.2-b7`    |
 
 ### Release notes
@@ -71,7 +71,7 @@ Sequencer and external node version on testnet and mainnet, superseding `v0.13.0
 * **network** - raise the P2P active-connection cap from 25 to 100, apply it to inbound connections, and disable peer rotation, so a growing external-node fleet is not churned off the sequencer.
 * **l1** - retry L1 requests in the L1 sender and in the commit and execute watchers, instead of failing the operation on the first transient RPC error (#17).
 * **rocksdb** - cap open files at 4096 and move SST index and bloom filters into a sized block cache (2 GiB repository, 2 GiB state, 1 GiB preimages) on read-heavy databases. The previous defaults pinned every SST file's index and filter in RAM permanently, so memory grew without bound as the database grew.
-* **memory** - use jemalloc as the global allocator. On mainnet, app plus allocator overhead measured ~22 GiB on the glibc build versus ~3 GiB on the jemalloc build under the same database and workload, because jemalloc returns freed memory to the OS.
+* **memory** - use jemalloc as the global allocator. On mainnet, app plus allocator overhead measured \~22 GiB on the glibc build versus \~3 GiB on the jemalloc build under the same database and workload, because jemalloc returns freed memory to the OS.
 * **prover** - support circuit-soundness proving versions V8 (protocol v30.2) and V9 (protocol v31.1).
 
 **Fixes**

@@ -8,55 +8,29 @@ description: >-
 
 You can use either native EVM flows or overlay ERC-4337-style account abstraction.
 
-We do not ship audited “default paymaster” contracts. You are free to integrate with external AA infrastructure or deploy and own your own paymaster / smart-account stack.
+Operational details on this page were measured 2026-11-23.
 
-EIP-7702 works on Testnet today. It arrives on Mainnet with the `v0.24.2` main-node upgrade. See [eip-7702-on-adi-chain.md](eip-7702-on-adi-chain.md "mention").
+### Entry points
 
-### Supported AA Paths
+| Version | Address                                      | Both networks | Notes                                                                                            |
+| ------- | -------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------ |
+| v0.6    | `0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789` | yes           | Legacy, present but not recommended.                                                             |
+| v0.7    | `0x0000000071727De22E5E9d8BAf0edAc6f37da032` | yes           | Byte-identical to the canonical Ethereum deployment. Source verified on Blockscout, solc 0.8.23. |
+| v0.8    | `0x4337084d9e255ff0702461cf8895ce9e3b5ff108` | yes           | Deployed per network. Bytecode differs only in the embedded chain ID.                            |
 
-For both paths, we recommend auditing as a final step.
+### Bundler and paymaster support
 
-#### ERC-4337 via Pimlico & `permissionless.js`
-
-Using [Pimlico](https://docs.pimlico.io/) + `permissionless.js` gives you a fully functional smart-account and paymaster stack on any EVM-compatible network, including zkSync OS.
-
-We recommend using the battle-tested [Pimlico Bundler](https://docs.pimlico.io/references/bundler).
+* **ADI does not operate an ERC-4337 bundler, and the RPC is not a bundler endpoint.** `eth_sendUserOperation` and `eth_supportedEntryPoints` return `-32601 Method not found` on both mainnet and testnet. (Measured 2026-11-23)
+* **ADI does not operate an official paymaster.** There is no ADI-funded sponsorship program.
+* To use ERC-4337, run your own bundler or use a third-party provider. Before committing, verify support for chain ID `36900` on mainnet or `99999` on testnet. ADI does not confirm, endorse, or support any provider's integration, limits, or terms.
+* ADI operates no bundler. There is no ADI rate limit, operator, or support model to document.
 
 {% hint style="info" %}
-**Note**: at time of writing, the Bundler does not work in safe mode due to missing `debug_trace` support on the RPC, therefore other bundlers will likely also not work if they require safe mode by default.
+`debug_traceCall` is disabled on mainnet. Measured 2026-11-23, it returns `-32601 Method disabled`. It works on testnet with `callTracer`. Bundlers that require it in safe mode fail on mainnet.
 {% endhint %}
 
-Smart account that works flawlessly on ADI Chain (`v3.1` is used for the official non-custodial ADI Wallet), MIT licensed: [https://github.com/zerodevapp/kernel](https://github.com/zerodevapp/kernel)
+See [finality.md](../references/json-rpc-api/finality.md "mention") before releasing value against L2 state.
 
-#### Custom Paymaster / Smart-Account Deployment
+### EIP-7702
 
-You may deploy your own paymaster contracts and smart accounts. If you choose this path:
-
-* Use a battle-tested base (e.g. a known ERC-4337 Paymaster template)
-* Adapt to your tokenomics, gas-sponsorship rules, UI requirements
-
-### Contracts
-
-Entrypoints `V0.7` and `V0.8` are deployed on the network:
-
-* `V0.7`: `0x0000000071727De22E5E9d8BAf0edAc6f37da032`
-* `V0.8`: `0x4337084d9e255ff0702461cf8895ce9e3b5ff108`
-
-### Further Reading
-
-### Series of Articles from Alchemy on AA
-
-* [https://www.alchemy.com/blog/account-abstraction](https://www.alchemy.com/blog/account-abstraction)
-* [https://www.alchemy.com/blog/account-abstraction-paymasters](https://www.alchemy.com/blog/account-abstraction-paymasters)
-* [https://www.alchemy.com/blog/account-abstraction-wallet-creation](https://www.alchemy.com/blog/account-abstraction-wallet-creation)
-* [https://www.alchemy.com/blog/account-abstraction-aggregate-signatures](https://www.alchemy.com/blog/account-abstraction-aggregate-signatures)
-
-#### More Solidity-Focused Docs from OpenZeppelin
-
-* On smart accounts: [https://docs.openzeppelin.com/community-contracts/account-modules](https://docs.openzeppelin.com/community-contracts/account-modules)
-* On paymasters: [https://docs.openzeppelin.com/community-contracts/paymasters](https://docs.openzeppelin.com/community-contracts/paymasters)
-
-#### Paymaster Examples
-
-* Pimlico: [https://github.com/pimlicolabs/singleton-paymaster](https://github.com/pimlicolabs/singleton-paymaster)
-* Baseline example from `eth-infinitism` : [https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/core/BasePaymaster.sol](https://github.com/eth-infinitism/account-abstraction/blob/develop/contracts/core/BasePaymaster.sol)
+EIP-7702 is testnet-only pending the main-node upgrade. See [eip-7702-on-adi-chain.md](eip-7702-on-adi-chain.md "mention").

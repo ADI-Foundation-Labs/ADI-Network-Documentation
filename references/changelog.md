@@ -6,7 +6,17 @@ description: >-
 
 # Changelog
 
+### Upgrade notifications
+
+**Where changes are announced.** GitHub releases on `ADI-Foundation-Labs/ADI-Stack-Server` and `ADI-Foundation-Labs/ADI-Stack-EN-Setup-script`; this changelog page; and the ADI Discord. External-node operators additionally receive email and Telegram notices. These are the channels that exist today.
+
+**What counts as a breaking change.** This includes any change to EVM compatibility or supported opcodes, gas calculation or fee model, block production or sequencing cadence, RPC method availability or response shape, finality semantics or block tags, ERC-4337 entry points or account-abstraction behaviour, and any change requiring an external node to resync or reconfigure. Precedents on this page include the devp2p replay migration, removal of the `Compacted` state backend, and the `execution_version` deprecation.
+
+**Notice.** ADI does not publish a fixed minimum notice period. External-node operators must upgrade **before** the main node is upgraded. There is no rollback once a node stores blocks from a newer main node. Breaking changes are listed under a **Breaking changes** heading in the release entry for the version that introduces them.
+
 ### Deployed versions
+
+Authoritative as of 2026-11-23.
 
 | Component      | Mainnet version | Testnet version |
 | -------------- | --------------- | --------------- |

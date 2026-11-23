@@ -4,19 +4,27 @@ description: Verify Solidity contracts on ADI Mainnet and ADI Network AB Testnet
 
 # Verify smart contracts
 
-Use the working Blockscout explorers to publish and verify contract source code. Blockscout is open, so verification does not require an API key.
+Verification is specific to each explorer. It is not a property of the chain.
+
+Operational details on this page were measured 2026-11-23.
 
 ### Choose an explorer
 
-| Network                                                                         | Verification status | Chain ID | API URL                                                |
-| ------------------------------------------------------------------------------- | ------------------- | -------- | ------------------------------------------------------ |
-| [Primary mainnet explorer](https://explorer.adifoundation.ai)                   | Broken              | `36900`  | —                                                      |
-| [BLS mainnet explorer](https://explorer-bls.adifoundation.ai)                   | Working             | `36900`  | `https://explorer-bls.adifoundation.ai/api`            |
-| [ADI Network AB Testnet explorer](https://explorer.ab.testnet.adifoundation.ai) | Working             | `99999`  | `https://explorer-api.ab.testnet.adifoundation.ai/api` |
+| Network                                                                         | Explorer type                                                          | Chain ID | Verification API                                                                  |
+| ------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------- | --------------------------------------------------------------------------------- |
+| [Primary mainnet explorer](https://explorer.adifoundation.ai)                   | Custom ADI explorer                                                    | `36900`  | `https://explorer-api.adifoundation.ai/api?module=contract&action=...`            |
+| [BLS mainnet explorer](https://explorer-bls.adifoundation.ai)                   | Blockscout v12.0.4 with smart-contract-verifier and a Sourcify backend | `36900`  | `https://explorer-bls.adifoundation.ai/api`                                       |
+| [ADI Network AB Testnet explorer](https://explorer.ab.testnet.adifoundation.ai) | Custom ADI explorer                                                    | `99999`  | `https://explorer-api.ab.testnet.adifoundation.ai/api?module=contract&action=...` |
 
-Use the BLS explorer for ADI Mainnet. Use the testnet explorer for ADI Network AB Testnet. The primary mainnet explorer cannot verify contracts.
+Only `explorer-bls.adifoundation.ai` is Blockscout. The testnet explorer and primary mainnet explorer expose an Etherscan-compatible `/api?module=contract&action=...` surface. They have no Blockscout `/api/v2`.
 
-The BLS explorer runs Blockscout with the smart-contract-verifier and Sourcify backend.
+EntryPoint v0.7, `0x0000000071727De22E5E9d8BAf0edAc6f37da032`, is verified on the BLS explorer and unverified on `explorer-api.adifoundation.ai`. Use the BLS explorer for mainnet verification.
+
+The primary mainnet API accepts `POST /api?module=contract&action=verifysourcecode`. Its verifier requires `contractIdentifier` in the form `path/File.sol:ContractName`. Tooling written for Blockscout's flat request shape can fail there.
+
+Both verification endpoints respond and require no API key. No rate limit is published. Blockscout returns `x-ratelimit-limit: -1` and absorbed a 100-request burst without throttling. This is an observation, not a guarantee. (Measured 2026-11-23)
+
+Blockscout v2 list endpoints cap `items_count` at 100. The Etherscan-compatible subset caps `page` × `offset` at 1000. The verifier supports Solidity, Vyper, multi-part, standard JSON input, and flattened source. Supported solc versions run up to `v0.8.39`. (Measured 2026-11-23)
 
 ### Verify in the explorer
 
@@ -68,9 +76,11 @@ forge create --verify --verifier blockscout \
   --chain 99999 src/Contract.sol:Contract
 ```
 
+If `--verifier blockscout` fails against the testnet endpoint, post directly to `https://explorer-api.ab.testnet.adifoundation.ai/api?module=contract&action=verifysourcecode`. It is live and returns Etherscan-style JSON.
+
 ### Hardhat
 
-Configure `hardhat-verify` with custom ADI network definitions. Empty API keys are correct for Blockscout.
+Configure `hardhat-verify` with custom ADI network definitions. Empty API keys are correct for these endpoints.
 
 ```javascript
 require("@nomicfoundation/hardhat-verify");
@@ -127,11 +137,11 @@ npx hardhat verify --network adiTestnet <CONTRACT_ADDRESS> <CONSTRUCTOR_ARGUMENT
 
 The testnet network name is `ADI Network AB Testnet`. Its chain ID is `99999`.
 
-You can also use the `blockscout-hardhat-verify` plugin. It supports Blockscout verification directly.
-
 ### Sourcify
 
-Sourcify provides an additional verification backend for the BLS mainnet explorer. You can submit matching contract metadata and source files through Sourcify. The explorer can then display the verified result.
+{% hint style="info" %}
+Submit Sourcify metadata for portability. The BLS explorer runs a Sourcify backend.
+{% endhint %}
 
 ### Network endpoints
 

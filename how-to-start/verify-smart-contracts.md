@@ -20,7 +20,7 @@ Only `explorer-bls.adifoundation.ai` is Blockscout. The testnet explorer and pri
 
 EntryPoint v0.7, `0x0000000071727De22E5E9d8BAf0edAc6f37da032`, is verified on the BLS explorer and unverified on `explorer-api.adifoundation.ai`. Use the BLS explorer for mainnet verification.
 
-The primary mainnet API accepts `POST /api?module=contract&action=verifysourcecode`. Its verifier requires `contractIdentifier` in the form `path/File.sol:ContractName`. Tooling written for Blockscout's flat request shape can fail there.
+The primary mainnet API accepts `POST /api?module=contract&action=verifysourcecode` and requires no API key. So does the testnet API. Both expect `contractname` to be fully qualified as `path/File.sol:ContractName`. A bare contract name is rejected with `Missing Or invalid contractname`. Standard Foundry and Hardhat verification requests already send the qualified name, so they work unmodified against all three explorers. (Measured 2026-11-23)
 
 Both verification endpoints respond and require no API key. No rate limit is published. Blockscout returns `x-ratelimit-limit: -1` and absorbed a 100-request burst without throttling. This is an observation, not a guarantee. (Measured 2026-11-23)
 
@@ -28,7 +28,7 @@ Blockscout v2 list endpoints cap `items_count` at 100. The Etherscan-compatible 
 
 ### Verify in the explorer
 
-1. Open the working explorer for your network.
+1. Open the explorer for your network: the BLS explorer for mainnet, or the ADI Network AB Testnet explorer for testnet.
 2. Paste the deployed contract address into the search field.
 3. Open the **Contract** tab.
 4. Select **Verify & Publish**.

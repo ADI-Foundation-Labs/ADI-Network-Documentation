@@ -4,35 +4,41 @@ description: Official Safe interfaces and transaction services for ADI Chain.
 
 # Safe on ADI Chain
 
-ADI Chain supports **Safe** (formerly Gnosis Safe), the leading smart account infrastructure for secure multi-signature and account abstraction setups.
+ADI Chain supports **Safe** (formerly Gnosis Safe), the smart account infrastructure for multi-signature accounts and account abstraction.
 
-#### Official Safe Interfaces & Services
+#### Official Safe interfaces and services
 
-* **Safe UI (Web Interface)**: [https://safe.adifoundation.ai/](https://safe.adifoundation.ai/)\
-  Use this to create, manage, and interact with Safe accounts on ADI Chain (Mainnet and Testnet).
-* **Mainnet Transaction Service**: [https://transaction.safe.adifoundation.ai](https://transaction.safe.adifoundation.ai)\
-  Handles off-chain transaction proposing, signing, and indexing for Mainnet.
-* **Testnet Transaction Service**: [https://transaction-testnet.safe.adifoundation.ai](https://transaction-testnet.safe.adifoundation.ai)\
-  Same as above, but for the ADI Chain Testnet.
+* **Safe UI (web interface)**: [https://safe.adifoundation.ai/](https://safe.adifoundation.ai/)\
+  Redirects to the Protofire-hosted Safe deployment for ADI. Use it to create, manage, and interact with Safe accounts on ADI Mainnet (chain ID `36900`) and ADI Network AB Testnet (chain ID `99999`).
+* **Mainnet transaction service**: `https://transaction-adi.safe.protofire.io/api`\
+  Off-chain proposing, signing, and indexing for mainnet. `GET /api/v1/about/` reports `Safe Transaction Service 5.43.0`.
+* **Testnet transaction service**: `https://transaction-adi-testnet.safe.protofire.io/api`\
+  Same service for the testnet.
 
-#### How to Use
+{% hint style="warning" %}
+Use the transaction service URLs as written, including the `/api` suffix. The host root returns 403, and paths without `/api` do not resolve. The previous `transaction.safe.adifoundation.ai` and `transaction-testnet.safe.adifoundation.ai` hostnames do not resolve in DNS.
+{% endhint %}
 
-1. Go to the [Safe UI](https://safe.adifoundation.ai/) and connect your wallet or create a new Safe.
-2. The interface automatically uses the correct Transaction Service for ADI Chain.
-3. For developers integrating Safe SDKs:
-   * Use the Transaction Service URLs above when initializing `SafeApiKit` with a custom `txServiceUrl`.
+#### How to use
 
-Example with Safe Core SDK (TypeScript):
+1. Open the [Safe UI](https://safe.adifoundation.ai/) and connect your wallet or create a new Safe.
+2. The interface selects the correct transaction service for the selected chain.
+3. For Safe SDK integrations, pass the full service URL, `/api` included, as `txServiceUrl`.
+
+Example with Safe Core SDK (TypeScript), verified against both services:
 
 ```ts
 import SafeApiKit from '@safe-global/api-kit';
 
 const apiKit = new SafeApiKit({
-  chainId: <ADI_CHAIN_ID>,           // your ADI mainnet or testnet chainId
-  txServiceUrl: 'https://transaction.safe.adifoundation.ai'  // or the testnet URL
+  chainId: 36900n,                                          // 99999n for testnet
+  txServiceUrl: 'https://transaction-adi.safe.protofire.io/api',
 });
+
+const info = await apiKit.getServiceInfo();
+// { name: 'Safe Transaction Service', version: '5.43.0', api_version: 'v1', ... }
 ```
 
 {% hint style="info" %}
-Always verify you are on the official domains listed above to avoid phishing risks.
+Always verify you are on the official domains listed above to avoid phishing risks. `safe.adifoundation.ai` is the only first-party Safe UI; the transaction services are operated on `safe.protofire.io`.
 {% endhint %}

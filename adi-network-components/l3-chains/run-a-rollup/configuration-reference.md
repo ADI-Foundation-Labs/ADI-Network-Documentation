@@ -44,8 +44,8 @@ For L3 chains, `general_l1_rpc_url` points to the settlement layer. On ADI, that
 | `sequencer_block_gas_limit`               | `100000000`        | Gas limit per block                                                                                   |
 | `sequencer_block_pubdata_limit_bytes`     | `110000`           | Pubdata size limit per block                                                                          |
 | `sequencer_block_dump_path`               | `./db/block_dumps` | Path to dump block data for replay                                                                    |
-| `sequencer_block_replay_server_address`   | `0.0.0.0:3053`     | Replay server address used by External Nodes                                                          |
-| `sequencer_block_replay_download_address` | —                  | Replay source address; setting this enables External Node mode (must include `http://` or `https://`) |
+| `sequencer_block_replay_server_address`   | `0.0.0.0:3053`     | Replay server address used by External Nodes. Only meaningful on `v0.13.x` images: `v0.20.12` and later replay over devp2p and ignore it. |
+| `sequencer_block_replay_download_address` | —                  | Replay source address; setting this enables External Node mode (must include `http://` or `https://`). Removed in `v0.20.12`. |
 | `sequencer_fee_collector_address`         | `0x3661...c049`    | Address that collects transaction fees                                                                |
 
 ### Sequencer Fee Overrides

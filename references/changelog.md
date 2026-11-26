@@ -8,21 +8,48 @@ description: >-
 
 ### Upgrade notifications
 
-**Where changes are announced.** GitHub releases on `ADI-Foundation-Labs/ADI-Stack-Server` and `ADI-Foundation-Labs/ADI-Stack-EN-Setup-script`; this changelog page; and the ADI Discord. External-node operators additionally receive email and Telegram notices. These are the channels that exist today.
+**Where changes are announced.** This changelog page; GitHub releases on `ADI-Foundation-Labs/ADI-Stack-Server` and `ADI-Foundation-Labs/ADI-Stack-EN-Setup-script`; and the ADI Discord. External-node operators additionally receive email and Telegram notices. GitHub releases and this page are not always in step: a build can be published to Harbor and pinned in the setup repository before a GitHub release exists for it. The pinned version and the published image tags are therefore the machine-readable signal, and the release note is the explanation.
 
 **What counts as a breaking change.** This includes any change to EVM compatibility or supported opcodes, gas calculation or fee model, block production or sequencing cadence, RPC method availability or response shape, finality semantics or block tags, ERC-4337 entry points or account-abstraction behaviour, and any change requiring an external node to resync or reconfigure. Precedents on this page include the devp2p replay migration, removal of the `Compacted` state backend, and the `execution_version` deprecation.
 
 **Notice.** ADI does not publish a fixed minimum notice period. External-node operators must upgrade **before** the main node is upgraded. There is no rollback once a node stores blocks from a newer main node. Breaking changes are listed under a **Breaking changes** heading in the release entry for the version that introduces them.
 
+### Monitoring external node updates
+
+Three sources answer "is there an upgrade", and they are all readable without an account.
+
+```bash
+# 1. What your checkout would deploy, and what upstream now pins
+cd ~/ADI-Stack-EN-Setup-script && git fetch --quiet origin
+grep -o 'EN_VERSION:-[^}]*' docker-compose.mainnet.yml
+git show origin/main:docker-compose.mainnet.yml | grep -o 'EN_VERSION:-[^}]*'
+git log --oneline HEAD..origin/main        # empty when the checkout is current
+
+# 2. What image tags exist to pull
+TOKEN=$(curl -s 'https://harbor.sde.adifoundation.ai/service/token?service=harbor-registry&scope=repository:adi-public/chain/server:pull' | sed -E 's/.*"token":"([^"]+)".*/\1/')
+curl -s -H "Authorization: Bearer $TOKEN" \
+  'https://harbor.sde.adifoundation.ai/v2/adi-public/chain/server/tags/list?n=100'
+
+# 3. What your host runs
+docker ps --format '{{.Names}}\t{{.Image}}' | grep external_node
+```
+
+Read the working-tree compose file *and* `origin/main`: they differ whenever the checkout is behind, and a stale checkout reports an old version as if it were current. Never run an external node on the `latest` tag.
+
+The main node's `web3_clientVersion` is a live signal that the cluster moved, but it is numbered on a different track from the external node image. At the time of writing, mainnet answers `zksync-os/v0.21.1` while the external node image is `v0.24.2-b7`. Compare `major.minor.patch` only, and trust the repository pin for what the external node should run.
+
+To perform the upgrade, use the version's guide under `upgrades/` in the setup repository and the [Run Your Own Node](../how-to-start/run-your-own-node.md) procedure. Confirm the main node has moved first unless the guide says the external node may go early, keep the same `EXTERNAL_NETWORK_SECRET_KEY`, and verify sync afterwards.
+
 ### Deployed versions
 
-Authoritative as of 2026-11-23.
+Authoritative as of 2026-11-26. Protocol versions were read from `protocolVersion()` on each network's Chain Type Manager; client versions from `web3_clientVersion`; external node versions from the setup repository pins.
 
 | Component      | Mainnet version | Testnet version |
 | -------------- | --------------- | --------------- |
 | Protocol       | `v0.30.2`       | `v0.31.2`       |
 | Sequencer      | `v0.21.1-b4`    | `v0.24.2-b7`    |
 | External nodes | `v0.24.2-b7`    | `v0.24.2-b7`    |
+| `web3_clientVersion` | `zksync-os/v0.21.1` | `zksync-os/v0.24.2` |
 
 ### Release notes
 

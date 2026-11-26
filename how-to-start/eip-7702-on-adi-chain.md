@@ -11,8 +11,10 @@ An EIP-7702 set-code transaction points an EOA at a contract. Calls to that EOA 
 ### Support status
 
 {% hint style="warning" %}
-**Mainnet doesn't support EIP-7702 transactions currently**, since the protocol/sequencer upgrade has not yet been executed. Stay tuned!
+**Mainnet does not support EIP-7702 transactions yet.** The protocol upgrade that enables them has not run. Mainnet returns `-32603 EIP-7702 transactions are not supported` on `eth_call`, `eth_estimateGas` and `eth_fillTransaction`, and `transaction type not supported` on `eth_sendRawTransaction`. The code that enables them exists in a build ADI deployed, not in any public upstream tag.
 {% endhint %}
+
+Status measured 2026-11-26.
 
 | Network     | Chain ID | RPC                                       | `web3_clientVersion` | EIP-7702 status                                                                     |
 | ----------- | -------- | ----------------------------------------- | -------------------- | ----------------------------------------------------------------------------------- |

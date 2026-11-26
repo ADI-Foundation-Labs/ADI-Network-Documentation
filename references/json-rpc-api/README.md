@@ -24,7 +24,7 @@ curl -s -X POST -H 'Content-Type: application/json' \
 | --------- | -------------------------------------------------------------------------------------------------------------------- |
 | `eth`     | The usual chain / state / transaction methods, log filters, and WebSocket subscriptions.                             |
 | `zks`     | Rollup extras - contract addresses, L2->L1 log proofs, genesis, block metadata, and the [finality API](finality.md). |
-| `debug`   | Raw block/header/receipt bytes and transaction/block tracing.                                                        |
+| `debug`   | Transaction and block tracing. `callTracer` only, and `debug_traceCall` is disabled on mainnet.                      |
 | `ots`     | Otterscan support: block details, transaction search, contract creator, internal ops.                                |
 | `net`     | Network id.                                                                                                          |
 | `web3`    | Client version and `keccak256`.                                                                                      |
@@ -65,7 +65,7 @@ The four finality methods have their own page, with request/response examples - 
 
 ## debug
 
-Transaction and block tracing: `debug_traceBlockByHash`, `debug_traceBlockByNumber`, `debug_traceTransaction`, `debug_traceCall`.
+Transaction and block tracing: `debug_traceBlockByHash`, `debug_traceBlockByNumber`, `debug_traceTransaction`, `debug_traceCall`. Only `callTracer` is supported; the default struct-log tracer and other named tracers return `-32602`. `debug_traceCall` is disabled on mainnet and returns `-32601 Method disabled`, while `debug_traceTransaction` and `debug_traceBlockByNumber` work there with `callTracer`. The raw-bytes methods (`debug_getRawBlock`, `debug_getRawHeader`, `debug_getRawReceipts`) are listed by the node but answer `-32603 unimplemented` on both networks, so do not build on them. `eth_getProof` is also unsupported: ZKsync OS uses a different storage layout, and it returns `-32603`. (Measured 2026-11-26)
 
 ## ots
 
@@ -75,6 +75,6 @@ Otterscan explorer support: `ots_getApiLevel`, `ots_hasCode`, `ots_getHeaderByNu
 
 | Method               | Returns                                  |
 | -------------------- | ---------------------------------------- |
-| `net_version`        | Network (chain) id, as a decimal string. |
+| `net_version`        | Network (chain) id as a hex string, despite the Ethereum convention of a decimal string. `0x9024` on mainnet, `0x1869f` on testnet. |
 | `web3_clientVersion` | Client version string.                   |
 | `web3_sha3`          | Keccak-256 of the input data.            |

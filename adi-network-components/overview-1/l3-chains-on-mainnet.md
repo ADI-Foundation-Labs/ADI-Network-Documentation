@@ -8,11 +8,11 @@ description: Production L3 chains live on mainnet
 
 ADI Mainnet hosts two production L3 chains. Both settle on ADI Mainnet, chain ID `36900`. Both use ADI as their native gas token.
 
-<table><thead><tr><th>Chain</th><th width="115.8671875">Chain ID</th><th>Use case</th><th>Runtime</th></tr></thead><tbody><tr><td>Good Energy (Esyasoft)</td><td><code>999</code></td><td>Energy data anchoring</td><td><code>zksync-os/v0.13.0</code></td></tr><tr><td>Apeiro</td><td><code>37001</code></td><td>Healthcare claims verification</td><td><code>zksync-os/v0.13.0</code></td></tr></tbody></table>
+<table><thead><tr><th>Chain</th><th width="115.8671875">Chain ID</th><th>Use case</th><th>Runtime</th><th>Status (2026-11-26)</th></tr></thead><tbody><tr><td>Good Energy (Esyasoft)</td><td><code>999</code></td><td>Energy data anchoring</td><td><code>zksync-os/v0.13.0</code></td><td>Head frozen at block 4507 since 2026-08-27</td></tr><tr><td>Apeiro</td><td><code>37001</code></td><td>Healthcare claims verification</td><td><code>zksync-os/v0.13.0</code></td><td>Advancing, block 73711 on 2026-11-25</td></tr></tbody></table>
 
 ### Good Energy (Esyasoft)
 
-Good Energy is the first zkSync OS L3 to reach mainnet. It anchors energy data onchain. The sequencer is producing blocks.
+Good Energy is the first zkSync OS L3 to reach mainnet. It anchors energy data onchain.
 
 | Property         | Value                         |
 | ---------------- | ----------------------------- |
@@ -20,6 +20,10 @@ Good Energy is the first zkSync OS L3 to reach mainnet. It anchors energy data o
 | Settlement layer | ADI Mainnet, chain ID `36900` |
 | Native gas token | ADI                           |
 | Runtime          | `zksync-os/v0.13.0`           |
+
+{% hint style="warning" %}
+The Good Energy explorer reports a chain head of block `4507` at `2026-08-27T13:52:10Z` and has not advanced since. The bridge and explorer stay online, but block production on this L3 appears to be paused. Treat it as an inactive chain until the operator publishes otherwise. (Checked 2026-11-26)
+{% endhint %}
 
 #### Network services
 
@@ -31,7 +35,7 @@ Good Energy is the first zkSync OS L3 to reach mainnet. It anchors energy data o
 
 Apeiro verifies healthcare claims on a dedicated L3. The application has active production traffic.
 
-As of July 21, 2026, the chain had processed more than 2,700 transactions across more than 45 addresses.
+As of July 21, 2026, the chain had processed more than 2,700 transactions across more than 45 addresses. At block `73711` on 2026-11-25 the chain head was still advancing. (Checked 2026-11-26)
 
 | Property         | Value                         |
 | ---------------- | ----------------------------- |
@@ -39,6 +43,7 @@ As of July 21, 2026, the chain had processed more than 2,700 transactions across
 | Settlement layer | ADI Mainnet, chain ID `36900` |
 | Native gas token | ADI                           |
 | Runtime          | `zksync-os/v0.13.0`           |
+| Public RPC       | `https://rpc.apeiro.adifoundation.ai` |
 
 #### Network services
 

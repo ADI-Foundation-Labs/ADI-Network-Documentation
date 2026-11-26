@@ -169,6 +169,9 @@ OPERATOR_PROVE_PK=0x<your-prove-private-key>
 OPERATOR_EXECUTE_PK=0x<your-execute-private-key>
 
 # ── Image Versions ─────────────────────────────────
+# This guide targets the v0.13.0 image line, whose External Nodes replay blocks
+# over HTTP. ADI's own networks run v0.24.2, where replay moved to devp2p; see
+# the changelog for what changes if you move this stack forward.
 SERVER_IMAGE=harbor.sde.adifoundation.ai/adi-public/chain/server:v0.13.0-b1
 PROVER_FRI_IMAGE=ghcr.io/matter-labs/zksync-os-prover-fri:v0.7.0
 PROVER_SNARK_IMAGE=ghcr.io/matter-labs/zksync-os-prover-snark:v0.7.0

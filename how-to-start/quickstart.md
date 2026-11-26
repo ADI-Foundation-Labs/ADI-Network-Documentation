@@ -54,9 +54,11 @@ forge build
 export TESTNET_PRIVATE_KEY="0x..."
 ```
 
-#### 5. Create `counter.sol`  file and put the contract code inside.
+#### 5. Replace the contents of `src/Counter.sol` with the contract code above.
 
-#### 6. Create `counter.s.sol` and put the script inside, the script will deploy the counter contract
+`forge init` already generated a `Counter` contract. Overwrite that file rather than adding a second `Counter` declaration, and keep the capital `C`, because the import in the next step uses `../src/Counter.sol`.
+
+#### 6. Replace `script/Counter.s.sol` with the script below. The script deploys the counter contract.
 
 ```solidity
 // SPDX-License-Identifier: UNLICENSED
@@ -83,7 +85,7 @@ contract CounterScript is Script {
 #### 7. Deploy the contract
 
 {% hint style="success" %}
-Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS`&#x20;
+Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS`.
 {% endhint %}
 
 ```bash
@@ -142,7 +144,7 @@ npx hardhat --init
   },
 ```
 
-#### 4. Ensure that the module file `ignition/modules/counter.ts` contains the following code&#x20;
+#### 4. Ensure that the module file `ignition/modules/counter.ts` contains the following code.
 
 ```typescript
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
@@ -159,13 +161,13 @@ export default buildModule('CounterModule', (m) => {
 #### 5. Add your private key to the keystore as `TESTNET_PRIVATE_KEY` .
 
 ```bash
-npx hardhat keystore set $TESTNET_PRIVATE_KEY
+npx hardhat keystore set TESTNET_PRIVATE_KEY
 ```
 
 #### 6. Compile and deploy the example contract
 
 {% hint style="success" %}
-Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS` , if it appears inside the scripts described below, replace it with the actual contract address.
+Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS`. If it appears inside the scripts described below, replace it with the actual contract address.
 {% endhint %}
 
 ```bash
@@ -195,7 +197,7 @@ const adiChain = defineChain({
   rpcUrls: { default: { http: ['https://rpc.ab.testnet.adifoundation.ai'] } },
 });
 
-const { viem } = await network.connect('adiChain');
+const { viem } = await network.connect('adiTestnet');
 
 const publicClient = await viem.getPublicClient({ chain: adiChain });
 const [senderClient] = await viem.getWalletClients({ chain: adiChain });
@@ -273,7 +275,7 @@ npx hardhat --init
 npx hardhat keystore set TESTNET_PRIVATE_KEY
 ```
 
-#### 5. Ensure that the module file `ignition/modules/counter.ts` contains the following code&#x20;
+#### 5. Ensure that the module file `ignition/modules/counter.ts` contains the following code.
 
 ```typescript
 import { buildModule } from '@nomicfoundation/hardhat-ignition/modules';
@@ -290,7 +292,7 @@ export default buildModule('CounterModule', (m) => {
 #### 6. Compile and deploy the example contract.
 
 {% hint style="success" %}
-Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS` , if it appears inside the scripts described below, replace it with the actual contract address.
+Command returns the address of the deployed contract. This address, in further steps, is expressed as `$DEPLOYED_CONTRACT_ADDRESS`. If it appears inside the scripts described below, replace it with the actual contract address.
 {% endhint %}
 
 ```ts
@@ -320,7 +322,7 @@ const [sender] = await ethers.getSigners();
 
 const contract = await ethers.getContractAt('Counter', CONTRACT_ADDRESS, sender);
 
-const initialCount = await contract.x();
+const initialCount = await contract.number();
 console.log('Initial count:', initialCount);
 
 const tx = await contract.increment();

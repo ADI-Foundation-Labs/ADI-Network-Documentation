@@ -15,7 +15,7 @@ Blocks move from sealing to commitment and then execution. Use the `zks` finalit
 | Executed  | `"executed"`  | proof verified on L1, immutable           | see note below |
 
 {% hint style="warning" %}
-`safe` equals `lastCommittedBlock` exactly. `finalized` does **not** equal `lastExecutedBlock`. The difference is not a fixed offset. In a two-minute testnet sample, it widened from 268 to 359 blocks while `finalized` stayed frozen on one height. It appears to track the newest batch whose block linkage has backfilled, then jumps. For the exact stage of a block, transaction, or batch, call the `zks` finality methods. Never infer executed status from the `finalized` tag alone. \[Measured 2026-11-23]&#x20;
+`safe` equals `lastCommittedBlock` exactly. `finalized` does **not** equal `lastExecutedBlock`. The difference is not a fixed offset. In a two-minute testnet sample, it widened from 268 to 359 blocks while `finalized` stayed frozen on one height. It appears to track the newest batch whose block linkage has backfilled, then jumps. For the exact stage of a block, transaction, or batch, call the `zks` finality methods. Never infer executed status from the `finalized` tag alone. (Measured 2026-11-23, rechecked 2026-11-26 on mainnet: `finalized` read 2080294 while `lastExecutedBlock` was 2080608.)
 {% endhint %}
 
 {% hint style="info" %}
@@ -26,13 +26,13 @@ Batch-to-block linkage backfills after execution. It is normal to see `zks_getBa
 
 ## What one block confirms
 
-**Sealing is inclusion, not settlement.** ADI has a single sequencer that seals L2 blocks. Over 200-block samples on each network: median gap 2 s, p95 5 s on mainnet and 13 s on testnet, longest observed gap 108 s. A transaction in a sealed block is included. Nothing about it is final. \[Measured 2026-11-23]&#x20;
+**Sealing is inclusion, not settlement.** ADI has a single sequencer that seals L2 blocks. Over 200-block samples on each network: median gap 2 s, p95 5 s on mainnet and 13 s on testnet, longest observed gap 108 s. A transaction in a sealed block is included. Nothing about it is final. (Measured 2026-11-23)
 
 **Until a batch executes, treat the block as revisable.** The chain has no cryptographic finality before proof verification on Ethereum. Only `stage: "executed"` is irreversible. Build indexers and caches with a rewind path. Key confirmation logic on the `zks` stage, not block depth.
 
-**How the frontiers behave.** `lastExecutedBlock`, `lastCommittedBlock`, and `lastSealedBlock` are independent. In a 20-minute mainnet sample, the committed and executed frontiers were identical at every read. A distinct committed-but-not-executed state was not observable there. On testnet, the committed frontier ran about 90 blocks ahead of the executed one. Poll `zks_getFinalityStatus` and render all three values. \[Measured 2026-11-23]&#x20;
+**How the frontiers behave.** `lastExecutedBlock`, `lastCommittedBlock`, and `lastSealedBlock` are independent. In a 20-minute mainnet sample, the committed and executed frontiers were identical at every read. A distinct committed-but-not-executed state was not observable there. On testnet, the committed frontier ran about 90 blocks ahead of the executed one. Poll `zks_getFinalityStatus` and render all three values. (Measured 2026-11-23)
 
-**Measuring the sealed-to-executed gap.** It varies. Do not publish a fixed duration. Take `lastSealedBlock` and `lastExecutedBlock` from `zks_getFinalityStatus`. Resolve both with `eth_getBlockByNumber`, then compare timestamps. Mainnet batches were sealed roughly hourly. Last-block timestamps of seven consecutive batches were 59.3 to 60.1 minutes apart. Testnet batches were sealed every few minutes. \[Measured 2026-11-23]&#x20;
+**Measuring the sealed-to-executed gap.** It varies. Do not publish a fixed duration. Take `lastSealedBlock` and `lastExecutedBlock` from `zks_getFinalityStatus`. Resolve both with `eth_getBlockByNumber`, then compare timestamps. Mainnet batches were sealed roughly hourly. Last-block timestamps of seven consecutive batches were 59.3 to 60.1 minutes apart. Testnet batches were sealed every few minutes. (Measured 2026-11-23)
 
 **Operations that must wait for `executed`:**
 
@@ -45,7 +45,7 @@ Batch-to-block linkage backfills after execution. It is normal to see `zks_getBa
 
 **Receipts do not report batches.** `eth_getTransactionReceipt` returns no `l1BatchNumber`, `l1BatchTxIndex`, `l1GasPrice`, or `l1GasUsed`. Use `zks_getTransactionFinality` or `zks_getBlockFinality`.
 
-**Log queries.**  `eth_getLogs` accepts at most 10,000 blocks and 10,000 results per call on both networks. Over-range returns `-32602` with either `query exceeds max block range 10000` or `query exceeds max results 10000, retry with the range <from>-<to>`; the second form gives a range that fits. \[Measured 2026-11-23]
+**Log queries.**  `eth_getLogs` accepts at most 10,000 blocks and 10,000 results per call on both networks. Over-range returns `-32602` with either `query exceeds max block range 10000` or `query exceeds max results 10000, retry with the range <from>-<to>`; the second form gives a range that fits. (Measured 2026-11-23)
 
 ## The response shape
 
